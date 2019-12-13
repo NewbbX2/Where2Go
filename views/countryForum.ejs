@@ -63,11 +63,9 @@ var boardType="countryForum";
 				<thead style ="text-align:center;background-color:#B2CCFF;">
 					<tr >
 						<th width="10%">번호</th>
-						<th width="10%">분류</th>
-						<th width = "40%">제목</th>
-						<th width = "15%">등록일</th>
+						<th width="15%">분류</th>
+						<th width = "60%">제목</th>
 						<th width = "15%">작성자</th>
-						<th width = "10%">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -99,9 +97,7 @@ var boardType="countryForum";
 									<%} %>
 								</a></td>	
 								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardEnrollDate%></a></td>	
 								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardViews%></a></td>	
 							</tr>
 					
 						<%}
@@ -182,11 +178,4 @@ var boardType="countryForum";
 	</footer>
 </body>
 
-</html>
-
-
-
-
-
-
-
+</html>=
