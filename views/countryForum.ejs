@@ -1,7 +1,7 @@
 <%
 	//검색조건으로 검색한 보드 데이터시트
 	var boardList=[];
-	var userID = "";
+	var userName = "";
 
 	//보드 총개수
 	var numberOfSearchedBaords=boardList.length;
@@ -82,7 +82,8 @@ var boardType="countryForum";
 					else{
 						//순서검색
 						var  NoStart =numberOfSearchedBaords-(pageNo-1)*boardIndexNoPerPage;var NoNextStart = NoStart-boardIndexNoPerPage;
-	
+
+						
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){
 							BoardDTO boardList = boardList.get(indexNo-1);%>
 							<tr>
@@ -139,7 +140,7 @@ var boardType="countryForum";
 				<%}%>
 				
 				
-				<%if(userID!=null) {%>
+				<%if(userName!=null&&userName!="") {%>
 						<div ><a href= "../boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
 				<%}%>
 				<form action ="../countryForum" method = "get" >
