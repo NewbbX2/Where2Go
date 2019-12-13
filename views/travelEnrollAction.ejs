@@ -7,6 +7,27 @@ var travelTitle = "";
 var travelStartDate= 0;
 var travelTatalSpanTime= 0;
 var travelCountry= 0;
+var travelContent1= "";
+var travelContent2= "";
+var travelContent3= "";
+var travelContent4= "";
+var travelContent5= "";
+var travelContent6= "";
+var travelContent7= "";
+var travelContent8= "";
+var travelContent9= "";
+var travelContent10= "";
+var travelMapPos1=0;
+var travelMapPos1=0;
+var travelMapPos2=0;
+var travelMapPos3=0;
+var travelMapPos4=0;
+var travelMapPos5=0;
+var travelMapPos6=0;
+var travelMapPos7=0;
+var travelMapPos8=0;
+var travelMapPos9=0;
+var travelMapPos10=0;
 
 if(request.getParameter("travelWriterID") !=null)travelWriterID = request.getParameter("travelWriterID");
 if(request.getParameter("travelWriter") !=null) travelWriter = request.getParameter("travelWriter");
@@ -15,6 +36,30 @@ if(request.getParameter("travelTitle") !=null) travelTitle = request.getParamete
 if(request.getParameter("travelStartDate") !=null)travelStartDate = parseInt(request.getParameter("travelStartDate"));
 if(request.getParameter("travelTatalSpanTime") !=null)travelTatalSpanTime = parseInt(request.getParameter("travelTatalSpanTime"));
 if(request.getParameter("travelCountry") !=null) travelCountry = (var)request.getParameter("travelCountry");
+
+
+if(request.getParameter("travelContent1") !=null) travelContent1 = (var)request.getParameter("travelContent1");
+if(request.getParameter("travelContent2") !=null) travelContent2 = (var)request.getParameter("travelContent2");
+if(request.getParameter("travelContent3") !=null) travelContent3 = (var)request.getParameter("travelContent3");
+if(request.getParameter("travelContent4") !=null) travelContent4 = (var)request.getParameter("travelContent4");
+if(request.getParameter("travelContent5") !=null) travelContent5 = (var)request.getParameter("travelContent5");
+if(request.getParameter("travelContent6") !=null) travelContent6 = (var)request.getParameter("travelContent6");
+if(request.getParameter("travelContent7") !=null) travelContent7 = (var)request.getParameter("travelContent7");
+if(request.getParameter("travelContent8") !=null) travelContent8 = (var)request.getParameter("travelContent8");
+if(request.getParameter("travelContent9") !=null) travelContent8 = (var)request.getParameter("travelContent9");
+if(request.getParameter("travelContent10") !=null) travelContent10 = (var)request.getParameter("travelContent10");
+
+
+if(request.getParameter("travelMapPos1") !=null)travelMapPos1 = parseInt(request.getParameter("travelMapPos1"));
+if(request.getParameter("travelMapPos2") !=null)travelMapPos2 = parseInt(request.getParameter("travelMapPos2"));
+if(request.getParameter("travelMapPos3") !=null)travelMapPos3 = parseInt(request.getParameter("travelMapPos3"));
+if(request.getParameter("travelMapPos4") !=null)travelMapPos4 = parseInt(request.getParameter("travelMapPos4"));
+if(request.getParameter("travelMapPos5") !=null)travelMapPos5 = parseInt(request.getParameter("travelMapPos5"));
+if(request.getParameter("travelMapPos6") !=null)travelMapPos6 = parseInt(request.getParameter("travelMapPos6"));
+if(request.getParameter("travelMapPos7") !=null)travelMapPos7 = parseInt(request.getParameter("travelMapPos7"));
+if(request.getParameter("travelMapPos8") !=null)travelMapPos8 = parseInt(request.getParameter("travelMapPos8"));
+if(request.getParameter("travelMapPos9") !=null)travelMapPos9 = parseInt(request.getParameter("travelMapPos9"));
+if(request.getParameter("travelMapPos10") !=null)travelMapPos10 = parseInt(request.getParameter("travelMapPos10"));
 {%>
     
 
