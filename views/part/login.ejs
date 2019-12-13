@@ -1,13 +1,13 @@
-<% if(userID == null){ %>
-    <form method = "post" action = "./userLogin">
+<% if(userName == null){ %>
+    <form method = "post" action = "../users/Login">
         <div id = "IDPWD1">
         <div id = "id">
                 아이디
-                <div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 10></div>
+                <div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
             </div>
             <div id = "psd">
                 패스워드
-                <div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 10></div>
+                <div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
             </div>
             <button id = "LogIn"type = "submit" >로그인</button>
         </div>
@@ -21,4 +21,4 @@
             </div>
         </div>
     </form>
-<%}else{ %><a href = "./userLogOut.ejs">로그아웃.</a><%} %>
+<%}else{ %><a href = "../users/logout">로그아웃.</a><%} %>
