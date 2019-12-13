@@ -8,6 +8,7 @@
 %>
 
 
+
 <%
 var boardType="countryForum";
 
@@ -16,16 +17,21 @@ var boardType="countryForum";
 	var search = "";
 	
 
-	if(request.getParameter("search")!=null){
-		try{search = (request.getParameter("search"));}
-		catch(Exception e){System.out.println("검색에러");}
-	}
-
+	var adr = loaction.search;
+	var res = ard.split("&");
 	var pageNo=1;
 	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(request.getParameter("pageNo")!=null){
-		try{pageNo = parseInt(request.getParameter("pageNo"));}
-		catch(Exception e){System.out.println("검색에러");}
+	if(res.length!=0)
+	{
+		for(int i=0; i<res.length;i++)
+		{
+			var r=res[i]
+			if(r.split("=")[0]=="pageNo")
+			{
+				pageNo=parseInt(r.split("=")[1]);
+			}
+
+		}
 	}
 
 	//페이지당 보드 출력수.
@@ -40,12 +46,12 @@ var boardType="countryForum";
 <head>
 <meta charset = "UTF-8">
 <title>WTG</title>
-<link rel = "stylesheet" href= "../styles/styles.css"/>
+<link rel = "stylesheet" href= "./styles/styles.css"/>
 </head>
 </head>
 <body>
 <header>
-	<%- include ../part/header.ejs %>
+	<%- include ('./part/header.ejs') %>
 </header>
 <section>
 	<article id = freeForum1>
@@ -83,20 +89,19 @@ var boardType="countryForum";
 						var  NoStart =numberOfSearchedBaords-(pageNo-1)*boardIndexNoPerPage;var NoNextStart = NoStart-boardIndexNoPerPage;
 
 						
-						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){
-							BoardDTO boardList = boardList.get(indexNo-1);%>
+						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 							<tr>
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black">
-									<%if(boardList[indexNo-1].boardClassfy().equals("Korea")){%>한국
-									<%}else if(boardList[indexNo-1].boardClassfy().equals("Japan")){%>일본
-									<%}else if(boardList[indexNo-1].boardClassfy().equals("China")){%>중국
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black">
+									<%if(boardList[indexNo-1].boardClassfy=="Korea"{%>한국
+									<%}else if(boardList[indexNo-1].boardClassfy=="Japan"){%>일본
+									<%}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국
 									<%} %>
 								</a></td>	
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardEnrollDate%></a></td>	
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
-								<td><a href= "../countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardViews%></a></td>	
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardEnrollDate%></a></td>	
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
+								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardViews%></a></td>	
 							</tr>
 					
 						<%}
@@ -116,33 +121,33 @@ var boardType="countryForum";
 					var MaxIndexAdd1=0;		if(numberOfSearchedBaords%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 					var MaxIndex=parseInt(numberOfSearchedBaords/boardIndexNoPerPage)+		MaxIndexAdd1;%> 
 					<div id="BoardPageNo">
-						<a href="../countryForum?pageNo=<%=1%>"><<</a>
+						<a href="./countryForum?pageNo=<%=1%>"><<</a>
 							<%
 							//시작번호 10넘어가면 현재번호부터 10개
 							if(pageNo>10)
 							{
 								//-10돌아가는 < 추가.%>
-								<a href="../countryForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+								<a href="./countryForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
 								<%//1페이지씩 표시.
 								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
 								{%>
-									<a href= "../countryForum?pageNo=<%=i%>"><%=i%></a>
+									<a href= "./countryForum?pageNo=<%=i%>"><%=i%></a>
 								<%}
 								//+10이후 더있으면 +10하는 >추가.
-								if(pageNo+10<MaxIndex){%><a href="../countryForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
+								if(pageNo+10<MaxIndex){%><a href="./countryForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
 							}else{		
 							//1붙터 시작하면 10or최대값 까지
-								for(var i=1;(i<=MaxIndex);i++){%><a href= "../countryForum?pageNo=<%=i%>"><%=i%></a><%}
+								for(var i=1;(i<=MaxIndex);i++){%><a href= "./countryForum?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
-							<a href="../countryForum?pageNo=<%=MaxIndex%>">>></a>
+							<a href="./countryForum?pageNo=<%=MaxIndex%>">>></a>
 					</div>
 				<%}%>
 				
 				
 				<%if(userName!=null&&userName!="") {%>
-						<div ><a href= "../boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
+						<div ><a href= "./boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
 				<%}%>
-				<form action ="../countryForum" method = "get" >
+				<form action ="./countryForum" method = "get" >
 					<select name = "boardClassfy" class =  "form-control">
 						<option   value = "All" selected > 나라</option>
 						<option value = "Japan" > 일본</option>
@@ -168,12 +173,12 @@ var boardType="countryForum";
 		</article>
 	
 
-		<article id = "LoginMenu">
-		<%- include ../part/login.ejs %>
+		<article id = "LoginLoginMenu">
+			<%- include ('./part/login.ejs')%>
 		</article>
 	</section>
 	<footer>
-		<%- include ../part/footer.ejs%>
+      <%- include ('./part/footer.ejs') %>
 	</footer>
 </body>
 
