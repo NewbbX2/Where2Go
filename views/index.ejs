@@ -2,33 +2,13 @@
 //받아와야 하는것.
 var travelBoardList= [];
 var userName = "";
+var pageNo=1;
+
 
 
 //검색된 보드수
 var numberOfBoardListSearched=0;
 numberOfBoardListSearched=travelBoardList.length;
-
-
-%>
-	
-<%
-	var adr = loaction.search;
-	var res = ard.split("&");
-	var pageNo=1;
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==pageNo)
-			{
-				pageNo=parseInt(r.split("=")[1]);
-			}
-
-		}
-	}
-
 	//페이지당 보드 출력수.
 	var boardIndexNoPerPage=15;
 %>
@@ -140,7 +120,6 @@ numberOfBoardListSearched=travelBoardList.length;
 									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
 									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
 								</tr>
-						
 							<%}
 						}%>
 					</tbody>
