@@ -25,13 +25,13 @@ if(request.getParameter("userGender") !=null) userGender = (var)request.getParam
     if(userID ==null||userPassword1 == null||userPassword2 == null|| userName == null||userBirthDate == null||userGender == null
         ||userID.equals("")||userPassword1.equals("")||userPassword2.equals("")||userName.equals("")||userBirthDate.equals("") 	)
     <%{
-            <a href = "./userJoin.ejs">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+            <a href = "./userJoin">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else if(!userPassword1.equals(userPassword2))
     {
         PrintWriter script1 = response.getWriter();%>
         
-        <a href = "./userJoin.ejs">비밀번호가 다릅니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+        <a href = "./userJoin">비밀번호가 다릅니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else{
 
