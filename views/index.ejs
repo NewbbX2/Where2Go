@@ -13,15 +13,21 @@ numberOfBoardListSearched=travelBoardList.length;
 %>
 	
 <%
-	var url = require('url');
-	var adr = loaction.href;
-	var q = url.parse(adr, true);
-	var qdata = q.query;
-
+	var adr = loaction.search;
+	var res = ard.split("&");
 	var pageNo=1;
-	if(qdata.pageNo!=null&&qdata.pageNo!="")
+	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
+	if(res.length!=0)
 	{
-		pageNo=parseInt(qdata.pageNo)
+		for(int i=0; i<res.length;i++)
+		{
+			var r=res[i]
+			if(r.split("=")[0]==pageNo)
+			{
+				pageNo=parseInt(r.split("=")[1]);
+			}
+
+		}
 	}
 
 	//페이지당 보드 출력수.
@@ -36,10 +42,10 @@ numberOfBoardListSearched=travelBoardList.length;
 		<meta charset = "UTF-8">
 		<title>WTG</title>
 		<head>
-			<link rel = "stylesheet" href = "../libs/jquerty-ui.min.css"/>
-			<link rel = "stylesheet" href = "../styles/styles.css"/>
-			<script src = "../libs/jquery-ui.min.js"></script>
-			<script src = "../scripts/scripts.js"></script>
+			<link rel = "stylesheet" href = "./libs/jquerty-ui.min.css"/>
+			<link rel = "stylesheet" href = "./styles/styles.css"/>
+			<script src = "./libs/jquery-ui.min.js"></script>
+			<script src = "./scripts/scripts.js"></script>
 			<script type="text/javascript">	</script>
 		</head>
   </head>
@@ -72,7 +78,7 @@ numberOfBoardListSearched=travelBoardList.length;
 						var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 						var MaxIndex=	parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
-							<a href="../index?pageNo=<%=1%>"><<</a>
+							<a href="./index?pageNo=<%=1%>"><<</a>
 							<%
 							//시작번호 10넘어가면 현재번호부터 10개
 							if(pageNo>10)
