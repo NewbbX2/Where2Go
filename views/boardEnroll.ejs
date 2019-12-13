@@ -7,13 +7,22 @@
 //request에서 가져온 boardType
 var boardType="";;
 
-%>
 
 <%
-	if(request.getParameter("boardType")!=null)
+	var adr = loaction.search;
+	var res = ard.split("&");
+	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
+	if(res.length!=0)
 	{
-		try{boardType = request.getParameter("boardType");}
-		catch(Exception e){System.out.prvarln("비정상적인 접근 또는 검색에러");}
+		for(int i=0; i<res.length;i++)
+		{
+			var r=res[i]
+			if(r.split("=")[0]==boardType)
+			{
+				boardType=parseInt(r.split("=")[1]);
+			}
+
+		}
 	}
 %>
 <!DOCTYPE html>
@@ -33,7 +42,7 @@ var boardType="";;
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
-					<option value=<%=boardType%>>
+					<option value="<%=boardType%>">
 						<%if(boardType=="tripForum"){%>여행게시판<%}%>
 						<%if(boardType=="countryForum"){%>해외포럼<%}%>
 						<%if(boardType=="freeForum"){%>자유게시판<%}%>
