@@ -1,6 +1,6 @@
 <%
 //받아와야 하는것.
-var[] travelBoardList;
+var travelBoardList= new Array();
 String userID = null;
 
 
@@ -9,12 +9,8 @@ String userID = null;
 	
 <%//유저 아이디 불러오기.
 
-	//보드 대분류
-	String travelClassfy="tripPlan";
 	//검색사안
 	String search = null;
-	//페이지당 보드 출력수.
-	int boardIndexNoPerPage=15;
 	
 	
 	if(request.getParameter("search")!=null)
@@ -26,6 +22,8 @@ String userID = null;
 	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
 	if(request.getParameter("pageNo")!=null){try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}catch(Exception e){System.out.println("검색에러");}}
 
+	//페이지당 보드 출력수.
+	int boardIndexNoPerPage=15;
 %>
 
 
@@ -69,9 +67,7 @@ String userID = null;
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
 					if(travelBoardList!=null&&travelBoardList.size()!=0){
-						int MaxIndexAdd1=0;	
-						if(travelBoardList.size()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
-						int MaxIndex=(travelBoardList.size()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
+						int MaxIndexAdd1=0;	if(travelBoardList.size()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}int MaxIndex=(travelBoardList.size()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../index?pageNo=<%=1%>"><<</a>
 							<%
