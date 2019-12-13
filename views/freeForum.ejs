@@ -42,7 +42,7 @@ var boardType="freeForum";
 <head>
 <meta charset = "UTF-8">
 <title>WTG</title>
-<link rel = "stylesheet" href = "styles/styles.css"/>
+<link rel = "stylesheet" href = "../styles/styles.css"/>
 </head>
 </head>
 <body>
@@ -87,11 +87,11 @@ var boardType="freeForum";
 						//출력
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){
 							<tr>
-								<td><a href = "freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-								<td><a href = "freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
-								<td><a href = "freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardEnrollDate%></a></td>	
-								<td><a href = "freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
-								<td><a href = "freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardViews%></a></td>	
+								<td><a href = "../freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+								<td><a href = "../freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
+								<td><a href = "../freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardEnrollDate%></a></td>	
+								<td><a href = "../freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
+								<td><a href = "../freeForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardViews%></a></td>	
 							</tr>
 					
 						<%}
@@ -110,33 +110,33 @@ var boardType="freeForum";
 				var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 				var MaxIndex=parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
 					<div id="BoardPageNo">
-						<a href="freeForum?pageNo=<%=1%>"><<</a>
+						<a href="../freeForum?pageNo=<%=1%>"><<</a>
 							<%
 							//시작번호 10넘어가면 현재번호부터 10개
 							if(pageNo>10)
 							{
 								//-10돌아가는 < 추가.%>
-								<a href="freeForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+								<a href="../freeForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
 								<%//1페이지씩 표시.
 								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
 								{%>
-									<a href = "freeForum?pageNo=<%=i%>"><%=i%></a>
+									<a href = "../freeForum?pageNo=<%=i%>"><%=i%></a>
 								<%}
 								//+10이후 더있으면 +10하는 >추가.
-								if(pageNo+10<MaxIndex){%><a href="freeForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
+								if(pageNo+10<MaxIndex){%><a href="../freeForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
 							}else{		
 							//1붙터 시작하면 10or최대값 까지
-								for(var i=1;(i<=MaxIndex);i++){%><a href = "freeForum?pageNo=<%=i%>"><%=i%></a><%}
+								for(var i=1;(i<=MaxIndex);i++){%><a href = "../freeForum?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
-							<a href="freeForum?pageNo=<%=MaxIndex%>">>></a>
+							<a href="../freeForum?pageNo=<%=MaxIndex%>">>></a>
 					</div>
 			<%}%>
 			
 			
 			<%if(userName!=null||!userName!="") {%>
-					<div ><a href = "./boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
+					<div ><a href = "../boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
 			<%}%>
-			<form  action ="./freeForum"  method = "get" >
+			<form  action ="../freeForum"  method = "get" >
 				<select name = "Order" class =  "form-control">
 					<option   value = "None" selected > 정렬</option>
 					<option value = "제목" > Title</option>
