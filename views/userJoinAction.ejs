@@ -14,22 +14,22 @@ var userGender= "";
 if(res.length!=0){ for(int i=0; i<res.length;i++) {
         var r=res[i]
         if(r.split("=")[0]=="userID") {   
-            userID=parseInt(r.split("=")[1])
+            userID=r.split("=")[1]
         }
         if(r.split("=")[0]=="userPassword1") {   
-            userPassword1=parseInt(r.split("=")[1])
+            userPassword1=r.split("=")[1]
         }
         if(r.split("=")[0]=="userPassword2") {   
-            userPassword2=parseInt(r.split("=")[1])
+            userPassword2=r.split("=")[1]
         }
         if(r.split("=")[0]=="userName") {   
-            userName=parseInt(r.split("=")[1])
+            userName=r.split("=")[1]
         }
         if(r.split("=")[0]=="userBirthDate") {   
-            userBirthDate=parseInt(r.split("=")[1])
+            userBirthDate=r.split("=")[1]
         }
         if(r.split("=")[0]=="userGender") {   
-            userGender=parseInt(r.split("=")[1])
+            userGender=r.split("=")[1]
         }
     }
 }
