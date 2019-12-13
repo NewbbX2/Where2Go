@@ -1,0 +1,44 @@
+<%
+request.setCharacterEncoding("UTF-8");
+var boardWriterID = "";
+var boardType="";
+var boardClassfy = "";
+var boardTitle = "";
+var boardWriter= 0;
+var boardContent= 0;
+
+if(request.getParameter("boardWriterID") !=null)boardWriterID = request.getParameter("boardWriterID");
+if(request.getParameter("boardType") !=null) boardType = request.getParameter("boardType");
+if(request.getParameter("boardClassfy") !=null)boardClassfy = request.getParameter("boardClassfy");
+if(request.getParameter("boardTitle") !=null) boardTitle = request.getParameter("boardTitle");
+if(request.getParameter("boardWriter") !=null)boardWriter = request.getParameter("boardWriter");
+if(request.getParameter("boardContent") !=null)boardContent = request.getParameter("boardContent");
+
+{%>
+    
+
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+
+    <%PrintWriter script = response.getWriter();
+    if(boardWriterID ==null||boardType == null||boardClassfy == null|| boardTitle == null||boardWriter == null||boardContent == null
+        ||boardWriterID==""||boardType==""||boardClassfy==""||boardTitle==""||boardWriter==""||boardContent=="" 	)
+    <%{
+            <a href = "../boardEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+    <%}
+    else{
+
+ ////////////////////////
+ //////!!!!!!!!!!!!////
+ //여기서 DB 검색해서 중복아이디 있나 체크.
+ //중복있으면 돌려보내기.
+ //DB없으면 오류인데 이건 안해도될듯.
+ //중복없으면 생성
+    }
+
+    %>
+
+    </body>
+</html>
