@@ -6,6 +6,7 @@ var boardClassfy = "";
 var boardTitle = "";
 var boardWriter= 0;
 var boardContent= 0;
+var tirpFroumMon=-1;
 
 if(request.getParameter("boardWriterID") !=null)boardWriterID = request.getParameter("boardWriterID");
 if(request.getParameter("boardType") !=null) boardType = request.getParameter("boardType");
@@ -13,6 +14,7 @@ if(request.getParameter("boardClassfy") !=null)boardClassfy = request.getParamet
 if(request.getParameter("boardTitle") !=null) boardTitle = request.getParameter("boardTitle");
 if(request.getParameter("boardWriter") !=null)boardWriter = request.getParameter("boardWriter");
 if(request.getParameter("boardContent") !=null)boardContent = request.getParameter("boardContent");
+if(request.getParameter("tirpFroumMon") !=null)tirpFroumMon = praseInt(request.getParameter("tirpFroumMon"));
 
 {%>
     
