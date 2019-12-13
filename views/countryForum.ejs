@@ -82,8 +82,7 @@ var boardType="countryForum";
 					else{
 						//순서검색
 						var  NoStart =numberOfSearchedBaords-(pageNo-1)*boardIndexNoPerPage;var NoNextStart = NoStart-boardIndexNoPerPage;
-
-						
+	
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){
 							BoardDTO boardList = boardList.get(indexNo-1);%>
 							<tr>
