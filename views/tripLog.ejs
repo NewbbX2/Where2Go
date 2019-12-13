@@ -1,7 +1,7 @@
 <%
 //받아와야 하는것.
 var travelBoardList= [];
-var userID = "";
+var userName = "";
 
 
 
@@ -18,14 +18,19 @@ numberOfBoardListSearched=travelBoardList.length;
 	var search = "";
 	
 
-	if(request.getParameter("search")!=null)
-	{try{search = (var)(request.getParameter("search"));}catch(Exception e){System.out.println("검색에러");}}
+	if(request.getParameter("search")!=null){
+		try{search = (request.getParameter("search"));}
+		catch(Exception e){System.out.println("검색에러");}
+	}
 
 
 
 	var pageNo=1;
 	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(request.getParameter("pageNo")!=null){try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}catch(Exception e){System.out.println("검색에러");}}
+	if(request.getParameter("pageNo")!=null){
+		try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}
+		catch(Exception e){System.out.println("검색에러");}
+	}
 
 	//페이지당 보드 출력수.
 	var boardIndexNoPerPage=15;
@@ -54,7 +59,7 @@ numberOfBoardListSearched=travelBoardList.length;
 		<article id = "index1">
 			<div id = "upperBoard">
 				<div id = "travelSearch">
-					<label>기존 여행여행일지를 검색하시나요?</label>
+					<label>기존 여행일지를 검색하시나요?</label>
 					<form action ="../tripLog" method = "get" id = "indexOldSearch">
 						<label>어느국가를 찾으시나요?</label>
 						<input type="text" name="countryName" />
@@ -71,8 +76,9 @@ numberOfBoardListSearched=travelBoardList.length;
 					//가장 오랜된글 >>(맨끝으로)
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
-					if(travelBoardList!=""&&numberOfBoardListSearched()!=0){
-						var MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}var MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
+					if(travelBoardList!=""&&numberOfBoardListSearched!=0){
+						var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
+						var MaxIndex=	parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../tripLog?pageNo=<%=1%>"><<</a>
 							<%
@@ -95,10 +101,10 @@ numberOfBoardListSearched=travelBoardList.length;
 						</div>
 					<%}%>
 				</div>
-				<%if(userID==""||userID.equals("")){%>
+				<%if(userName==""||userName==null){%>
 				<%}else{ %>
 				<div id = "indexCreateNewPlan">
-					<label>새로운 여행일지를 기록하시나요?</label>
+					<label>새 여행일지를 기록하시나요?</label>
 					<a href = "../travelEnroll"><button type = "submit" class = "btn-search">등록</button></a>
 				</div>
 			<%} %>
@@ -123,10 +129,10 @@ numberOfBoardListSearched=travelBoardList.length;
 		//보드 에러
 					if(travelBoardList==""){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
 		//보드 검색내용 없음
-					else if(numberOfBoardListSearched()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
+					else if(numberOfBoardListSearched==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
 		//보드 검색중.
 					else{
-						var NoStart = numberOfBoardListSearched()-(pageNo-1)*boardIndexNoPerPage;
+						var NoStart = numberOfBoardListSearched-(pageNo-1)*boardIndexNoPerPage;
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
