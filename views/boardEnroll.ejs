@@ -1,5 +1,6 @@
 <% //받아와야 하는것
 	var userID = "";
+	var userName = "";
 %>
 
 <%
@@ -28,6 +29,7 @@ var boardType="";;
 	
 	<body >
 			<form action="./boardEnrollAction" method="post" >
+				<input type = "text" name = "boardWriterID" class = "form-control"  style = "display: none;">
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
