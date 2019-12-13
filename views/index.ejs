@@ -1,10 +1,10 @@
 <%
 //받아와야 하는것.
 var travelBoardList= [];
-String userID = null;
+Var userID = null;
 
 //검색된 보드수
-int numberOfBoardListSearched=0;
+var numberOfBoardListSearched=0;
 numberOfBoardListSearched=travelBoardList.length;
 
 
@@ -13,20 +13,20 @@ numberOfBoardListSearched=travelBoardList.length;
 <%//유저 아이디 불러오기.
 
 	//검색사안
-	String search = null;
+	Var search = null;
 	
 	
 	if(request.getParameter("search")!=null)
-	{try{search = (String)(request.getParameter("search"));}catch(Exception e){System.out.println("검색에러");}}
+	{try{search = (Var)(request.getParameter("search"));}catch(Exception e){System.out.println("검색에러");}}
 
 
 
-	int pageNo=1;
+	var pageNo=1;
 	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
 	if(request.getParameter("pageNo")!=null){try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}catch(Exception e){System.out.println("검색에러");}}
 
 	//페이지당 보드 출력수.
-	int boardIndexNoPerPage=15;
+	var boardIndexNoPerPage=15;
 %>
 
 
@@ -70,7 +70,7 @@ numberOfBoardListSearched=travelBoardList.length;
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
 					if(travelBoardList!=null&&numberOfBoardListSearched()!=0){
-						int MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}int MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
+						var MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}var MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../index?pageNo=<%=1%>"><<</a>
 							<%
@@ -80,14 +80,14 @@ numberOfBoardListSearched=travelBoardList.length;
 								//-10돌아가는 < 추가.%>
 								<a href="../index?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
 								<%//1페이지씩 표시.
-								for(int i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
+								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
 								{%><a href = "../index?pageNo=<%=i%>"><%=i%></a><%}
 
 								//+10이후 더있으면 +10하는 >추가.
 								if(pageNo+10<MaxIndex){%><a href="index?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
 							}else{		
 							//1붙터 시작하면 10or최대값 까지
-								for(int i=1;(i<=MaxIndex);i++){%><a href = "../index?pageNo=<%=i%>"><%=i%></a><%}
+								for(var i=1;(i<=MaxIndex);i++){%><a href = "../index?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
 							<a href="../index?pageNo=<%=MaxIndex%>">>></a>
 						</div>
@@ -124,9 +124,9 @@ numberOfBoardListSearched=travelBoardList.length;
 					else if(numberOfBoardListSearched()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
 		//보드 검색중.
 					else{
-						int  NoStart = numberOfBoardListSearched()-(pageNo-1)*boardIndexNoPerPage;
-						int NoNextStart = NoStart-boardIndexNoPerPage;
-						for(int indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
+						var NoStart = numberOfBoardListSearched()-(pageNo-1)*boardIndexNoPerPage;
+						var NoNextStart = NoStart-boardIndexNoPerPage;
+						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
 									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
 									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
