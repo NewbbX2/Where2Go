@@ -1,17 +1,4 @@
-<%//index에서 사용됨.
 
-
-
-
-//이젠 섹션에서 가져온 아이디.
-String userID = null;
-
-%>
-
-<%
-	if(session.getAttribute("userID")!=null){userID = (String) session.getAttribute("userID");}
-
-%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -24,10 +11,12 @@ String userID = null;
 	</head>
 	
 	<body >
-			<form action="./travelEnroll2.ejs" method="post"   ENCTYPE="multipart/form-data">
+		<form action="../travelEnroll2" method="post"  >
 				<label >여행일자는 총 몇일인가요?</label>
-				<input type = "number" name = "travelTatalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
+				<input type = "number" name = "travelTatalSpanTime" class = "form-control" min="1" max="100" style = "width:300px"><br />
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
-				<a href = "./index.ejs"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+				<a href = "../index"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 			<%} %>
+		</form>
+	</body>
 </html>
