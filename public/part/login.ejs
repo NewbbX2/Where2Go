@@ -1,0 +1,24 @@
+<%if(userID == null){%>
+    <form method = "post" action = "./userLogin.ejs">
+        <div id = "IDPWD1">
+        <div id = "id">
+                아이디
+                <div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 10></div>
+            </div>
+            <div id = "psd">
+                패스워드
+                <div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 10></div>
+            </div>
+            <button id = "LogIn"type = "submit" >로그인</button>
+        </div>
+        <div id = "IDPWD1">
+            <div id = "CreateIDAndPassWord">
+                <a href = "./userJoin.ejs">회원가입</a>
+            </div>
+            <div id = "FindIDAndPassWord">
+                <a href = "./findID.ejs">아이디찾기 /</a>
+                <a href = "./findPassword.ejs">비밀번호찾기</a>
+            </div>
+        </div>
+    </form>
+<%}else{ %><a href = "./userLogOut.ejs">로그아웃.</a><%} %>
