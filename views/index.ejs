@@ -1,7 +1,7 @@
 <%
 //받아와야 하는것.
 var travelBoardList= [];
-var userID = "";
+var  = "";
 
 
 
@@ -72,9 +72,7 @@ numberOfBoardListSearched=travelBoardList.length;
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
 					if(travelBoardList!=""&&numberOfBoardListSearched()!=0){
-						var MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
-						var MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;
-						%> 
+						var MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}var MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../index?pageNo=<%=1%>"><<</a>
 							<%
@@ -97,7 +95,7 @@ numberOfBoardListSearched=travelBoardList.length;
 						</div>
 					<%}%>
 				</div>
-				<%if(userID==""||userID.equals("")){%>
+				<%if(==""||.equals("")){%>
 				<%}else{ %>
 				<div id = "indexCreateNewPlan">
 					<label>새 여행플랜을 계획하시나요?</label>
