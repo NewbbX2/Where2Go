@@ -1,8 +1,11 @@
 <%
 //받아와야 하는것.
-var travelBoardList= new Array();
+var travelBoardList= []];
 String userID = null;
 
+//검색된 보드수
+int numberOfBoardListSearched=0;
+numberOfBoardListSearched=travelBoardList.length;
 
 
 %>
@@ -66,8 +69,8 @@ String userID = null;
 					//가장 오랜된글 >>(맨끝으로)
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
-					if(travelBoardList!=null&&travelBoardList.size()!=0){
-						int MaxIndexAdd1=0;	if(travelBoardList.size()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}int MaxIndex=(travelBoardList.size()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
+					if(travelBoardList!=null&&numberOfBoardListSearched()!=0){
+						int MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}int MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../index?pageNo=<%=1%>"><<</a>
 							<%
@@ -118,10 +121,10 @@ String userID = null;
 		//보드 에러
 					if(travelBoardList==null){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
 		//보드 검색내용 없음
-					else if(travelBoardList.size()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
+					else if(numberOfBoardListSearched()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
 		//보드 검색중.
 					else{
-						int  NoStart = travelBoardList.size()-(pageNo-1)*boardIndexNoPerPage;
+						int  NoStart = numberOfBoardListSearched()-(pageNo-1)*boardIndexNoPerPage;
 						int NoNextStart = NoStart-boardIndexNoPerPage;
 						for(int indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
