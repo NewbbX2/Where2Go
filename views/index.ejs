@@ -1,7 +1,7 @@
 <%
 //받아와야 하는것.
 var travelBoardList= [];
-var userID = null;
+var userID = "";
 
 //검색된 보드수
 var numberOfBoardListSearched=0;
@@ -13,7 +13,7 @@ numberOfBoardListSearched=travelBoardList.length;
 <%//유저 아이디 불러오기.
 
 	//검색사안
-	var search = null;
+	var search = "";
 	
 	
 	if(request.getParameter("search")!=null)
@@ -69,7 +69,7 @@ numberOfBoardListSearched=travelBoardList.length;
 					//가장 오랜된글 >>(맨끝으로)
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
-					if(travelBoardList!=null&&numberOfBoardListSearched()!=0){
+					if(travelBoardList!=""&&numberOfBoardListSearched()!=0){
 						var MaxIndexAdd1=0;	if(numberOfBoardListSearched()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}var MaxIndex=(numberOfBoardListSearched()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
 							<a href="../index?pageNo=<%=1%>"><<</a>
@@ -93,7 +93,7 @@ numberOfBoardListSearched=travelBoardList.length;
 						</div>
 					<%}%>
 				</div>
-				<%if(userID==null||userID.equals("")){%>
+				<%if(userID==""||userID.equals("")){%>
 				<%}else{ %>
 				<div id = "indexCreateNewPlan">
 					<label>새 여행플랜을 계획하시나요?</label>
@@ -119,7 +119,7 @@ numberOfBoardListSearched=travelBoardList.length;
 					<tbody>
 		<%//보드 내용 검색
 		//보드 에러
-					if(travelBoardList==null){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
+					if(travelBoardList==""){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
 		//보드 검색내용 없음
 					else if(numberOfBoardListSearched()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
 		//보드 검색중.
