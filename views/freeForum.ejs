@@ -7,6 +7,8 @@
 	var numberOfBoardListSearched=boardList.length;
 %>
 
+
+
 <%
 var boardType="freeForum";
 
@@ -131,7 +133,7 @@ var boardType="freeForum";
 			<%}%>
 			
 			
-			<%if(userName!=null||!userName!="") {%>
+			<%if(userName!=null&&!userName!="") {%>
 					<div ><a href = "../boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
 			<%}%>
 			<form  action ="../freeForum"  method = "get" >
