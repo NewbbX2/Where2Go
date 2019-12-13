@@ -9,7 +9,11 @@ app.get('/', function(req, res){
 
 app.get('/index', function(req, res){
   firebase.auth().onAuthStateChanged(function(user){
-      res.render('index', {userName : user});
+      var page = req.query.pageNo;
+      if(!page){
+        page = 1;
+      }
+      res.render('index', {userName : user, pageNo : page});
     });
 });
 
