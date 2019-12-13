@@ -1,16 +1,13 @@
 <%
+//받아와야 하는것.
 var[] travelBoardList;
+String userID = null;
 
 
 
 %>
 	
 <%//유저 아이디 불러오기.
-String userID = null;;String userName=null;
-if(session.getAttribute("userID")!=null)
-{
-	userID = (String) session.getAttribute("userID");
-}
 
 	//보드 대분류
 	String travelClassfy="tripPlan";
