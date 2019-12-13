@@ -87,7 +87,7 @@
 				//가장 오랜된글 >>(맨끝으로)
 				//1 : <<(최신글로)
 				//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
-				if(boardList!=null&&numberOfSearchedBaords!=0){
+				if(boardList!=""&&numberOfSearchedBaords!=0){
 							
 					var MaxIndexAdd1=0;		if(numberOfSearchedBaords%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 					var MaxIndex=parseInt(numberOfSearchedBaords/boardIndexNoPerPage)+		MaxIndexAdd1;%> 
