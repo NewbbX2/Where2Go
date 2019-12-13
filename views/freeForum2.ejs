@@ -44,8 +44,8 @@
 <!--표 아랫부분  -->											
 			<div >
 			<%if((board.boardWriterID==userID)){%>
-				<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?boardNo=<%=boardNo%>">수정</a>
-				<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?boardNo=<%=boardNo%>">삭제</a>
+				<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?boardNo=<%=board.boardNo%>">수정</a>
+				<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?boardNo=<%=board.boardNo%>">삭제</a>
 			<%}%>
 			</div>
 			
