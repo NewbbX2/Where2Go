@@ -9,7 +9,7 @@ app.get('/', function(req, res){
 
 app.get('/plan', function(req, res){
   firebase.auth().onAuthStateChanged(function(user){
-      res.render('index', {user : user});
+      res.render('index', {userID : user});
     });
 });
 
