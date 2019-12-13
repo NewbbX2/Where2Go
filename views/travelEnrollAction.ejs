@@ -1,5 +1,8 @@
 <%
-request.setCharacterEncoding("UTF-8");
+var adr = loaction.search;
+var res = ard.split("&");
+
+
 var travelWriter = "";
 var travelWriterID="";
 var travelClassfy = "";
@@ -29,37 +32,109 @@ var travelMapPos8=0;
 var travelMapPos9=0;
 var travelMapPos10=0;
 
-if(request.getParameter("travelWriterID") !=null)travelWriterID = request.getParameter("travelWriterID");
-if(request.getParameter("travelWriter") !=null) travelWriter = request.getParameter("travelWriter");
-if(request.getParameter("travelClassfy") !=null)travelClassfy = request.getParameter("travelClassfy");
-if(request.getParameter("travelTitle") !=null) travelTitle = request.getParameter("travelTitle");
-if(request.getParameter("travelStartDate") !=null)travelStartDate = parseInt(request.getParameter("travelStartDate"));
-if(request.getParameter("travelTatalSpanTime") !=null)travelTatalSpanTime = parseInt(request.getParameter("travelTatalSpanTime"));
-if(request.getParameter("travelCountry") !=null) travelCountry = (var)request.getParameter("travelCountry");
+//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
+if(res.length!=0)
+	{
+		for(int i=0; i<res.length;i++)
+		{
+			var r=res[i]
+			if(r.split("=")[0]==("travelWriterID")
+			{
+				travelWriterID=r.split("=")[1];
+			}
+      else if(r.split("=")[0]==("travelWriter ")
+			{
+				travelWriter =r.split("=")[1];
+			}
+      else if(r.split("=")[0]==("travelClassfy")
+			{
+				travelClassfy=r.split("=")[1];
+			}
+      else if(r.split("=")[0]==("travelTitle")
+			{
+				travelTitle=r.split("=")[1];
+			}
+      else if(r.split("=")[0]==("travelStartDate")
+			{
+				travelStartDate=r.parseInt(split("=")[1]);
+			}
+      else if(r.split("=")[0]==("travelTatalSpanTime")
+			{
+				travelTatalSpanTime=parseInt(r.split("=")[1]);
+			}
+      else if(r.split("=")[0]==("travelCountry")
+			{
+				travelCountry=r.split("=")[1];
+			}
+
+      else if(r.split("=")[0]==("travelContent1")
+			{
+				travelContent1=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent2")
+			{
+				travelContent2=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent3")
+			{
+				travelContent3=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent4")
+			{
+				travelContent4=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent5")
+			{
+				travelContent5=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent6")
+			{
+				travelContent6=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent7")
+			{
+				travelContent7=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent8")
+			{
+				travelContent8=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent9")
+			{
+				travelContent9=r.split("=")[1];
+			} else if(r.split("=")[0]==("travelContent10")
+			{
+				travelContent10=r.split("=")[1];
+			}
+
+      else if(r.split("=")[0]==("travelMapPos1")
+			{
+				travelMapPos1=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos2")
+			{
+				travelMapPos2=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos3")
+			{
+				travelMapPos3=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos4")
+			{
+				travelMapPos4=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos5")
+			{
+				travelMapPos5=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos6")
+			{
+				travelMapPos6=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos7")
+			{
+				travelMapPos7=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos8")
+			{
+				travelMapPos8=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos9")
+			{
+				travelMapPos9=parseInt(r.split("=")[1]);
+			}else if(r.split("=")[0]==("travelMapPos10")
+			{
+				travelMapPos10=parseInt(r.split("=")[1]);
+			}
+		}
+	}
 
 
-if(request.getParameter("travelContent1") !=null) travelContent1 = (var)request.getParameter("travelContent1");
-if(request.getParameter("travelContent2") !=null) travelContent2 = (var)request.getParameter("travelContent2");
-if(request.getParameter("travelContent3") !=null) travelContent3 = (var)request.getParameter("travelContent3");
-if(request.getParameter("travelContent4") !=null) travelContent4 = (var)request.getParameter("travelContent4");
-if(request.getParameter("travelContent5") !=null) travelContent5 = (var)request.getParameter("travelContent5");
-if(request.getParameter("travelContent6") !=null) travelContent6 = (var)request.getParameter("travelContent6");
-if(request.getParameter("travelContent7") !=null) travelContent7 = (var)request.getParameter("travelContent7");
-if(request.getParameter("travelContent8") !=null) travelContent8 = (var)request.getParameter("travelContent8");
-if(request.getParameter("travelContent9") !=null) travelContent8 = (var)request.getParameter("travelContent9");
-if(request.getParameter("travelContent10") !=null) travelContent10 = (var)request.getParameter("travelContent10");
 
-
-if(request.getParameter("travelMapPos1") !=null)travelMapPos1 = parseInt(request.getParameter("travelMapPos1"));
-if(request.getParameter("travelMapPos2") !=null)travelMapPos2 = parseInt(request.getParameter("travelMapPos2"));
-if(request.getParameter("travelMapPos3") !=null)travelMapPos3 = parseInt(request.getParameter("travelMapPos3"));
-if(request.getParameter("travelMapPos4") !=null)travelMapPos4 = parseInt(request.getParameter("travelMapPos4"));
-if(request.getParameter("travelMapPos5") !=null)travelMapPos5 = parseInt(request.getParameter("travelMapPos5"));
-if(request.getParameter("travelMapPos6") !=null)travelMapPos6 = parseInt(request.getParameter("travelMapPos6"));
-if(request.getParameter("travelMapPos7") !=null)travelMapPos7 = parseInt(request.getParameter("travelMapPos7"));
-if(request.getParameter("travelMapPos8") !=null)travelMapPos8 = parseInt(request.getParameter("travelMapPos8"));
-if(request.getParameter("travelMapPos9") !=null)travelMapPos9 = parseInt(request.getParameter("travelMapPos9"));
-if(request.getParameter("travelMapPos10") !=null)travelMapPos10 = parseInt(request.getParameter("travelMapPos10"));
 {%>
     
 
@@ -72,7 +147,7 @@ if(request.getParameter("travelMapPos10") !=null)travelMapPos10 = parseInt(reque
     if(travelWriter ==null||travelWriterID == null||travelClassfy == null|| travelTitle == null||travelCountry == null||travelStartDate == 0||travelTatalSpanTime == 0
         ||travelWriter==""||travelWriterID==""||travelClassfy==""||travelTitle==""||travelCountry=="" 	)
     <%{
-            <a href = "../travelEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+            <a href = "./travelEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else{
 
