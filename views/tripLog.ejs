@@ -2,33 +2,13 @@
 //받아와야 하는것.
 var travelBoardList= [];
 var userName = "";
+var pageNo=1;
 
 
 
 //검색된 보드수
 var numberOfBoardListSearched=0;
 numberOfBoardListSearched=travelBoardList.length;
-
-%>
-	
-<%
-	var adr = loaction.search;
-	var res = ard.split("&");
-	var pageNo=1;
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==pageNo)
-			{
-				pageNo=parseInt(r.split("=")[1]);
-			}
-
-		}
-	}
-
 	//페이지당 보드 출력수.
 	var boardIndexNoPerPage=15;
 %>
@@ -99,13 +79,12 @@ numberOfBoardListSearched=travelBoardList.length;
 						</div>
 					<%}%>
 				</div>
-				<%if(userName==""||userName==null){%>
-				<%}else{ %>
+				<%if(userName!=""){%>
 				<div id = "indexCreateNewPlan">
 					<label>새 여행일지를 기록하시나요?</label>
 					<a href = "./travelEnroll"><button type = "submit" class = "btn-search">등록</button></a>
 				</div>
-			<%} %>
+				<%} %>
 			</div>
 					
 				
