@@ -58,7 +58,7 @@ numberOfBoardListSearched=travelBoardList.length;
 			<div id = "upperBoard">
 				<div id = "travelSearch">
 					<label>기존 여행계획을 검색하시나요?</label>
-					<form action ="../index" method = "get" id = "indexOldSearch">
+					<form action ="./index" method = "get" id = "indexOldSearch">
 						<label>어느국가를 찾으시나요?</label>
 						<input type="text" name="countryName" />
 						<label>언제 출발하시나요?</label>
@@ -84,18 +84,18 @@ numberOfBoardListSearched=travelBoardList.length;
 							if(pageNo>10)
 							{
 								//-10돌아가는 < 추가.%>
-								<a href="../index?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+								<a href="./index?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
 								<%//1페이지씩 표시.
 								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
-								{%><a href = "../index?pageNo=<%=i%>"><%=i%></a><%}
+								{%><a href = "./index?pageNo=<%=i%>"><%=i%></a><%}
 
 								//+10이후 더있으면 +10하는 >추가.
 								if(pageNo+10<MaxIndex){%><a href="index?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
 							}else{		
 							//1붙터 시작하면 10or최대값 까지
-								for(var i=1;(i<=MaxIndex);i++){%><a href = "../index?pageNo=<%=i%>"><%=i%></a><%}
+								for(var i=1;(i<=MaxIndex);i++){%><a href = "./index?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
-							<a href="../index?pageNo=<%=MaxIndex%>">>></a>
+							<a href="./index?pageNo=<%=MaxIndex%>">>></a>
 						</div>
 					<%}%>
 				</div>
@@ -103,7 +103,7 @@ numberOfBoardListSearched=travelBoardList.length;
 				<%}else{ %>
 				<div id = "indexCreateNewPlan">
 					<label>새 여행플랜을 계획하시나요?</label>
-					<a href = "../travelEnroll"><button type = "submit" class = "btn-search">등록</button></a>
+					<a href = "./travelEnroll"><button type = "submit" class = "btn-search">등록</button></a>
 				</div>
 			<%} %>
 			</div>
@@ -134,12 +134,12 @@ numberOfBoardListSearched=travelBoardList.length;
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
-									<td><a href = "../index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
 								</tr>
 						
 							<%}
