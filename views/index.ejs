@@ -28,7 +28,7 @@ numberOfBoardListSearched=travelBoardList.length;
 	var pageNo=1;
 	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
 	if(request.getParameter("pageNo")!=null){
-		try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}
+		try{pageNo = parseInt(request.getParameter("pageNo"));}
 		catch(Exception e){System.out.println("검색에러");}
 	}
 
