@@ -12,24 +12,16 @@ numberOfBoardListSearched=travelBoardList.length;
 
 %>
 	
-<%//유저 아이디 불러오기.
-
-	//검색사안
-	var search = "";
-	
-
-	if(request.getParameter("search")!=null){
-		try{search = (request.getParameter("search"));}
-		catch(Exception e){System.out.println("검색에러");}
-	}
-
-
+<%
+	var url = require('url');
+	var adr = loaction.href;
+	var q = url.parse(adr, true);
+	var qdata = q.query;
 
 	var pageNo=1;
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(request.getParameter("pageNo")!=null){
-		try{pageNo = parseInt(request.getParameter("pageNo"));}
-		catch(Exception e){System.out.println("검색에러");}
+	if(qdata.pageNo!=null&&qdata.pageNo!="")
+	{
+		pageNo=parseInt(qdata.pageNo)
 	}
 
 	//페이지당 보드 출력수.
