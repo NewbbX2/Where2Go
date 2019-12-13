@@ -3,9 +3,13 @@
 var travelBoardList= [];
 var userID = "";
 
+
+
 //검색된 보드수
 var numberOfBoardListSearched=0;
 numberOfBoardListSearched=travelBoardList.length;
+
+
 %>
 	
 <%//유저 아이디 불러오기.
@@ -13,7 +17,7 @@ numberOfBoardListSearched=travelBoardList.length;
 	//검색사안
 	var search = "";
 	
-	
+
 	if(request.getParameter("search")!=null)
 	{try{search = (var)(request.getParameter("search"));}catch(Exception e){System.out.println("검색에러");}}
 
