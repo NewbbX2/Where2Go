@@ -29,7 +29,7 @@ var boardType="";;
 	
 	<body >
 			<form action="./boardEnrollAction" method="post" >
-				<input type = "text" name = "boardWriterID" class = "form-control"  style = "display: none;">
+				<input type = "text" name = "boardWriterID" class = "form-control"  value = <%=userID%>style = "display: none;">
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
@@ -42,11 +42,7 @@ var boardType="";;
 				
 				<label>게시판분류</label>
 				<select name = "boardClassfy" >
-					<%if(boardType.=="tripForum"){%>
-						<option value="tripPlan">여행계획</option>
-						<option value="tripLog">여행일지</option>
-					<%}
-					else if(boardType=="countryForum"){%>
+					<% if(boardType=="tripForum"||boardType=="countryForum"){%>
 						<option value="Korea">한국</option>
 						<option value="China">중국</option>
 						<option value="Japan">일본</option>
@@ -55,13 +51,30 @@ var boardType="";;
 						<option value="Free">자유게시판</option>
 					<%}%>
 				</select><br>
-				<%if(tripBoardNo!=null&& (!tripBoardNo=="")){%><%}%>
-	
+				<%if(boardType=="tripForum"){%>
+					<label>몇월에 있었던 일인가요?</label>
+					<select name = "tirpFroumMon" >
+						<option value="1">1월</option>
+						<option value="2">2월</option>
+						<option value="3">3월</option>
+						<option value="4">4월</option>
+						<option value="5">5월</option>
+						<option value="6">6월</option>
+						<option value="7">7월</option>
+						<option value="8">8월</option>
+						<option value="9">9월</option>
+						<option value="10">10월</option>
+						<option value="11">11월</option>
+						<option value="12">12월</option>
+					</select><br>
+				<%}else{%>
+					<select name = "tirpFroumMon" style="display: noe;"><option value="-1" style="display:none"></option></select>
+				<%}%>
 				<label>게시판제목</label>
 				<input type = "text" name = "boardTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				
 				<label>작성자이름</label>
-				<select name = "boardWriter" ><option value = "<%=username%>" selected><%=userID%></option></select><br>
+				<select name = "boardWriter" ><option value = "<%=username%>" selected><%=userName%></option></select><br>
 				
 				<label>본문</label>
 				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
