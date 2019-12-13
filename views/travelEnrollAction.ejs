@@ -1,0 +1,45 @@
+<%
+request.setCharacterEncoding("UTF-8");
+var travelWriter = "";
+var userID="";
+var travelClassfy = "";
+var travelTitle = "";
+var travelStartDate= 0;
+var travelTatalSpanTime= 0;
+var travelCountry= 0;
+
+if(request.getParameter("userID") !=null)userID = request.getParameter("userID");
+if(request.getParameter("travelWriter") !=null) travelWriter = request.getParameter("travelWriter");
+if(request.getParameter("travelClassfy") !=null)travelClassfy = request.getParameter("travelClassfy");
+if(request.getParameter("travelTitle") !=null) travelTitle = request.getParameter("travelTitle");
+if(request.getParameter("travelStartDate") !=null)travelStartDate = parseInt(request.getParameter("travelStartDate"));
+if(request.getParameter("travelTatalSpanTime") !=null)travelTatalSpanTime = parseInt(request.getParameter("travelTatalSpanTime"));
+if(request.getParameter("travelCountry") !=null) travelCountry = (var)request.getParameter("travelCountry");
+{%>
+    
+
+<!DOCTYPE html>
+<html>
+  <head> </head>
+  <body>
+
+    <%PrintWriter script = response.getWriter();
+    if(travelWriter ==null||userID == null||travelClassfy == null|| travelTitle == null||travelCountry == null||travelStartDate == 0||travelTatalSpanTime == 0
+        ||travelWriter==""||userID==""||travelClassfy==""||travelTitle==""||travelCountry=="" 	)
+    <%{
+            <a href = "../travelEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+    <%}
+    else{
+
+ ////////////////////////
+ //////!!!!!!!!!!!!////
+ //여기서 DB 검색해서 중복아이디 있나 체크.
+ //중복있으면 돌려보내기.
+ //DB없으면 오류인데 이건 안해도될듯.
+ //중복없으면 생성
+    }
+
+    %>
+
+    </body>
+</html>
