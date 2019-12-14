@@ -4,6 +4,7 @@
 	//request에서 가져온 boardType
 	var boardType="";;
 %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -61,7 +62,7 @@
 				<input type = "text" name = "boardTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				
 				<label>작성자이름</label>
-				<select name = "boardWriter" ><option value = "<%=username%>" selected><%=userName%></option></select><br>
+				<select name = "boardWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 				
 				<label>본문</label>
 				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
