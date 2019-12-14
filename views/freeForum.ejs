@@ -55,7 +55,7 @@
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 
 						//출력
-						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){
+						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 							<tr>
 								<td><a href = "./freeForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
 								<td><a href = "./freeForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
