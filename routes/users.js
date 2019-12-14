@@ -56,4 +56,11 @@ app.post('/login', function(req, res, next){
 
 });
 
+app.get('/logout', function(req, res){
+  console.log('log out');
+  firebase.auth().signOut().then(function(){
+    res.redirect('/');
+  });
+});
+
 module.exports = app;
