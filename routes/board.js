@@ -2,6 +2,19 @@ var express = require('express');
 var app = express.Router();
 var firebase = require('firebase/app');
 require('firebase/auth');
+require('firebase/database');
+
+var userName;
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){
+    var getName = firebase.database().ref('users/' + user.uid + '/name');
+    getName.on('value', function(snapshot){
+        userName = snapshot.val();
+    });
+  }else{
+
+  }
+});
 
 app.get('/', function(req, res){
   res.redirect('./plan');
@@ -9,16 +22,18 @@ app.get('/', function(req, res){
 
 app.get('/plan', function(req, res){
   firebase.auth().onAuthStateChanged(function(user){
-      res.render('index', {userID : user});
+      res.render('index', {userName : user});
     });
 });
 
-app.get('/log', function(req, res){
-  res.render('')
+app.get('/countryForum', function(req, res){
+  firebase.auth().onAuthStateChanged(function(user){
+      res.render('countryForum', {userName : user});
+    });
 });
 
-app.get('/trip', function(req, res){
-  res.redirect('./plan');
+app.get('/freeForum', function(req, res){
+  res.render('countryForum', {userName : userName});
 });
 
 app.get('/forum', function(req, res){
