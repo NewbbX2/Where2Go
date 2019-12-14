@@ -1,5 +1,8 @@
 <%
-request.setCharacterEncoding("UTF-8");
+
+var adr = loaction.search;
+	var res = ard.split("&");
+
 var userID = "";
 var userPassword1 = "";
 var userPassword2 = "";
@@ -7,12 +10,29 @@ var userName = "";
 var userBirthDate= "";
 var userGender= "";
 
-if(request.getParameter("userID") !=null) userID = request.getParameter("userID");
-if(request.getParameter("userPassword1") !=null)userPassword1 = request.getParameter("userPassword1");
-if(request.getParameter("userPassword2") !=null)userPassword2 = request.getParameter("userPassword2");
-if(request.getParameter("userName") !=null) userName = request.getParameter("userName");
-if(request.getParameter("userBirthDate") !=null)userBirthDate = request.getParameter("userBirthDate");
-if(request.getParameter("userGender") !=null) userGender = request.getParameter("userGender");
+
+if(res.length!=0){ for(int i=0; i<res.length;i++) {
+        var r=res[i]
+        if(r.split("=")[0]=="userID") {   
+            userID=r.split("=")[1]
+        }
+        if(r.split("=")[0]=="userPassword1") {   
+            userPassword1=r.split("=")[1]
+        }
+        if(r.split("=")[0]=="userPassword2") {   
+            userPassword2=r.split("=")[1]
+        }
+        if(r.split("=")[0]=="userName") {   
+            userName=r.split("=")[1]
+        }
+        if(r.split("=")[0]=="userBirthDate") {   
+            userBirthDate=r.split("=")[1]
+        }
+        if(r.split("=")[0]=="userGender") {   
+            userGender=r.split("=")[1]
+        }
+    }
+}
 {%>
     
 
@@ -21,16 +41,14 @@ if(request.getParameter("userGender") !=null) userGender = request.getParameter(
   <head> </head>
   <body>
 
-    <%PrintWriter script = response.getWriter();
+    <%
     if(userID ==null||userPassword1 == null||userPassword2 == null|| userName == null||userBirthDate == null||userGender == null
         ||userID.equals("")||userPassword1.equals("")||userPassword2.equals("")||userName.equals("")||userBirthDate.equals("") 	)
     <%{
-            <a href = "./userJoin">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+         <a href = "./userJoin">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else if(!userPassword1.equals(userPassword2))
-    {
-        PrintWriter script1 = response.getWriter();%>
-        
+    {%>
         <a href = "./userJoin">비밀번호가 다릅니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else{

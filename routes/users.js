@@ -43,16 +43,25 @@ app.post('/userJoinAction', function(req, res){
   res.redirect('../main');
 });
 
-app.post('/loginChk', function(req, res, next){
-  var email = req.body.inputEmail || req.query.inputEmail;
-  console.log(email);
+app.post('/login', function(req, res, next){
   console.log(req.body);
-  firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password).catch(function(error){
+  firebase.auth().signInWithEmailAndPassword(req.body.userID, req.body.userPassword
+  ).then(function(){
+    res.redirect('/');
+  }).catch(function(error){
   //firebase.auth().signInWithEmailAndPassword('test@testmail.com', '123123').catch(function(error){
 			console.log(error);
       res.send("<script>alert('아이디 또는 비밀번호가 틀렸습니다')</script>");
+      res.redirect('/');
 	});
-  res.redirect('../main');
+
+});
+
+app.get('/logout', function(req, res){
+  console.log('log out');
+  firebase.auth().signOut().then(function(){
+    res.redirect('/');
+  });
 });
 
 module.exports = app;

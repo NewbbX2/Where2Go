@@ -8,9 +8,32 @@ app.get('/', function(req, res){
 });
 
 app.get('/index', function(req, res){
-  firebase.auth().onAuthStateChanged(function(user){
-      res.render('index', {userName : user});
+  var page = req.query.pageNo;
+  var userName;
+  var uid;
+
+  if(!page){
+    page = 1;
+  }
+
+  if(firebase.auth().currentUser){
+    uid = firebase.auth().currentUser.uid;
+  }
+
+  if(uid){
+    var getName = firebase.database().ref('users/' + uid + '/name');
+    getName.once('value').then(function(snapshot){
+        userName = snapshot.val();
+        console.log('받아옴 ' + userName);
+        console.log(userName + ' is login');
+        res.render('index', {userName : userName, pageNo : page});
     });
-});
+  }else{
+    console.log('no login userName ' + userName);
+    res.render('index', {userName : userName, pageNo : page});
+  }
+});//'/index'
+
+
 
 module.exports = app;

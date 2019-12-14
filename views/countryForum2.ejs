@@ -1,0 +1,74 @@
+
+<%
+//가져와야하는 데이터
+var userID = "";
+var userName="";
+var board ="";//이거 boardNo(보드아이디말함)로 검색한 boardList[boardNo]
+%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset = "UTF-8">
+	<title>WTG</title>
+	<link rel = "stylesheet" href = "styles/styles.css"/>
+</head>
+</head>
+<body>
+	<header>
+		<%- include ('./part/header.ejs') %>
+	</header>
+	<section>
+		<article id = freeForum1>
+			<div id = "upperBoardBorderSolid">
+				해외포럼
+			</div>
+			<div id = "mainBoard">
+				<table style="width:100%;table-layout:fixed" >
+						<thead style ="text-align:center;">
+							<tr style = "background-color:#B2CCFF">
+								<th width = "10%">제목</th>
+								<th width = "40%"><%=board.boardTitle%></th>
+								<th width = "10%">나라</th>
+								<th width = "20%"><%=board.boardClassify%></th>
+								<th width = "10%">작성자</th>
+								<th width = "10%"><%=board.boardWriter%></th>
+							</tr>
+							<tr ><th colspan="6">내용</th></tr>
+						</thead>
+						<tbody >
+							<tr >
+								<td colspan = "6"><%=board.boardContent%></td>
+							</tr>
+						</tbody>
+					</table>
+			</div>
+			
+<!--표 아랫부분  -->											
+			<div >
+				<%if((board.boardWriterID==userID)){%>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?boardNo=<%=board.boardNo%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?boardNo=<%=board.boardNo%>">삭제</a>
+				<%}%>
+			</div>
+			
+
+				
+		</article>
+	
+		<article id = "LoginMenu">
+			<%- include ('./part/login.ejs')%>
+		</article>
+	</section>
+	<footer>
+		  <%- include ('./part/footer.ejs') %>
+	</footer>
+</body>
+
+</html>
+
+
+
+
+
+
+

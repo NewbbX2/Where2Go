@@ -1,5 +1,4 @@
 <%
-request.setCharacterEncoding("UTF-8");
 var boardWriterID = "";
 var boardType="";
 var boardClassfy = "";
@@ -8,13 +7,41 @@ var boardWriter= 0;
 var boardContent= 0;
 var tirpFroumMon=-1;
 
-if(request.getParameter("boardWriterID") !=null)boardWriterID = request.getParameter("boardWriterID");
-if(request.getParameter("boardType") !=null) boardType = request.getParameter("boardType");
-if(request.getParameter("boardClassfy") !=null)boardClassfy = request.getParameter("boardClassfy");
-if(request.getParameter("boardTitle") !=null) boardTitle = request.getParameter("boardTitle");
-if(request.getParameter("boardWriter") !=null)boardWriter = request.getParameter("boardWriter");
-if(request.getParameter("boardContent") !=null)boardContent = request.getParameter("boardContent");
-if(request.getParameter("tirpFroumMon") !=null)tirpFroumMon = praseInt(request.getParameter("tirpFroumMon"));
+if(res.length!=0)
+	{
+		for(int i=0; i<res.length;i++)
+		{
+			var r=res[i]
+			if(r.split("=")[0]==("boardWriterID"))
+			{
+				boardWriterID=r.split("=")[1];
+			}
+      else if(r.split("=")[0]==("boardType"))
+			{
+				boardType=r.split("=")[1];
+			}
+      if(r.split("=")[0]==("boardClassfy"))
+			{
+				boardClassfy=r.split("=")[1];
+			}
+      if(r.split("=")[0]==("boardTitle"))
+			{
+				boardTitle=r.split("=")[1];
+			}
+      if(r.split("=")[0]==("boardWriter"))
+			{
+				boardWriter=r.split("=")[1];
+			}
+      if(r.split("=")[0]==("boardContent"))
+			{
+				boardContent=r.split("=")[1];
+			}
+      if(r.split("=")[0]==("tirpFroumMon"))
+			{
+				tirpFroumMon=r.split("=")[1];
+			}
+    }
+	}
 
 {%>
     
@@ -24,11 +51,11 @@ if(request.getParameter("tirpFroumMon") !=null)tirpFroumMon = praseInt(request.g
   <head> </head>
   <body>
 
-    <%PrintWriter script = response.getWriter();
+    <%
     if(boardWriterID ==null||boardType == null||boardClassfy == null|| boardTitle == null||boardWriter == null||boardContent == null
         ||boardWriterID==""||boardType==""||boardClassfy==""||boardTitle==""||boardWriter==""||boardContent=="" 	)
     <%{
-            <a href = "../boardEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
+            <a href = "./boardEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
     else{
 

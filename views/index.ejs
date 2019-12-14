@@ -1,34 +1,12 @@
 <%
 //받아와야 하는것.
 var travelBoardList= [];
-var userName = "";
+
 
 
 //검색된 보드수
 var numberOfBoardListSearched=0;
 numberOfBoardListSearched=travelBoardList.length;
-
-
-%>
-	
-<%
-	var adr = loaction.search;
-	var res = ard.split("&");
-	var pageNo=1;
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==pageNo)
-			{
-				pageNo=parseInt(r.split("=")[1]);
-			}
-
-		}
-	}
-
 	//페이지당 보드 출력수.
 	var boardIndexNoPerPage=15;
 %>
@@ -75,7 +53,7 @@ numberOfBoardListSearched=travelBoardList.length;
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
 					if(travelBoardList!=""&&numberOfBoardListSearched!=0){
 						var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
-						var MaxIndex=	parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
+						var MaxIndex=	parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%>
 						<div id="BoardPageNo">
 							<a href="./index?pageNo=<%=1%>"><<</a>
 							<%
@@ -83,14 +61,14 @@ numberOfBoardListSearched=travelBoardList.length;
 							if(pageNo>10)
 							{
 								//-10돌아가는 < 추가.%>
-								<a href="./index?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+								<a href="./index?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>
 								<%//1페이지씩 표시.
 								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
 								{%><a href = "./index?pageNo=<%=i%>"><%=i%></a><%}
 
 								//+10이후 더있으면 +10하는 >추가.
 								if(pageNo+10<MaxIndex){%><a href="index?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
-							}else{		
+							}else{
 							//1붙터 시작하면 10or최대값 까지
 								for(var i=1;(i<=MaxIndex);i++){%><a href = "./index?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
@@ -98,20 +76,19 @@ numberOfBoardListSearched=travelBoardList.length;
 						</div>
 					<%}%>
 				</div>
-				<%if(userName==""||userName==null){%>
-				<%}else{ %>
+				<%if(userName!=""){%>
 				<div id = "indexCreateNewPlan">
 					<label>새 여행플랜을 계획하시나요?</label>
 					<a href = "./travelEnroll"><button type = "submit" class = "btn-search">등록</button></a>
 				</div>
-			<%} %>
+				<%} %>
 			</div>
-					
-				
+
+
 			<div id = "mainBoard">
 				<table style="width:100%;text-align:center;" >
 						<thead style ="text-align:center;background-color:#B2CCFF;">
-					
+
 						<tr >
 							<th width="10%">번호</th>
 							<th width = "10%">여행국가</th>
@@ -133,14 +110,13 @@ numberOfBoardListSearched=travelBoardList.length;
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
-									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>
+									<td><a href = "./index2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>
 								</tr>
-						
 							<%}
 						}%>
 					</tbody>
@@ -156,6 +132,3 @@ numberOfBoardListSearched=travelBoardList.length;
     </footer>
   </body>
 </html>
-
-
-	

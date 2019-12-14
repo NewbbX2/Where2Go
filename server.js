@@ -26,22 +26,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 //app.use(express.static('public'));
-app.use('/',function(req,res,next){
-	firebase.auth().onAuthStateChanged(function(user){
-		if(user){
-
-      next();
-		}else{
-      next();
-    }
-	});
-
-});
 app.use('/users', require('./routes/users'));
-app.use('/main', require('./routes/main'));
+//app.use('/main', require('./routes/main'));
 app.use('/board', require('./routes/board'));
 app.get('/',function(req, res){
-	res.redirect('/main');
+	res.redirect('/board/plan');
 });
 
 http.createServer(app).listen(52273, function(){
