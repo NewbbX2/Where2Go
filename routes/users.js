@@ -52,8 +52,16 @@ app.post('/login', function(req, res, next){
   //firebase.auth().signInWithEmailAndPassword('test@testmail.com', '123123').catch(function(error){
 			console.log(error);
       res.send("<script>alert('아이디 또는 비밀번호가 틀렸습니다')</script>");
+      res.redirect('/');
 	});
 
+});
+
+app.get('/logout', function(req, res){
+  console.log('log out');
+  firebase.auth().signOut().then(function(){
+    res.redirect('/');
+  });
 });
 
 module.exports = app;
