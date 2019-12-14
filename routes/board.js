@@ -4,9 +4,6 @@ var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
-var userName;
-var uid;
-
 //계획 게시판
 app.get('/plan', function(req, res){
   var page = req.query.pageNo;
@@ -14,20 +11,14 @@ app.get('/plan', function(req, res){
     page = 1;
   }
 
-  if(firebase.auth().currentUser){
-    uid = firebase.auth().currentUser.uid;
-  }
-
-  if(uid){
-    var getName = firebase.database().ref('users/' + uid + '/name');
-    getName.once('value').then(function(snapshot){
-        userName = snapshot.val();
+  var user = firebase.auth().currentUser;
+  if(user){
+    var userName = user.displayName;
         console.log('받아옴 ' + userName);
         console.log(userName + ' is login');
         res.render('index', {userName : userName, pageNo : page});
-    });
   }else{
-    console.log('no login userName ' + userName);
+    console.log('no login');
     res.render('index', {userName : userName, pageNo : page});
   }
 });
@@ -48,7 +39,7 @@ firebase.database().ref('/plan/'+key).once('value').then(function(snapshot){
       res.render('index2', {travelBoard : travelBoard});
     }else{
       res.send("<script>alert('게시물이 존재하지 않습니다');"
-      + "document.location.href='./plan'</script>'");
+      + "document.location.href='./plan';</script>'");
     }
   });
 });
@@ -60,18 +51,12 @@ app.get('/tripLog', function(req, res){
     page = 1;
   }
 
-  if(firebase.auth().currentUser){
-    uid = firebase.auth().currentUser.uid;
-  }
+  var user = firebase.auth().currentUser;
 
-  if(uid){
-    var getName = firebase.database().ref('users/' + uid + '/name');
-    getName.once('value').then(function(snapshot){
-        userName = snapshot.val();
-        console.log('받아옴 ' + userName);
-        console.log(userName + ' is login');
-        res.render('tripLog', {userName : userName, pageNo : page});
-    });
+  if(user){
+    var userName = user.displayName;
+    console.log(userName + ' is login');
+    res.render('tripLog', {userName : userName, pageNo : page});
   }else{
     console.log('no login userName ' + userName);
     res.render('tripLog', {userName : userName, pageNo : page});
@@ -87,18 +72,12 @@ app.get('/countryForum', function(req, res){
     page = 1;
   }
 
-  if(firebase.auth().currentUser){
-    uid = firebase.auth().currentUser.uid;
-  }
+  var user = firebase.auth().currentUser;
 
-  if(uid){
-    var getName = firebase.database().ref('users/' + uid + '/name');
-    getName.once('value').then(function(snapshot){
-        userName = snapshot.val();
-        console.log('받아옴 ' + userName);
-        console.log(userName + ' is login');
-        res.render('countryForum', {userName : userName, pageNo : page});
-    });
+  if(user){
+    var userName = user.displayName;
+    console.log(userName + ' is login');
+    res.render('countryForum', {userName : userName, pageNo : page});
   }else{
     console.log('no login userName ' + userName);
     res.render('countryForum', {userName : userName, pageNo : page});
@@ -112,18 +91,13 @@ app.get('/freeForum', function(req, res){
     page = 1;
   }
 
-  if(firebase.auth().currentUser){
-    uid = firebase.auth().currentUser.uid;
-  }
+  var user = firebase.auth().currentUser;
 
-  if(uid){
-    var getName = firebase.database().ref('users/' + uid + '/name');
-    getName.once('value').then(function(snapshot){
-        userName = snapshot.val();
-        console.log('받아옴 ' + userName);
-        console.log(userName + ' is login');
-        res.render('freeForum', {userName : userName, pageNo : page});
-    });
+  if(user){
+    var userName = user.displayName;
+    console.log('받아옴 ' + userName);
+    console.log(userName + ' is login');
+    res.render('freeForum', {userName : userName, pageNo : page});
   }else{
     console.log('no login userName ' + userName);
     res.render('freeForum', {userName : userName, pageNo : page});
@@ -137,18 +111,13 @@ app.get('/tripForum', function(req, res){
     page = 1;
   }
 
-  if(firebase.auth().currentUser){
-    uid = firebase.auth().currentUser.uid;
-  }
+  var user = firebase.currentUser;
 
-  if(uid){
-    var getName = firebase.database().ref('users/' + uid + '/name');
-    getName.once('value').then(function(snapshot){
-        userName = snapshot.val();
-        console.log('받아옴 ' + userName);
-        console.log(userName + ' is login');
-        res.render('tripForum', {userName : userName, pageNo : page});
-    });
+  if(user){
+    var userName = user.displayName;
+    console.log('받아옴 ' + userName);
+    console.log(userName + ' is login');
+    res.render('tripForum', {userName : userName, pageNo : page});
   }else{
     console.log('no login userName ' + userName);
     res.render('tripForum', {userName : userName, pageNo : page});

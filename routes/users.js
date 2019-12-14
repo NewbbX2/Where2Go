@@ -25,22 +25,31 @@ app.get('/join', function(req, res){
 
 app.post('/userJoinAction', function(req, res){
   console.log(req.body);
-  firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error){
+  firebase.auth().createUserWithEmailAndPassword(req.body.userID, req.body.userPassword1
+  ).then(
+
+  ).catch(function(error){
   //firebase.auth().createUserWithEmailAndPassword('test@test.com','123123').catch(function(error){
     console.log(error);
-    res.send("<script>alert('회원가입 오류')</script>");
+    res.send("<script>alert('회원가입 오류');"
+    +"document.location.href='../';</script>");
   });
   firebase.auth().onAuthStateChanged(function(user){
     if(user){
       firebase.database().ref('users/' + user.uid).set({
-        email: req.body.email,
-        birth: req.body.birth
+        userID: req.body.userID,
+        userName: req.body.userName,
+        userBirthDate: req.body.userBirthDate,
+        userGender: req.body.userGender
+      }).then(function(){
+        user.updateProfile({
+            displayName: req.body.userName
+        }).then(function(){
+          res.redirect('../');
+        });
       });
-      res.send('join complete');
     }
   });
-
-  res.redirect('../main');
 });
 
 app.post('/login', function(req, res, next){
