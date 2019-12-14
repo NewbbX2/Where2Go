@@ -28,9 +28,7 @@
 </header>
 <section>
 	<article id = freeForum1>
-		<div id = "upperBoardBorderSolid">
-			자유게시판
-		</div>
+		<div id = "upperBoardBorderSolid">자유게시판</div>
 		<div id = "mainBoard">
 			<table style="width:100%;text-align:center;" >
 				<thead style ="text-align:center;background-color:#B2CCFF;">
@@ -41,19 +39,16 @@
 					</tr>
 				</thead>
 				<tbody>
-
 <%//보드 내용 검색
-					//보드 에러
+						//보드 에러
 					if(boardList==""){%>
 						<tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr>
 					<%}
-					
-					//보드 검색내용 없음
-						else if(numberOfBoardListSearched==0){%>
+						//보드 검색내용 없음
+					else if(numberOfBoardListSearched==0){%>
 						<tr><td colspan = "6"><h1 >등록된 글이 없습니다..</h1></td></tr>
 					<%}
-					
-					//보드 검색중.
+						//보드 검색중.
 					else{
 						//순서검색.
 						var  NoStart = numberOfBoardListSearched-(pageNo-1)*boardIndexNoPerPage;
@@ -82,32 +77,23 @@
 			if(boardList!=""&&numberOfBoardListSearched!=0){
 				var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 				var MaxIndex=parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
-					<div id="BoardPageNo">
-						<a href="./freeForum?pageNo=<%=1%>"><<</a>
-							<%
-							//시작번호 10넘어가면 현재번호부터 10개
-							if(pageNo>10)
-							{
-								//-10돌아가는 < 추가.%>
-								<a href="./freeForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
-								<%//1페이지씩 표시.
-								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
-								{%>
-									<a href = "./freeForum?pageNo=<%=i%>"><%=i%></a>
-								<%}
-								//+10이후 더있으면 +10하는 >추가.
-								if(pageNo+10<MaxIndex){%><a href="./freeForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
-							}else{		
-							//1붙터 시작하면 10or최대값 까지
-								for(var i=1;(i<=MaxIndex);i++){%><a href = "./freeForum?pageNo=<%=i%>"><%=i%></a><%}
-							}%>
-							<a href="./freeForum?pageNo=<%=MaxIndex%>">>></a>
-					</div>
+				<div id="BoardPageNo">
+					<a href="./freeForum?pageNo=<%=1%>"><<</a>
+					<%if(pageNo>10){%>
+						<a href="./freeForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+						<%//1페이지씩 표시.
+						for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++){%>
+							<a href = "./freeForum?pageNo=<%=i%>"><%=i%></a>
+						<%}
+						if(pageNo+10<MaxIndex){%><a href="./freeForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
+					}else{		
+						for(var i=1;(i<=MaxIndex);i++){%><a href = "./freeForum?pageNo=<%=i%>"><%=i%></a><%}
+					}%>
+					<a href="./freeForum?pageNo=<%=MaxIndex%>">>></a>
+				</div>
 			<%}%>
-			
-			
 			<%if(userName!="") {%>
-					<div ><a href = "./boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
+				<div ><a href = "./boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
 			<%}%>
 			<form  action ="./freeForum"  method = "get" >
 				<select name = "Order" class =  "form-control">
