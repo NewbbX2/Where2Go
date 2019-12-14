@@ -124,5 +124,24 @@ app.get('/tripForum', function(req, res){
   }
 });
 
+//글쓰기 폼
+app.get('/boardEnroll', function(req, res){
+  var user = firebase.auth().currentUser;
+  var boardType = req.query.boardType;
+  if(user){
+    var userName = user.displayName;
+    var userID = user.email;
+    console.log('write ' + boardType);
+    res.render('boardEnroll', {userID :userID, userName : userName, boardType : boardType});
+  }else{
+    res.send("<script>alert('로그인을 해주세요');"
+    + "document.location.href='./"+ boardType +"';</script>'");
+  }
+});
+
+app.post('/boardEnrollAction', function(req, res){
+
+});
+
 
 module.exports = app;
