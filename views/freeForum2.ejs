@@ -3,7 +3,8 @@
 	//가져와야하는 데이터
 	var userID = "";
 	var userName="";
-	var board ="";//이거 boardNo(보드아이디말함)로 검색한 boardList[boardNo]
+	var board ="";
+	//url로 보낸 key로 검색한 보드
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -44,8 +45,8 @@
 <!--표 아랫부분  -->											
 			<div >
 			<%if((board.boardWriterID==userID)){%>
-				<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?boardNo=<%=board.boardNo%>">수정</a>
-				<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?boardNo=<%=board.boardNo%>">삭제</a>
+				<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?eky=<%=board.key%>">수정</a>
+				<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?key=<%=board.key%>">삭제</a>
 			<%}%>
 			</div>
 			
@@ -62,10 +63,3 @@
 </footer>
 </body>
 </html>
-
-
-
-
-
-
-
