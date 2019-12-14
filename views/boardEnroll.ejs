@@ -18,7 +18,7 @@
 	
 	<body >
 			<form action="./boardEnrollAction" method="post" >
-				<input type = "text" name = "boardWriterID" class = "form-control"  value = "<%=userID%>" style = "display:none;">
+				<input type = "text" name = "boardWriterID"  value = "<%=userID%>" style = "display:none;">
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
@@ -29,7 +29,7 @@
 					</option>
 				</select><br>
 				
-				<%if(boardType==freeForum){%>
+				<%if(boardType=="freeForum"){%>
 					<select name = "boardClassfy" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
 				<%}else{%>
 					<label>게시판분류</label>
@@ -60,7 +60,7 @@
 					<select name = "tirpFroumMon" style="display: none;"><option value="-1" style="display:none"></option></select>
 				<%}%>
 				<label>게시판제목</label>
-				<input type = "text" name = "boardTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<input type = "text" name = "boardTitle" maxlength = "30" style = "width:300px"><br />
 				
 				<label>작성자이름</label>
 				<select name = "boardWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
