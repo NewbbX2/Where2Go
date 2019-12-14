@@ -4,23 +4,56 @@ var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
+//게시판 로드시 사용되는 함수
+var initBoard = function(boardType, path, page, req, res){
+  console.log(boardType + ' load');
+  var page;
+  var userName;
+  var rows = [];
+  if(firebase.auth().currentUser){
+    userName = firebase.auth().currentUser.displayName;
+    console.log(userName + ' is LogIn');
+  }
+  firebase.database().ref('/boards').once('value').then(function(snapshot){
+    snapshot.forEach(function(childSnapshot){
+      var childData = childSnapshot.val();
+      if(childData.boardType == boardType){
+        rows.push(childData);
+        res.render(path, {boardList : rows, userName : userName, pageNo : page});
+      }
+    });
+  });
+}
+
+//게시물 로드시 사용되는 함수
+var initContent = function(key, path, req, res){
+  var userName;
+  var userID;
+  var board;
+  if(firebase.auth().currentUser){
+    userName = firebase.auth().currentUser.displayName;
+    userID = firebase.auth().currentUser.email;
+    console.log(userName + ' is LogIn');
+  }
+  firebase.database().ref('/boards').once('value').then(function(snapshot){
+    snapshot.forEach(function(childSnapshot){
+      var childData = childSnapshot.val();
+      if(childData.key == key){
+        board = childData;
+        res.render(path, {board : board, userName : userName, userID : userID});
+      }
+    });
+  });
+}
+
+
 //계획 게시판
 app.get('/plan', function(req, res){
   var page = req.query.pageNo;
   if(!page){
     page = 1;
   }
-
-  var user = firebase.auth().currentUser;
-  if(user){
-    var userName = user.displayName;
-        console.log('받아옴 ' + userName);
-        console.log(userName + ' is login');
-        res.render('index', {userName : userName, pageNo : page});
-  }else{
-    console.log('no login');
-    res.render('index', {userName : userName, pageNo : page});
-  }
+  initBoard('plan','plan', page, req, res);
 });
 
 app.get('/index2', function(req, res){
@@ -50,19 +83,8 @@ app.get('/tripLog', function(req, res){
   if(!page){
     page = 1;
   }
-
-  var user = firebase.auth().currentUser;
-
-  if(user){
-    var userName = user.displayName;
-    console.log(userName + ' is login');
-    res.render('tripLog', {userName : userName, pageNo : page});
-  }else{
-    console.log('no login userName ' + userName);
-    res.render('tripLog', {userName : userName, pageNo : page});
-  }
+  initBoard('tripLog','tripLog', page, req, res);
 });
-
 
 
 //해외 게시판
@@ -71,17 +93,8 @@ app.get('/countryForum', function(req, res){
   if(!page){
     page = 1;
   }
+  initBoard('countryForum','countryForum', page, req, res);
 
-  var user = firebase.auth().currentUser;
-
-  if(user){
-    var userName = user.displayName;
-    console.log(userName + ' is login');
-    res.render('countryForum', {userName : userName, pageNo : page});
-  }else{
-    console.log('no login userName ' + userName);
-    res.render('countryForum', {userName : userName, pageNo : page});
-  }
 });
 
 //자유게시판
@@ -90,18 +103,18 @@ app.get('/freeForum', function(req, res){
   if(!page){
     page = 1;
   }
+  initBoard('freeForum','freeForum', page, req, res);
+});
 
-  var user = firebase.auth().currentUser;
-
-  if(user){
-    var userName = user.displayName;
-    console.log('받아옴 ' + userName);
-    console.log(userName + ' is login');
-    res.render('freeForum', {userName : userName, pageNo : page});
+app.get('/freeForum2', function(req, res){
+  var key = req.query.key;
+  if(key){
+    initContent(key, 'freeForum2', req, res);
   }else{
-    console.log('no login userName ' + userName);
-    res.render('freeForum', {userName : userName, pageNo : page});
+    res.send("<script>alert('존재하지 않는 게시물입니다');"
+    + "document.location.href=document.referrer;</script>");
   }
+
 });
 
 //여행 게시판
@@ -110,18 +123,7 @@ app.get('/tripForum', function(req, res){
   if(!page){
     page = 1;
   }
-
-  var user = firebase.currentUser;
-
-  if(user){
-    var userName = user.displayName;
-    console.log('받아옴 ' + userName);
-    console.log(userName + ' is login');
-    res.render('tripForum', {userName : userName, pageNo : page});
-  }else{
-    console.log('no login userName ' + userName);
-    res.render('tripForum', {userName : userName, pageNo : page});
-  }
+  initBoard('tripForum','tripForum', page, req, res);
 });
 
 //글쓰기 폼
