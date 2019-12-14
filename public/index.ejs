@@ -1,0 +1,161 @@
+<%
+var[] travelBoardList;
+
+
+
+%>
+	
+<%//유저 아이디 불러오기.
+String userID = null;;String userName=null;
+if(session.getAttribute("userID")!=null)
+{
+	userID = (String) session.getAttribute("userID");
+}
+
+	//보드 대분류
+	String travelClassfy="tripPlan";
+	//검색사안
+	String search = null;
+	//페이지당 보드 출력수.
+	int boardIndexNoPerPage=15;
+	
+	
+	if(request.getParameter("search")!=null)
+	{try{search = (String)(request.getParameter("search"));}catch(Exception e){System.out.println("검색에러");}}
+
+
+
+	ArrayList<TripDTO> tripBoardList = new  ArrayList<TripDTO>();
+	int pageNo=1;
+	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
+	if(request.getParameter("pageNo")!=null){try{pageNo = Integer.parseInt(request.getParameter("pageNo"));}catch(Exception e){System.out.println("검색에러");}}
+
+%>
+
+
+
+<!DOCTYPE html>
+<html>
+  <head>
+		<meta charset = "UTF-8">
+		<title>WTG</title>
+		<head>
+			<link rel = "stylesheet" href = "./libs/jquerty-ui.min.css"/>
+			<link rel = "stylesheet" href = "./styles/styles.css"/>
+			<script src = "libs/jquery-ui.min.js"></script>
+			<script src = "scripts/scripts.js"></script>
+			<script type="text/javascript">	</script>
+		</head>
+  </head>
+  <body>
+  	<header>
+  		<%- include ../part/header.ejs %>
+  	</header>
+  	<section>
+		<article id = "index1">
+			<div id = "upperBoard">
+				<div id = "travelSearch">
+					<label>기존 여행계획을 검색하시나요?</label>
+					<form action ="./index.ejs" method = "get" id = "indexOldSearch">
+						<label>어느국가를 찾으시나요?</label>
+						<input type="text" name="countryName" />
+						<label>언제 출발하시나요?</label>
+						<input type="text" name="indexStarttDate" />
+						<label>여행일자는 몇일인가요?</label>
+						<input type="text" name="travelTatalSpanTime" />
+						<button type = "submit" class = "btn-search">검색</button>
+					</form>
+				</div>
+				<div id="travelSearchByNumber">
+					<%
+					//글수에 따라 << 1 ... 10>>, <<현재 , ... , 현재+8 >>식 이동.
+					//가장 오랜된글 >>(맨끝으로)
+					//1 : <<(최신글로)
+					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
+					if(travelBoardList!=null&&travelBoardList.size()!=0){
+						int MaxIndexAdd1=0;	
+						if(travelBoardList.size()%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
+						int MaxIndex=(travelBoardList.size()/boardIndexNoPerPage)+MaxIndexAdd1;%> 
+						<div id="BoardPageNo">
+							<a href="index.ejs?pageNo=<%=1%>"><<</a>
+							<%
+							//시작번호 10넘어가면 현재번호부터 10개
+							if(pageNo>10)
+							{
+								//-10돌아가는 < 추가.%>
+								<a href="index.ejs?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
+								<%//1페이지씩 표시.
+								for(int i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
+								{%><a href = "index.ejs?pageNo=<%=i%>"><%=i%></a><%}
+
+								//+10이후 더있으면 +10하는 >추가.
+								if(pageNo+10<MaxIndex){%><a href="index.ejs?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
+							}else{		
+							//1붙터 시작하면 10or최대값 까지
+								for(int i=1;(i<=MaxIndex);i++){%><a href = "index.ejs?pageNo=<%=i%>"><%=i%></a><%}
+							}%>
+							<a href="index.ejs?pageNo=<%=MaxIndex%>">>></a>
+						</div>
+					<%}%>
+				</div>
+				<%if(userID==null||userID.equals("")){%>
+				<%}else{ %>
+				<div id = "indexCreateNewPlan">
+					<label>새 여행플랜을 계획하시나요?</label>
+					<a href = "tripEnroll.ejs?tripType=<%=tripType%>"><button type = "submit" class = "btn-search">등록</button></a>
+				</div>
+			<%} %>
+			</div>
+					
+				
+			<div id = "mainBoard">
+				<table style="width:100%;text-align:center;" >
+						<thead style ="text-align:center;background-color:#B2CCFF;">
+					
+						<tr >
+							<th width="10%">번호</th>
+							<th width = "10%">여행국가</th>
+							<th width = "15%">여행시작</th>
+							<th width = "10%">여행총일자</th>
+							<th width = "15%">글쓴이</th>
+							<th width = "40%">제목</th>
+						</tr>
+					</thead>
+					<tbody>
+		<%//보드 내용 검색
+		//보드 에러
+					if(travelBoardList==null){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
+		//보드 검색내용 없음
+					else if(travelBoardList.size()==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
+		//보드 검색중.
+					else{
+						int  NoStart = travelBoardList.size()-(pageNo-1)*boardIndexNoPerPage;
+						int NoNextStart = NoStart-boardIndexNoPerPage;
+						for(int indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
+								<tr>
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
+									<td><a href = "index2.ejs?tripNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
+								</tr>
+						
+							<%}
+						}%>
+					</tbody>
+				</table>
+			</div>
+		</article>
+		<article id = "LoginMenu">
+			<%- include ./part/login.ejs%>
+		</article>
+  	</section>
+    <footer>
+      <%- include ../part/footer.ejs %>
+    </footer>
+  </body>
+</html>
+
+
+	
