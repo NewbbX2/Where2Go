@@ -96,18 +96,13 @@
 								<%
 								//시작번호 10넘어가면 현재번호부터 10개
 								if(pageNo>10)
-								{
-									//-10돌아가는 < 추가.%>
+								{%>
 									<a href="./tripForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
-									<%//1페이지씩 표시.
-									for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
-									{%>
+									<%for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++){%>
 										<a href= "./tripForum?pageNo=<%=i%>"><%=i%></a>
 									<%}
-									//+10이후 더있으면 +10하는 >추가.
 									if(pageNo+10<MaxIndex){%><a href="./tripForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
 								}else{		
-								//1붙터 시작하면 10or최대값 까지
 									for(var i=1;(i<=MaxIndex);i++){%><a href= "./tripForum?pageNo=<%=i%>"><%=i%></a><%}
 								}%>
 								<a href="./tripForum?pageNo=<%=MaxIndex%>">>></a>
