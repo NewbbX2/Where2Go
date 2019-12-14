@@ -18,6 +18,7 @@ var initBoard = function(boardType, path, page, req, res){
     snapshot.forEach(function(childSnapshot){
       var childData = childSnapshot.val();
       if(childData.boardType == boardType){
+        childData.key = childSnapshot.key;
         rows.push(childData);
         res.render(path, {boardList : rows, userName : userName, pageNo : page});
       }
@@ -37,9 +38,8 @@ var initContent = function(key, path, req, res){
   }
   firebase.database().ref('/boards').once('value').then(function(snapshot){
     snapshot.forEach(function(childSnapshot){
-      var childData = childSnapshot.val();
-      if(childData.key == key){
-        board = childData;
+      if(childSnapshot.key == key){
+        board = childSnapshot.val();
         res.render(path, {board : board, userName : userName, userID : userID});
       }
     });
