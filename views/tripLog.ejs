@@ -31,7 +31,7 @@ numberOfBoardListSearched=travelBoardList.length;
   </head>
   <body>
   	<header>
-		<%- include ('./part/login.ejs') %>
+		<%- include ('./part/header.ejs') %>
   	</header>
   	<section>
 		<article id = "index1">
@@ -113,12 +113,12 @@ numberOfBoardListSearched=travelBoardList.length;
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
-									<td><a href = "./tripLog2?travelNo=<%=travelBoardList[indexNo].travelNo%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelCountry%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelStartDate%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelTatalSpanTime%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelWriter%></a></td>	
+									<td><a href = "./tripLog2?key=<%=travelBoardList[indexNo].key%>" style="text-decoration:none;color:black"><%=travelBoardList[indexNo].travelContent%></a></td>	
 								</tr>
 						
 							<%}
@@ -136,6 +136,3 @@ numberOfBoardListSearched=travelBoardList.length;
     </footer>
   </body>
 </html>
-
-
-	
