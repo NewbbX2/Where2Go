@@ -140,7 +140,24 @@ app.get('/boardEnroll', function(req, res){
 });
 
 app.post('/boardEnrollAction', function(req, res){
-
+  var boardKey = firebase.database().ref().child('boards').push().key;
+  firebase.database().ref('boards/' + boardKey).set({
+    boardWriterID : firebase.auth().currentUser.email,
+    boardType : req.body.boardType,
+    boardClassfy : req.body.boardClassfy,
+    boardTitle : req.body.boardTitle,
+    boardWriter : req.body.boardWriter,
+    boardContent : req.body.boardContent
+  }).catch(function(error){
+    console.log(error);
+    res.send("<script>alert('작성 실패');"
+    + "document.location.href='./"+ boardType +"';</script>'");
+  });
+  if(req.body.tripForumMon){
+    firebase.database().ref('boards/' + boardkey).set({
+      tripForumMon : tripForumMon
+    });
+  }
 });
 
 
