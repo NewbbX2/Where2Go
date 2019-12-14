@@ -7,6 +7,7 @@ require('firebase/database');
 var userName;
 var uid;
 
+//계획 게시판
 app.get('/plan', function(req, res){
   var page = req.query.pageNo;
   if(!page){
@@ -31,6 +32,28 @@ app.get('/plan', function(req, res){
   }
 });
 
+app.get('/index2', function(req, res){
+var key = req.query.travelNo;
+firebase.database().ref('/plan/'+key).once('value').then(function(snapshot){
+    if(snapshot.val()){
+      console.log('watch ' + snapshot.val());
+      var travelBoard = snapshot.val();
+      var userID;
+      var userName;
+      uid = firebase.auth().currentUser.uid;
+      firebase.database().ref('/users/' + uid).once('value').then(function(snapshot){
+        userID = snapshot.val().email;
+        userName = snapshot.val().userName;
+      });
+      res.render('index2', {travelBoard : travelBoard});
+    }else{
+      res.send("<script>alert('게시물이 존재하지 않습니다');"
+      + "document.location.href='./plan'</script>'");
+    }
+  });
+});
+
+//일지 게시판
 app.get('/tripLog', function(req, res){
   var page = req.query.pageNo;
   if(!page){
@@ -55,6 +78,9 @@ app.get('/tripLog', function(req, res){
   }
 });
 
+
+
+//해외 게시판
 app.get('/countryForum', function(req, res){
   var page = req.query.pageNo;
   if(!page){
@@ -79,6 +105,7 @@ app.get('/countryForum', function(req, res){
   }
 });
 
+//자유게시판
 app.get('/freeForum', function(req, res){
   var page = req.query.pageNo;
   if(!page){
@@ -103,6 +130,7 @@ app.get('/freeForum', function(req, res){
   }
 });
 
+//여행 게시판
 app.get('/tripForum', function(req, res){
   var page = req.query.pageNo;
   if(!page){
