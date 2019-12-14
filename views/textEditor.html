@@ -33,45 +33,41 @@ $(document).ready(function() {
 
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
-		<input type="text" name="board" style="width: 40%;" placeholder="게시판 종류"/>
+		<input type="text" name="boardType" style="width: 40%;" placeholder="게시판 종류"/>
 		<input type="text" name="region" style="width: 100%;" placeholder="국가"/>
-		<input type="text" name="title" style="width: 100%;" placeholder="글 제목"/>
-		<input type="text" name="writer" style="width: 40%;" placeholder="작성자 이름"/>
+		<input type="text" name="boardTitle" style="width: 100%;" placeholder="글 제목"/>
+		<input type="text" name="boardWriter" style="width: 40%;" placeholder="작성자 이름"/>
 		<input type="text" name="tripstart" style="width: 60%;" placeholder="여행 시작일"/>
 		<input type="text" name="tripend" style="width: 60%;" placeholder="여행 종료일"/>
 		<br><br> 
-		<textarea id="summernote" name="content"></textarea>
+		<textarea id="summernote" name="boardContent"></textarea>
 		<input id="subBtn" type="button" value="등록하기" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>
 <script>
 function goWrite(frm) {
-	var title = frm.title.value;
-	var writer = frm.writer.value;
-	var content = frm.content.value;
-	var board = frm.content.value;
-	var region = frm.content.value;
-	var tripstart = frm.content.value;
-	var tripend = frm.content.value;
+	var boardTitle = frm.boardTitle.value;
+	var boardWriter = frm.boardWriter.value;
+	var boardContent = frm.boardContent.value;
+	var boardType = frm.boardType.value;
+	var region = frm.region.value;
+	var tripstart = frm.tripstart.value;
+	var tripend = frm.tripend.value;
 	
-	if (title.trim() == ''){
+	if (boardTitle.trim() == ''){
 		alert("제목을 입력해주세요");
 		return false;
 	}
-	if (writer.trim() == ''){
-		alert("작성자를 입력해주세요");
+	if (boardWriter.trim() == ''){
+		alert("작성자가 없습니다.");
 		return false;
 	}
-	if (content.trim() == ''){
+	if (boardContent.trim() == ''){
 		alert("내용을 입력해주세요");
 		return false;
 	}
-	if (board.trim() == ''){
+	if (boardType.trim() == ''){
 		alert("게시판을 입력해주세요");
-		return false;
-	}
-	if (content.trim() == ''){
-		alert("내용을 입력해주세요");
 		return false;
 	}
 	if (tripstart.trim() == ''){
