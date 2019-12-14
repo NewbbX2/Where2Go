@@ -1,0 +1,167 @@
+<%
+//가져와야하는 데이터
+var userID = "";
+var userName="";
+var travelBoard ="";//이거 travelNo(보드아이디말함)로 검색한 travelBoardList[travelNo]
+//페이지번호
+var pageNo=1;
+%>
+
+
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset = "UTF-8">
+		<title>WTG</title>
+		<link rel = "stylesheet" href = "./styles/styles.css"/>
+<%
+	function renewContent()
+	{
+		var CL="";
+		var CR="";
+		if(PageNo==1)
+		{
+			CL=travelBoard.travelContent1;
+			CR=travelBoard.travelContent2;
+		}
+		else if(PageNo==2)
+		{
+			CL=travelBoard.travelContent2;
+			CR=travelBoard.travelContent3;
+		}
+		else if(PageNo==3)
+		{
+			CL=travelBoard.travelContent3;
+			CR=travelBoard.travelContent4;
+		}
+		else if(PageNo==4)
+		{
+			CL=travelBoard.travelContent4;
+			CR=travelBoard.travelContent5;
+		}
+		else if(PageNo==5)
+		{
+			CL=travelBoard.travelContent5;
+			CR=travelBoard.travelContent6;
+		}
+		else if(PageNo==6)
+		{
+			CL=travelBoard.travelContent6;
+			CR=travelBoard.travelContent7;
+		}
+		else if(PageNo==7)
+		{
+			CL=travelBoard.travelContent7;
+			CR=travelBoard.travelContent8;
+		}
+		else if(PageNo==8)
+		{
+			CL=travelBoard.travelContent8;
+			CR=travelBoard.travelContent9;
+		}
+		else if(PageNo==9)
+		{
+			CL=travelBoard.travelContent9;
+			CR=travelBoard.travelContent10;
+		}
+		else{
+			pageNo==1;
+			CL=travelBoard.travelContent1;
+			CR=travelBoard.travelContent2;
+		}
+
+		document.getElementById("travelContentL").innerHTML = CL;
+		document.getElementById("travelContentR").innerHTML = CR;
+
+
+	}
+	function pageUp() {
+		pageNo+=1;
+		renewContent();
+
+	}
+	function pageDown()
+	{
+		pageNo-=1;
+		renewContent();
+	}
+
+}%>
+		</script>
+	</head>
+	<body>
+		<header>
+			<%- include ('./part/header.ejs') %>
+		</header>
+  		<section>
+			<article id = "index1">
+				<div id = "upperBoardBorderSolid">
+					<%
+						//지도들어가는자리.
+						//travelMapPos1부터 travelMapPos10까지 받음
+					%>
+				</div>
+
+				<div id = "mainBoard">
+					<table style="width:100%;table-layout:fixed" >
+							<thead style ="text-align:center;">
+								<tr style = "background-color:#B2CCFF">
+									<th width = "10%">나라</th>
+									<th width = "20%"><%=travelBoard.travelCountry%></th>
+									<th width = "10%">제목</th>
+									<th width = "60%"><%=travelBoard.travelTitle%></th>
+								</tr>
+								<tr>
+									<th width = "10%">출발일</th>
+									<th width = "25%"><%=travelBoard.travelStartDate%></th>
+									<th width = "10%">총여행기간</th>
+									<th width = "25%"><%=+travelBoard.travelTatalSpanTime%></th>
+									<th width = "10%">작성자</th>
+									<th width = "20%"><%=travelBoard.travelWriter%></th>
+								
+								</tr>
+								<tr style = "background-color:#B2CCFF">
+									<th colspan="3"><%=pageNo%>일차</th>
+									<th colspan="3"><%=pageNo+1%>일차</th>
+								</tr>
+							</thead>
+							<tbody >
+								<td colspan = "3" id="travelContentL"><%=travelBoard.travelContent1%></td>
+								<td colspan = "3" id="travelContentR"><%=travelBoard.travelContent2%></td>
+							</tbody>
+						</table>
+				</div>
+														
+				<div >
+					<%if(pageNo<9)
+					{%>
+						<button onclick="pageUp()" >다음페이지로</button>
+					<%}
+					if(pageNo>1)
+					{%>
+						<button onclick="pageDown()" >이전페이지로</button>=
+					<%}
+					if((travelBoard.travelWriterID==userID)){%>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?travelNo=<%=travelBoard.travelNo%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?travelNo=<%=travelBoard.travelNo%>">삭제</a>
+				<%}%>
+				</div>
+			</article>
+			<article id = "LoginMenu">
+				<%- include ('./part/login.ejs')%>
+			</article>
+		</section>
+		<footer>
+			<%- include ('./part/footer.ejs') %>
+		</footer>
+	</body>
+	</html>
+	
+	
+	
+	
+	
+	
+	
+	
