@@ -1,30 +1,10 @@
 <% //받아와야 하는것
-	var userID = "";
-	var userName = "";
+	//	var userID = "";	유저아이디
+	//	var userName = "";	유저명
+	//request에서 가져온 boardType
+	var boardType="";;
 %>
 
-<%
-//request에서 가져온 boardType
-var boardType="";;
-
-
-<%
-	var adr = loaction.search;
-	var res = ard.split("&");
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==boardType)
-			{
-				boardType=parseInt(r.split("=")[1]);
-			}
-
-		}
-	}
-%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -55,8 +35,7 @@ var boardType="";;
 						<option value="Korea">한국</option>
 						<option value="China">중국</option>
 						<option value="Japan">일본</option>
-					<%}
-					else if(boardType=="freeForum"){%>
+					<%}else if(boardType=="freeForum"){%>
 						<option value="Free">자유게시판</option>
 					<%}%>
 				</select><br>
