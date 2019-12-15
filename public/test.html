@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <html>
-<head></head>
-
+<head>
+<meta charset="UTF-8">
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
 
@@ -17,6 +18,8 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
+</head>
+
 <script>
 $(document).ready(function() {
   $('#summernote').summernote({placeholder: 'content',
@@ -27,26 +30,26 @@ $(document).ready(function() {
 });
 </script>
 
-<!--summernote에디터 위치, 제목/textarea 입력-->
+<!-- //Summernote Editer, title/textarea -->
 <body>
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
-		<input type="text" name="boardTitle" style="width: 100%;" placeholder="글 제목"/>
+		<input type="text" name="boardTitle" style="width: 100%;" placeholder="Title"/>
 		<br><br> 
 		<textarea id="summernote" name="content"></textarea>
-		<input id="subBtn" type="button" value="등록하기" style="float: right;" onclick="goWrite(this.form)"/>
+		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>
 
 
-	<!--정상적으로 content에 내용 들어가는지 테스트용 div-->
+	<!-- test for summernote in cotent -->
 	<div id="test">
 		 aaa
 	</div>
 
 
 <script>
-//에디터에서 입력한 정보 비었는지 체크하고 firebase서버로 전송
+// check before upload
 function goWrite(frm) {
 	var boardTitle = frm.boardTitle.value;
 	var content = frm.content.value;
@@ -54,16 +57,16 @@ function goWrite(frm) {
 		$("#test").html(content);
 	
 	if (boardTitle.trim() == ''){
-		alert("제목을 입력해주세요");
+		alert("plz insert title");
 		return false;
 	}
 	if (content.trim() == ''){
-		alert("내용을 입력해주세요");
+		alert("plz insert content");
 		return false;
 	}
 	//일단은 제목과 내용만 보내게 코드 짬
 	submitDB(frm.boardTitle.value, frm.content.value);
-	//밑에 2줄이 있어야 정상작동
+	//must have 2line above 밑에 2줄이 있어야 정상작동
 	$('.summernote').append('<input type="hidden" name="content", id="content" />');
 	$('#content').val($('.summernote').code());
 
@@ -75,7 +78,7 @@ function goWrite(frm) {
 
 
 <script>
-//파이어베이스 코드
+//firebase upload code
 function submitDB(btitle, bcontent){
   // Your web app's Firebase configuration
   var firebaseConfig = {
