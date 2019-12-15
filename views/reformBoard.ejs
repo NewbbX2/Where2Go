@@ -28,13 +28,13 @@
 				</select><br>
 				
 				<%if(board.boardType=="freeForum"){%>
-					<select name = "boardClassfy" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
+					<select name = "boardclassify" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
 				<%}else{%>
 					<label>게시판분류</label>
-					<select name = "boardClassfy">
-						<option value="Korea"	<%if(board.boardClassfy=="Korea"){%>selected<%}%>	>한국</option>
-						<option value="China"	<%if(board.boardClassfy=="China"){%>selected<%}%>	>중국</option>
-						<option value="Japan"	<%if(board.boardClassfy=="Japan"){%>selected<%}%>	>일본</option>
+					<select name = "boardclassify">
+						<option value="Korea"	<%if(board.boardclassify=="Korea"){%>selected<%}%>	>한국</option>
+						<option value="China"	<%if(board.boardclassify=="China"){%>selected<%}%>	>중국</option>
+						<option value="Japan"	<%if(board.boardclassify=="Japan"){%>selected<%}%>	>일본</option>
 					</select>
 					<br>
 				<%}%>
@@ -67,7 +67,7 @@
 						<%=board.boardWriter%>
 					</option>
 				</select><br>
-				
+
 				
 				<label>본문</label>
 				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"
