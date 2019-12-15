@@ -63,9 +63,9 @@
 							<tr>
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black">
-									<%if(boardList[indexNo-1].boardClassfy=="Korea"){%>한국
-									<%}else if(boardList[indexNo-1].boardClassfy=="Japan"){%>일본
-									<%}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국
+									<%if(boardList[indexNo-1].boardClassify=="Korea"){%>한국
+									<%}else if(boardList[indexNo-1].boardClassify=="Japan"){%>일본
+									<%}else if(boardList[indexNo-1].boardClassify=="China"){%>중국
 									<%}%>
 								</a></td>
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
@@ -116,7 +116,7 @@
 						<div ><a href= "./boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
 				<%}%>
 				<form action ="./countryForum" method = "get" >
-					<select name = "boardClassfy" class =  "form-control">
+					<select name = "boardClassify" class =  "form-control">
 						<option   value = "All" selected > 나라</option>
 						<option value = "Japan" > 일본</option>
 						<option value = "Korea" > 한국</option>
