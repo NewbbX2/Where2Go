@@ -75,9 +75,5 @@
 				
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<%if(userID==null||userID==""){%>
-				<a href = "./"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
-			<%}else{ %>
-				<a href = "./<%= board.boardType%>"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
-			<%} %>
+			<a href = "./<%= board.boardType%>"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 </html>
