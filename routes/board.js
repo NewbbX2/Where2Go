@@ -174,16 +174,50 @@ app.post('/boardEnrollAction', function(req, res){
   });
 });
 
-app.get('/deleteActionBoard', function(req, res){
-  if(!firebase.auth().currentUser){
-    res.send("<script>alert('로그인 하세요');"
-    + "document.location.href='/';</script>'");
+//여행 계획 글쓰기 폼
+app.get('/travelEnroll', function(req, res){
+  res.render('travelEnroll');
+});
+
+app.post('/travelEnrollAction', function(req, res){
+  var travelKey = firebase.database().ref().child('travels').push().key;
+  console.log(req.body);
+  var data = {
+    travelTotalSpanTime : req.body.travelTotalSpanTime,
+    travelWriterID : req.body.travelWriter,
+    travelClassify : req.body.travelClassify,
+    travelTitle : req.body.travelTitle,
+    travelStartDate : req.body.travelStartDate,
+    travelCountry : req.body.travelCountry,
+    travelWriter : req.body.travelWriter
+  };
+  var day = 1;
+  while(req.body['travelMapPos' + day]){
+    data['travelMapPos' + day] = req.body['travelMapPos' + day];
+    data['travelContent' + day] = req.body['travelContent' + day];
   }
+  firebase.database().ref('travels/' + travelKey).set(data).then(function(){
+    res.send("<script>alert('등록되었습니다');"
+    + "document.location.href='./"+ req.body.boardType +"';</script>'");
+  }).catch(function(error){
+    console.log(error);
+    res.send("<script>alert('작성 실패');"
+    + "document.location.href='./"+ boardType +"';</script>'");
+  });
+});
+
+app.get('/deleteActionBoard', function(req, res){
+
   var key = req.query.key;
   var boardType;
   firebase.database().ref('boards/' + key).once('value', function(snapshot){
     boardType = snapshot.val().boardType;
   }).then(function(){
+    if(!firebase.auth().currentUser){
+      res.send("<script>alert('로그인 하세요');"
+      + "document.location.href='"+ boardType +"';</script>'");
+      return;
+    }
     firebase.database().ref('/boards/' + key).remove().then(function(){
       console.log(key + ' is deleted');
       res.send("<script>alert('삭제되었습니다');"
