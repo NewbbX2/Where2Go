@@ -16,7 +16,9 @@
 	
 	<body >
 			<form action="./reformBoardAction" method="post" >
+				<input type = "text" name = "boardKey"  value = "<%=board.boardKey%>" style = "display:none;">
 				<input type = "text" name = "boardWriterID"  value = "<%=board.boardWriterID%>" style = "display:none;">
+			
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
@@ -70,8 +72,7 @@
 
 				
 				<label>본문</label>
-				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"
-				><%=board.boardContent%></textarea><br/>
+				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"><%=board.boardContent%></textarea><br/>
 				
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
