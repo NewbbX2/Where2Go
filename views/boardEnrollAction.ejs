@@ -1,47 +1,11 @@
 <%
-var boardWriterID = "";
-var boardType="";
-var boardClassfy = "";
-var boardTitle = "";
-var boardWriter= 0;
-var boardContent= 0;
-var tirpFroumMon=-1;
-
-if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==("boardWriterID"))
-			{
-				boardWriterID=r.split("=")[1];
-			}
-      else if(r.split("=")[0]==("boardType"))
-			{
-				boardType=r.split("=")[1];
-			}
-      if(r.split("=")[0]==("boardClassfy"))
-			{
-				boardClassfy=r.split("=")[1];
-			}
-      if(r.split("=")[0]==("boardTitle"))
-			{
-				boardTitle=r.split("=")[1];
-			}
-      if(r.split("=")[0]==("boardWriter"))
-			{
-				boardWriter=r.split("=")[1];
-			}
-      if(r.split("=")[0]==("boardContent"))
-			{
-				boardContent=r.split("=")[1];
-			}
-      if(r.split("=")[0]==("tirpFroumMon"))
-			{
-				tirpFroumMon=r.split("=")[1];
-			}
-    }
-	}
+var boardWriterID = "";//작성자아이디
+var boardType="";//타입
+var boardClassify = "";//분류
+var boardTitle = "";//타이틀
+var boardWriter= 0;//작성자명
+var boardContent= 0;//본문
+var tripForumMon=-1;//여행게시글 달
 
 {%>
     
@@ -52,8 +16,8 @@ if(res.length!=0)
   <body>
 
     <%
-    if(boardWriterID ==null||boardType == null||boardClassfy == null|| boardTitle == null||boardWriter == null||boardContent == null
-        ||boardWriterID==""||boardType==""||boardClassfy==""||boardTitle==""||boardWriter==""||boardContent=="" 	)
+    if(boardWriterID ==null||boardType == null||boardClassify == null|| boardTitle == null||boardWriter == null||boardContent == null
+        ||boardWriterID==""||boardType==""||boardClassify==""||boardTitle==""||boardWriter==""||boardContent=="" 	)
     <%{
             <a href = "./boardEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
@@ -65,7 +29,7 @@ if(res.length!=0)
  //중복있으면 돌려보내기.
  //DB없으면 오류인데 이건 안해도될듯.
  //중복없으면 생성
-    }
+
 
     %>
 
