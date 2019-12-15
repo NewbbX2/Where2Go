@@ -23,11 +23,11 @@ $(document).ready(function() {
 	        minHeight: 400,
 	        maxHeight: null,
 	        focus: true, 
-	        lang : 'ko-KR'});
+	        lang : 'ko-KR'});//에디터 크기 설정
 });
 </script>
 
-
+<!--summernote에디터 위치, 제목/textarea 입력-->
 <body>
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
@@ -38,12 +38,15 @@ $(document).ready(function() {
 	</form>
 </div>
 
+
+	<!--정상적으로 content에 내용 들어가는지 테스트용 div-->
 	<div id="test">
 		 aaa
 	</div>
 
-<!--넣기 전에 데이터가 적절한지 체크-->
+
 <script>
+//에디터에서 입력한 정보 비었는지 체크하고 firebase서버로 전송
 function goWrite(frm) {
 	var boardTitle = frm.boardTitle.value;
 	var content = frm.content.value;
@@ -58,16 +61,21 @@ function goWrite(frm) {
 		alert("내용을 입력해주세요");
 		return false;
 	}
+	//일단은 제목과 내용만 보내게 코드 짬
 	submitDB(frm.boardTitle.value, frm.content.value);
+	//밑에 2줄이 있어야 정상작동
 	$('.summernote').append('<input type="hidden" name="content", id="content" />');
-	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
 	$('#content').val($('.summernote').code());
+
+
+	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
 	frm.submit();
 }
 </script>
 
 
 <script>
+//파이어베이스 코드
 function submitDB(btitle, bcontent){
   // Your web app's Firebase configuration
   var firebaseConfig = {
