@@ -28,15 +28,16 @@
 	</head>
 
 <script>
-$(document).ready(function() {
-  $('#summernote').summernote({placeholder: 'content',
+	$(document).ready(function() {
+		$('#summernote').summernote({placeholder: 'content',
 	        minHeight: 400,
 	        maxHeight: null,
 	        focus: true, 
 	        lang : 'ko-KR'});//에디터 크기 설정
-});
-$('.summernote').append('<input type="hidden" name="boardContent", id="content" />');
-$('#boardContent').val($('.summernote').code());
+	});
+
+	$('.summernote').append('<input type="hidden" name="boardContent", id="content" />');
+	$('#boardContent').val($('.summernote').code());
 </script>
 	
 	<body>
