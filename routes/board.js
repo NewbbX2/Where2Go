@@ -153,27 +153,21 @@ app.get('/boardEnroll', function(req, res){
 app.post('/boardEnrollAction', function(req, res){
   var boardKey = firebase.database().ref().child('boards').push().key;
   console.log(req.body);
-  firebase.database().ref('boards/' + boardKey).set({
+  var data = {
     boardWriterID : firebase.auth().currentUser.email,
     boardType : req.body.boardType,
-    boardClassfy : req.body.boardClassfy,
+    boardClassify : req.body.boardClassify,
     boardTitle : req.body.boardTitle,
     boardWriter : req.body.boardWriter,
     boardContent : req.body.boardContent
-  }).then(function(){
-    if(req.body.tripForumMon){
-      firebase.database().ref('boards/' + boardkey).set({
-        tripForumMon : tripForumMon
-      }).then(function(){
-        res.send("<script>alert('등록되었습니다');"
-        + "document.location.href='./"+ req.body.boardType +"';</script>'");
-      });
-    }else{
-      res.send("<script>alert('등록되었습니다');"
-      + "document.location.href='./"+ req.body.boardType +"';</script>'");
-    }
+  };
+  if(req.body.tripForumMon){
+    data.tripForumMon = req.body.tripForumMon;
   }
-  ).catch(function(error){
+  firebase.database().ref('boards/' + boardKey).set(data).then(function(){
+    res.send("<script>alert('등록되었습니다');"
+    + "document.location.href='./"+ req.body.boardType +"';</script>'");
+  }).catch(function(error){
     console.log(error);
     res.send("<script>alert('작성 실패');"
     + "document.location.href='./"+ boardType +"';</script>'");
@@ -181,7 +175,7 @@ app.post('/boardEnrollAction', function(req, res){
 });
 
 app.get('/deleteActionBoard', function(req, res){
-  if(firebase.auth().currentUser){
+  if(!firebase.auth().currentUser){
     res.send("<script>alert('로그인 하세요');"
     + "document.location.href='/';</script>'");
   }
