@@ -1,0 +1,83 @@
+<% //받아와야 하는것
+
+	//이전페이지에 가져온 key로 검색한 board
+%>
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>보드글입니다.</title>
+		<style>
+			body			{	height:100%;	width: 1000px;}
+			label			{display: inline-block;	width: 400px;}
+			#MainConsult	{width: 1500px;	height:500px;}
+		</style>
+	</head>
+	
+	<body >
+			<form action="./boardEnrollAction" method="post" >
+				<input type = "text" name = "boardWriterID"  value = "<%=board.boardWriterID%>" style = "display:none;">
+			
+				<label>게시판종류</label>
+				<select name = "boardType">
+					<option value="<%=board.boardType%>">
+						<%if(board.boardType=="tripForum"){%>여행게시판<%}%>
+						<%if(board.boardType=="countryForum"){%>해외포럼<%}%>
+						<%if(board.boardType=="freeForum"){%>자유게시판<%}%>
+					</option>
+				</select><br>
+				
+				<%if(board.boardType=="freeForum"){%>
+					<select name = "boardClassfy" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
+				<%}else{%>
+					<label>게시판분류</label>
+					<select name = "boardClassfy">
+						<option value="Korea"	<%if(board.boardClassfy=="Korea"){%>selected<%}%>	>한국</option>
+						<option value="China"	<%if(board.boardClassfy=="China"){%>selected<%}%>	>중국</option>
+						<option value="Japan"	<%if(board.boardClassfy=="Japan"){%>selected<%}%>	>일본</option>
+					</select>
+					<br>
+				<%}%>
+				<%if(board.boardType=="tripForum"){%>
+					<label>몇월에 있었던 일인가요?</label>
+					<select name = "tripForumMon" >
+						<option value="1"	<%if(board.tripForumMon=="1"){%>selected<%}%>	>1월</option>
+						<option value="2"	<%if(board.tripForumMon=="2"){%>selected<%}%>	>2월</option>
+						<option value="3"	<%if(board.tripForumMon=="3"){%>selected<%}%>	>3월</option>
+						<option value="4"	<%if(board.tripForumMon=="4"){%>selected<%}%>	>4월</option>
+						<option value="5"	<%if(board.tripForumMon=="5"){%>selected<%}%>	>5월</option>
+						<option value="6"	<%if(board.tripForumMon=="6"){%>selected<%}%>	>6월</option>
+						<option value="7"	<%if(board.tripForumMon=="7"){%>selected<%}%>	>7월</option>
+						<option value="8"	<%if(board.tripForumMon=="8"){%>selected<%}%>	>8월</option>
+						<option value="9"	<%if(board.tripForumMon=="9"){%>selected<%}%>	>9월</option>
+						<option value="10"	<%if(board.tripForumMon=="10"){%>selected<%}%>	>10월</option>
+						<option value="11"	<%if(board.tripForumMon=="11"){%>selected<%}%>	>11월</option>
+						<option value="12"	<%if(board.tripForumMon=="12"){%>selected<%}%>	>12월</option>
+					</select><br>
+				<%}else{%>
+					<select name = "tripForumMon" style="display: none;"><option value="-1" style="display:none"></option></select>
+				<%}%>
+				<label>게시판제목</label>
+				<input type = "text" name = "boardTitle" maxlength = "30" style = "width:300px"
+				value = "<%=board.boardTitle%>" ><br />
+				
+				<label>작성자이름</label>
+				<select name = "boardWriter" >
+					<option value = "<%=board.boardWriter%>" selected>
+						<%=board.boardWriter%>
+					</option>
+				</select><br>
+				
+				
+				<label>본문</label>
+				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"
+				value="<%=board.boardContent%>"></textarea><br/>
+				
+				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
+			</form>
+			<%if(userID==null||userID==""){%>
+				<a href = "./"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<%}else{ %>
+				<a href = "./<%= board.boardType%>"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<%} %>
+</html>
