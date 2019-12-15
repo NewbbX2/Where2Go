@@ -156,7 +156,7 @@ app.post('/boardEnrollAction', function(req, res){
   var data = {
     boardWriterID : firebase.auth().currentUser.email,
     boardType : req.body.boardType,
-    boardClassfy : req.body.boardClassfy,
+    boardClassify : req.body.boardClassify,
     boardTitle : req.body.boardTitle,
     boardWriter : req.body.boardWriter,
     boardContent : req.body.boardContent
