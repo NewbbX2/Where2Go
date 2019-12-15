@@ -36,7 +36,7 @@ var boardIndexNoPerPage=15;
 				<tr >
 					<th width="10%">번호</th>
 					<th width="10%">분류</th>
-					<th width="15%">여핼출발월</th>
+					<th width="15%">여행출발월</th>
 					<th width = "50%">제목</th>
 					<th width = "15%">작성자</th>
 				</tr>
@@ -70,7 +70,7 @@ var boardIndexNoPerPage=15;
 								<%}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국
 								<%}%>
 							</a></td>	
-							<td><a href= "./tripForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].tripforumMon%>월</a></td>	
+							<td><a href= "./tripForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].tripForumMon%>월</a></td>	
 							
 							<td><a href= "./tripForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
 							<td><a href= "./tripForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
