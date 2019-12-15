@@ -6,14 +6,38 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
+
 		<title>보드글입니다.</title>
 		<style>
 			body			{	height:100%;	width: 1000px;}
 			label			{display: inline-block;	width: 400px;}
 			#MainConsult	{width: 1500px;	height:500px;}
 		</style>
+
+		<!-- include libraries(jQuery, bootstrap) -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+		<!-- include summernote css/js-->
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 	</head>
 	
+	<script>
+		$(document).ready(function() {
+			$('#summernote').summernote({placeholder: 'content',
+		        minHeight: 400,
+		        maxHeight: null,
+		        focus: true, 
+		        lang : 'ko-KR'});//에디터 크기 설정
+		});
+	
+		$('.summernote').append('<input type="hidden" name="boardContent", id="content" />');
+		$('#boardContent').val($('.summernote').code());
+	</script>
+
 	<body >
 			<form action="./reformBoardAction" method="post" >
 				<input type = "text" name = "key"  value = "<%=board.key%>" style = "display:none;">
@@ -72,9 +96,9 @@
 
 				
 				<label>본문</label>
-				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"><%=board.boardContent%></textarea><br/>
+				<textarea id="summernote"  name = "boardContent" style = "height:180px; width:700px;"></textarea><br/>
 				
-				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
+				<input id="subBtn" type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
 			<a href = "./<%= board.boardType%>2?key=<%=board.key%>"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 
