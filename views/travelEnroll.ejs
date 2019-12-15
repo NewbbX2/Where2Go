@@ -65,6 +65,73 @@
 					<option value="tripPlan">여행계획</option>	
 					<option value="tripLog">여행일지</option>
 				</select><br>
+				<label>제목</label><%
+//받아와야 하는사항
+	//var userID = "";
+	//var userName="";
+
+	//request에서 가져온 여행일자
+	var travelTotalSpanTime=0;
+
+%>
+<!DOCTYPE html>
+<html>
+	<script>
+	
+	function showup(){
+		travelTotalSpanTime=document.getElementByID("totalTime").value;
+		document.getElementByID("hideToDisplay").style.display="block";
+
+	}
+	
+	</script>
+
+	<head>
+		<title>당신의 여행이야기를 들려주세요.</title>
+		<style>
+			body			{	height:100%;	width: 1000px;}
+			label			{display: inline-block;	width: 400px;}
+			#MainConsult	{width: 1500px;	height:500px;}
+		</style>
+		  <style>
+			/* Set the size of the div element that contains the map */
+		   #map {
+			 height: 400px;  /* The height is 400 pixels */
+			 width: 100%;  /* The width is the width of the web page */
+			}
+		 </style>
+	</head>
+	
+
+
+
+
+
+
+
+
+	<body >
+		
+		<label >여행일자는 총 몇일인가요?</label>
+		
+		<div id="displayToHide">
+			<input type = "number" name = "totalTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
+			<button onclick="showUp()" >다음페이지로</button>
+			<a href = "./tripPlan"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+		</div>
+
+
+
+		<div id = "hideToDisplay" style="display:nene">
+			<form action="./travelEnrollAction" method="post">
+				<%// 이젠에서 받아온 여행일자랑, 아이디를 저장.%>
+				<select name = "travelTotalSpanTime" style="display: none;"><option value = <%=travelTotalSpanTime%> style="display:none"></option></select>
+				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
+				<label>게시판분류</label>
+				<select name = "travelClassify" >
+					<option value="tripPlan">여행계획</option>	
+					<option value="tripLog">여행일지</option>
+				</select><br>
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				<label>여행시작일 8자리를 넣어주세요</label><%19940415같이 8자리%>
@@ -72,7 +139,30 @@
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				<label>작성자이름</label>
-				<select name = "travelWriter" ><option value = "<%=userID%>" selected><%=userID%></option></select><br>
+				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
+				<%<for(var i=0;i<travelTotalSpanTime;i++){%>
+					<%=var lat=0; lng=0%>
+					<label><%=i%>일차</label>
+					<div id="map"></div>
+					<input type = "number" name = travelMapPos<%=i%> value=<%=Lat*1000+lng%>style="display:none">
+					<textarea  name = "travelContent<%=i%>" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
+
+				<%}%>
+				
+					
+				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
+			</form>
+			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+		</div>
+	</body>
+</html>
+				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
+				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"><br />
+				<label>여행국가</label>
+				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<label>작성자이름</label>
+				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 				<%<for(var i=0;i<travelTotalSpanTime;i++){%>
 					<%=var lat=0; lng=0%>
 					<label><%=i%>일차</label>
