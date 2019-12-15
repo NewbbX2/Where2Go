@@ -25,34 +25,42 @@ app.get('/join', function(req, res){
 
 app.post('/userJoinAction', function(req, res){
   console.log(req.body);
-  firebase.auth().createUserWithEmailAndPassword(req.body.email, req.body.password).catch(function(error){
+  firebase.auth().createUserWithEmailAndPassword(req.body.userID, req.body.userPassword1
+  ).then(
+
+  ).catch(function(error){
   //firebase.auth().createUserWithEmailAndPassword('test@test.com','123123').catch(function(error){
     console.log(error);
-    res.send("<script>alert('회원가입 오류')</script>");
+    res.send("<script>alert('회원가입 오류');"
+    +"document.location.href='../';</script>");
   });
   firebase.auth().onAuthStateChanged(function(user){
     if(user){
       firebase.database().ref('users/' + user.uid).set({
-        email: req.body.email,
-        birth: req.body.birth
+        userID: req.body.userID,
+        userName: req.body.userName,
+        userBirthDate: req.body.userBirthDate,
+        userGender: req.body.userGender
+      }).then(function(){
+        user.updateProfile({
+            displayName: req.body.userName
+        }).then(function(){
+          res.redirect('../');
+        });
       });
-      res.send('join complete');
     }
   });
-
-  res.redirect('../main');
 });
 
 app.post('/login', function(req, res, next){
   console.log(req.body);
   firebase.auth().signInWithEmailAndPassword(req.body.userID, req.body.userPassword
   ).then(function(){
-    res.redirect('/');
+    res.send('<script>document.location.href=document.referrer;</script>');
   }).catch(function(error){
   //firebase.auth().signInWithEmailAndPassword('test@testmail.com', '123123').catch(function(error){
 			console.log(error);
-      res.send("<script>alert('아이디 또는 비밀번호가 틀렸습니다')</script>");
-      res.redirect('/');
+      res.send("<script>alert('아이디 또는 비밀번호가 틀렸습니다');document.location.href=document.referrer;</script>");
 	});
 
 });
@@ -60,7 +68,7 @@ app.post('/login', function(req, res, next){
 app.get('/logout', function(req, res){
   console.log('log out');
   firebase.auth().signOut().then(function(){
-    res.redirect('/');
+    res.send('<script>document.location.href=document.referrer;</script>');
   });
 });
 

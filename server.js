@@ -30,7 +30,7 @@ app.use('/users', require('./routes/users'));
 //app.use('/main', require('./routes/main'));
 app.use('/board', require('./routes/board'));
 app.get('/',function(req, res){
-	res.redirect('/board/plan');
+	res.redirect('/board/tripPlan');
 });
 
 http.createServer(app).listen(52273, function(){

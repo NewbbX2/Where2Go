@@ -11,28 +11,6 @@ var userBirthDate= "";
 var userGender= "";
 
 
-if(res.length!=0){ for(int i=0; i<res.length;i++) {
-        var r=res[i]
-        if(r.split("=")[0]=="userID") {   
-            userID=r.split("=")[1]
-        }
-        if(r.split("=")[0]=="userPassword1") {   
-            userPassword1=r.split("=")[1]
-        }
-        if(r.split("=")[0]=="userPassword2") {   
-            userPassword2=r.split("=")[1]
-        }
-        if(r.split("=")[0]=="userName") {   
-            userName=r.split("=")[1]
-        }
-        if(r.split("=")[0]=="userBirthDate") {   
-            userBirthDate=r.split("=")[1]
-        }
-        if(r.split("=")[0]=="userGender") {   
-            userGender=r.split("=")[1]
-        }
-    }
-}
 {%>
     
 
@@ -53,12 +31,13 @@ if(res.length!=0){ for(int i=0; i<res.length;i++) {
     <%}
     else{
 
- ////////////////////////
- //////!!!!!!!!!!!!////
- //여기서 DB 검색해서 중복아이디 있나 체크.
- //중복있으면 돌려보내기.
- //DB없으면 오류인데 이건 안해도될듯.
- //중복없으면 생성
+        irebase.database().ref('users/' + user.uid).set({
+        userID: req.body.userID,
+        userPassword: req.body.userPassword1,
+        userName: req.body.userName,
+        userBirthDate: req.body.userBirthDate,
+        userGender: req.body.userGender
+      })
     }
 
     %>

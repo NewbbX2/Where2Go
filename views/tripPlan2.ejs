@@ -2,9 +2,12 @@
 //가져와야하는 데이터
 //var userID = "";
 //var userName="";
-//var board ="";//이거 key(보드아이디말함)로 검색한 boardList[key]
-//페이지번호
-//var pageNo=1;
+//var board ="";
+//url로 보낸 key로 검색한 travel보드
+
+
+//페이지번호(받아올필요없음)
+var pageNo=1;
 %>
 
 
@@ -88,7 +91,6 @@
 	}
 
 }%>
-		</script>
 	</head>
 	<body>
 		<header>
@@ -143,8 +145,8 @@
 						<button onclick="pageDown()" >이전페이지로</button>=
 					<%}
 					if((board.travelWriterID==userID)){%>
-					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
-					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?travelNo=<%=board.travelNo%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?travelNo=<%=board.travelNo%>">삭제</a>
 				<%}%>
 				</div>
 			</article>

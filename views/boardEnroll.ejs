@@ -1,30 +1,10 @@
 <% //받아와야 하는것
-	var userID = "";
-	var userName = "";
+	//	var userID = "";	유저아이디
+	//	var userName = "";	유저명
+	//request에서 가져온 boardType
+	//var boardType="";;
 %>
 
-<%
-//request에서 가져온 boardType
-var boardType="";;
-
-
-<%
-	var adr = loaction.search;
-	var res = ard.split("&");
-	//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
-	if(res.length!=0)
-	{
-		for(int i=0; i<res.length;i++)
-		{
-			var r=res[i]
-			if(r.split("=")[0]==boardType)
-			{
-				boardType=parseInt(r.split("=")[1]);
-			}
-
-		}
-	}
-%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -38,7 +18,7 @@ var boardType="";;
 	
 	<body >
 			<form action="./boardEnrollAction" method="post" >
-				<input type = "text" name = "boardWriterID" class = "form-control"  value = <%=userID%>style = "display: none;">
+				<input type = "text" name = "boardWriterID"  value = "<%=userID%>" style = "display:none;">
 			
 				<label>게시판종류</label>
 				<select name = "boardType">
@@ -49,20 +29,20 @@ var boardType="";;
 					</option>
 				</select><br>
 				
-				<label>게시판분류</label>
-				<select name = "boardClassfy" >
-					<% if(boardType=="tripForum"||boardType=="countryForum"){%>
+				<%if(boardType=="freeForum"){%>
+					<select name = "boardClassfy" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
+				<%}else{%>
+					<label>게시판분류</label>
+					<select name = "boardClassfy">
 						<option value="Korea">한국</option>
 						<option value="China">중국</option>
 						<option value="Japan">일본</option>
-					<%}
-					else if(boardType=="freeForum"){%>
-						<option value="Free">자유게시판</option>
-					<%}%>
-				</select><br>
+					</select>
+					<br>
+				<%}%>
 				<%if(boardType=="tripForum"){%>
 					<label>몇월에 있었던 일인가요?</label>
-					<select name = "tirpFroumMon" >
+					<select name = "tripForumMon" >
 						<option value="1">1월</option>
 						<option value="2">2월</option>
 						<option value="3">3월</option>
@@ -77,21 +57,21 @@ var boardType="";;
 						<option value="12">12월</option>
 					</select><br>
 				<%}else{%>
-					<select name = "tirpFroumMon" style="display: noe;"><option value="-1" style="display:none"></option></select>
+					<select name = "tripForumMon" style="display: none;"><option value="-1" style="display:none"></option></select>
 				<%}%>
 				<label>게시판제목</label>
-				<input type = "text" name = "boardTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<input type = "text" name = "boardTitle" maxlength = "30" style = "width:300px"><br />
 				
 				<label>작성자이름</label>
-				<select name = "boardWriter" ><option value = "<%=username%>" selected><%=userName%></option></select><br>
+				<select name = "boardWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 				
 				<label>본문</label>
 				<textarea  name = "boardContent" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
 				
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<%if(boardType==null||boardType==""){%>
-				<a href = "./index"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<%if(userID==null||userID==""){%>
+				<a href = "./"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 			<%}else{ %>
 				<a href = "./<%= boardType%>"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 			<%} %>

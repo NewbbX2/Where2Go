@@ -1,9 +1,9 @@
 
 <%
 //가져와야하는 데이터
-var userID = "";
-var userName="";
-var board ="";//이거 boardNo(보드아이디말함)로 검색한 boardList[boardNo]
+//var userID = "";
+//var userName="";
+//var board ="";//이거 key(보드아이디말함)로 검색한 boardList[key]
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,7 +11,6 @@ var board ="";//이거 boardNo(보드아이디말함)로 검색한 boardList[boa
 	<meta charset = "UTF-8">
 	<title>WTG</title>
 	<link rel = "stylesheet" href = "styles/styles.css"/>
-</head>
 </head>
 <body>
 	<header>
@@ -46,8 +45,8 @@ var board ="";//이거 boardNo(보드아이디말함)로 검색한 boardList[boa
 <!--표 아랫부분  -->											
 			<div >
 				<%if((board.boardWriterID==userID)){%>
-					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?boardNo=<%=board.boardNo%>">수정</a>
-					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?boardNo=<%=board.boardNo%>">삭제</a>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?key=<%=board.key%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?key=<%=board.key%>">삭제</a>
 				<%}%>
 			</div>
 			

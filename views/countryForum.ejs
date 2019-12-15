@@ -1,8 +1,8 @@
 <%
 	//검색조건으로 검색한 보드 데이터시트
-	var boardList=[];
-	var userName = "";
-	var pageNo=1;
+	//var boardList=[];
+	//var userName = "";
+	//var pageNo=1;
 
 	//보드 총개수
 	var numberOfSearchedBaords=boardList.length;
@@ -58,36 +58,36 @@
 						//순서검색
 						var  NoStart =numberOfSearchedBaords-(pageNo-1)*boardIndexNoPerPage;var NoNextStart = NoStart-boardIndexNoPerPage;
 
-
+						
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 							<tr>
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black">
+								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black">
 									<%if(boardList[indexNo-1].boardClassfy=="Korea"){%>한국
 									<%}else if(boardList[indexNo-1].boardClassfy=="Japan"){%>일본
 									<%}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국
-									<%} %>
+									<%}%>
 								</a></td>
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>
-								<td><a href= "./countryForum2?boardNo=<%=boardList[indexNo-1].boardNo%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
+								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
+								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
 							</tr>
-
+					
 						<%}
 					}%>
 				</tbody>
 			</table>
 			</div>
 			<div id = "BoardSearch">
-
+				
 				<%
 				//글수에 따라 << 1 ... 10>>, <<현재 , ... , 현재+8 >>식 이동.
 				//가장 오랜된글 >>(맨끝으로)
 				//1 : <<(최신글로)
 				//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
 				if(boardList!=""&&numberOfSearchedBaords!=0){
-
+							
 					var MaxIndexAdd1=0;		if(numberOfSearchedBaords%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
-					var MaxIndex=parseInt(numberOfSearchedBaords/boardIndexNoPerPage)+		MaxIndexAdd1;%>
+					var MaxIndex=parseInt(numberOfSearchedBaords/boardIndexNoPerPage)+		MaxIndexAdd1;%> 
 					<div id="BoardPageNo">
 						<a href="./countryForum?pageNo=<%=1%>"><<</a>
 							<%
@@ -95,7 +95,7 @@
 							if(pageNo>10)
 							{
 								//-10돌아가는 < 추가.%>
-								<a href="./countryForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>
+								<a href="./countryForum?pageNo=<%=pageNo-10%>"> &nbsp < &nbsp </a>	
 								<%//1페이지씩 표시.
 								for(var i=pageNo;(i<pageNo+10)&&(i<=MaxIndex);i++)
 								{%>
@@ -103,15 +103,15 @@
 								<%}
 								//+10이후 더있으면 +10하는 >추가.
 								if(pageNo+10<MaxIndex){%><a href="./countryForum?pageNo=<%=pageNo+10%>"> &nbsp > &nbsp </a><%}
-							}else{
+							}else{		
 							//1붙터 시작하면 10or최대값 까지
 								for(var i=1;(i<=MaxIndex);i++){%><a href= "./countryForum?pageNo=<%=i%>"><%=i%></a><%}
 							}%>
 							<a href="./countryForum?pageNo=<%=MaxIndex%>">>></a>
 					</div>
 				<%}%>
-
-
+				
+				
 				<%if(userName!="") {%>
 						<div ><a href= "./boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
 				<%}%>
@@ -122,7 +122,7 @@
 						<option value = "Korea" > 한국</option>
 						<option value = "China" > 중국</option>
 					</select>
-
+					
 					<select name = "Order" class =  "form-control">
 						<option   value = "None" selected > 정렬</option>
 						<option value = "제목" > Title</option>
@@ -139,7 +139,7 @@
 				</form>
 			</div>
 		</article>
-
+	
 
 		<article id = "LoginLoginMenu">
 			<%- include ('./part/login.ejs')%>
