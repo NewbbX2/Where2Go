@@ -141,10 +141,10 @@
 				<label>작성자이름</label>
 				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 				<%<for(var i=0;i<travelTotalSpanTime;i++){%>
-					<%=var lat=0; lng=0%>
+					<%=var lat=0, lng=0;%>
 					<label><%=i%>일차</label>
 					<div id="map"></div>
-					<input type = "number" name = travelMapPos<%=i%> value=<%=Lat*1000+lng%>style="display:none">
+					<input type = "number" name = "travelMapPos<%=i%>" value=<%=Lat*1000+lng%>style="display:none">
 					<textarea  name = "travelContent<%=i%>" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
 
 				<%}%>
