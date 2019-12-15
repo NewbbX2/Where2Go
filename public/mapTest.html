@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<!-- googlemap-->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js-->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
+</head>
+
+<script>
+$(document).ready(function() {
+  $('#summernote').summernote({placeholder: 'content',
+	        minHeight: 400,
+	        maxHeight: null,
+	        focus: true, 
+	        lang : 'ko-KR'});//에디터 크기 설정
+});
+</script>
+
+<!-- //Summernote Editer, title/textarea -->
+<body>
+<div style="width: 60%; margin: auto;">
+	<form method="post" action="/write">
+		<input type="text" name="boardTitle" style="width: 100%;" placeholder="Title"/>
+		<br><br> 
+		<textarea id="summernote" name="content"></textarea>
+		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
+	</form>
+</div>
+
+
+	<!-- test for summernote in cotent -->
+	<div id="test">
+		 aaa
+	</div>
+
+
+<script>
+// check before upload
+function goWrite(frm) {
+	var boardTitle = frm.boardTitle.value;
+	var content = frm.content.value;
+
+		$("#test").html(content);
+	
+	if (boardTitle.trim() == ''){
+		alert("plz insert title");
+		return false;
+	}
+	if (content.trim() == ''){
+		alert("plz insert content");
+		return false;
+	}
+	//일단은 제목과 내용만 보내게 코드 짬
+	submitDB(frm.boardTitle.value, frm.content.value);
+	//must have 2line above 밑에 2줄이 있어야 정상작동
+	$('.summernote').append('<input type="hidden" name="content", id="content" />');
+	$('#content').val($('.summernote').code());
+
+
+	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
+	frm.submit();
+}
+</script>
+
+
+<script>
+//firebase upload code
+function submitDB(btitle, bcontent){
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCTMbPV8BsmuGgzf97n-At-1CnOV4n0KRA",
+    authDomain: "wtgo-17e32.firebaseapp.com",
+    databaseURL: "https://wtgo-17e32.firebaseio.com",
+    projectId: "wtgo-17e32",
+    storageBucket: "wtgo-17e32.appspot.com",
+    messagingSenderId: "442941794543",
+    appId: "1:442941794543:web:079c3981e37f3d6d77531a",
+    measurementId: "G-NFMN1S3123"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  
+  var newPostKey = firebase.database().ref().child('posts').push().key;
+  
+  var postData = {
+    brdno: newPostKey,
+	brdwriter:"test.html",	
+    brdtitle:btitle,
+    brdmemo:bcontent,
+    brddate: Date.now()
+  };
+ 
+  var updates = {};
+  updates['board/' + newPostKey] = postData;
+ 
+  firebase.database().ref().update(updates);
+  }
+
+</script>
+
+
+</body>
+
+</html>
