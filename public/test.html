@@ -1,6 +1,13 @@
 <html>
 <head></head>
 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
 <!-- include libraries(jQuery, bootstrap) -->
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
@@ -12,11 +19,90 @@
 
 <script>
 $(document).ready(function() {
-  $('#summernote').summernote();
+  $('#summernote').summernote({placeholder: 'content',
+	        minHeight: 400,
+	        maxHeight: null,
+	        focus: true, 
+	        lang : 'ko-KR'});
 });
 </script>
+
+
 <body>
-<div id="summernote"></div> 
+<div style="width: 60%; margin: auto;">
+	<form method="post" action="/write">
+		<input type="text" name="boardTitle" style="width: 100%;" placeholder="글 제목"/>
+		<br><br> 
+		<textarea id="summernote" name="content"></textarea>
+		<input id="subBtn" type="button" value="등록하기" style="float: right;" onclick="goWrite(this.form)"/>
+	</form>
+</div>
+
+	<div id="test">
+		 aaa
+	</div>
+
+<!--넣기 전에 데이터가 적절한지 체크-->
+<script>
+function goWrite(frm) {
+	var boardTitle = frm.boardTitle.value;
+	var content = frm.content.value;
+
+		$("#test").html(content);
+	
+	if (boardTitle.trim() == ''){
+		alert("제목을 입력해주세요");
+		return false;
+	}
+	if (content.trim() == ''){
+		alert("내용을 입력해주세요");
+		return false;
+	}
+	submitDB(frm.boardTitle.value, frm.content.value);
+	$('.summernote').append('<input type="hidden" name="content", id="content" />');
+	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
+	$('#content').val($('.summernote').code());
+	frm.submit();
+}
+</script>
+
+
+<script>
+function submitDB(btitle, bcontent){
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCTMbPV8BsmuGgzf97n-At-1CnOV4n0KRA",
+    authDomain: "wtgo-17e32.firebaseapp.com",
+    databaseURL: "https://wtgo-17e32.firebaseio.com",
+    projectId: "wtgo-17e32",
+    storageBucket: "wtgo-17e32.appspot.com",
+    messagingSenderId: "442941794543",
+    appId: "1:442941794543:web:079c3981e37f3d6d77531a",
+    measurementId: "G-NFMN1S3123"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  
+  var newPostKey = firebase.database().ref().child('posts').push().key;
+  
+  var postData = {
+    brdno: newPostKey,
+	brdwriter:"test.html",	
+    brdtitle:btitle,
+    brdmemo:bcontent,
+    brddate: Date.now()
+  };
+ 
+  var updates = {};
+  updates['board/' + newPostKey] = postData;
+ 
+  firebase.database().ref().update(updates);
+  }
+
+</script>
+
+
 </body>
 
 </html>

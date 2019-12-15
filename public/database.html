@@ -3,11 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>테스트 인덱스 페이지</title>
-</head>
-<body>
-	<h1>테스트 중인 인덱스 페이지</h1>
-	<p>파이어베이스 확인 요</p>
-</body>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
@@ -16,7 +11,17 @@
      https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
 
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+
 <script>
+  window.onload = function(){
+  getDB("-Lw7VDs5FBe3iwTiGqGF");
+  alert("onload 실행됨");
+	}
+
+
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyCTMbPV8BsmuGgzf97n-At-1CnOV4n0KRA",
@@ -31,22 +36,63 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-  
-  var newPostKey = firebase.database().ref().child('posts').push().key;
-  
-  var postData = {
-    brdno: newPostKey,
-    brdwriter:"홍길동",
-    brdtitle:"게시판 제목",
-    brdmemo:"게시물 내용",
-    brddate: Date.now()
-  };
- 
-  var updates = {};
-  updates['/board/' + newPostKey] = postData;
- 
-  firebase.database().ref().update(updates);
 
+  //데이터 가져올 자료형 선언
+  var postData = {
+	 brdno: "",
+	 brdwriter:"못가져옴",
+	 brdtitle:"못가져옴",
+	 brdmemo:"못가져옴",
+	 brddate: ""
+	};
+
+  //보드 No 기반으로 데이터 가져옴
+function getDB(boardNo){
+	postData.brdno = boardNo;
+	$("#brdNo").html(postData.brdno);
+	//레퍼런스 선언
+	var boardRef = firebase.database().ref('/board/');
+	
+	boardRef.on('child_added', on_Board_List);
+}
+function on_Board_List(data){
+	alert(data);
+	if(data.val().brdno == postData.brdno){
+		postData.brdwriter = data.val().brdwriter;
+		postData.brdtitle = data.val().brdtitle;
+		postData.brdmemo = data.val().brdmemo;
+		postData.brddate = data.val().brddate;
+	}
+	alert(postData);
+	$("#textArea").html(postData.brdmemo);
+}
+
+$("#textArea").html(postData.brdmemo);
 </script>
+
+</head>
+<body>
+
+	<h1>테스트 중인 페이지</h1>
+	<p>파이어베이스 확인</p>
+
+	<script>
+		
+    </script>
+
+	<section>
+	<div>
+	<tr>
+		<div id="brdNo">테이터베이스 번호</div>
+		<th width = "10%">제목</th>
+		<th width = "40%"><script type="text/javascript">document.write(postData.brdtitle);</script></th>
+		<th width = "30%">작성자</th>
+		<th width = "30%"><script type="text/javascript">document.write(postData.brdwriter);</script></th>
+	</tr>
+	<tr ><div id="textArea">aaa</div></tr>
+	</div>
+	</section>
+</body>
+
 
 </html>
