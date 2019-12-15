@@ -28,13 +28,13 @@
 				</select><br>
 				
 				<%if(board.boardType=="freeForum"){%>
-					<select name = "boardclassify" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
+					<select name = "boardClassify" style="display: none;"><option value="Free" style="display: none;">자유게시판</option></select>
 				<%}else{%>
 					<label>게시판분류</label>
-					<select name = "boardclassify">
-						<option value="Korea"	<%if(board.boardclassify=="Korea"){%>selected<%}%>	>한국</option>
-						<option value="China"	<%if(board.boardclassify=="China"){%>selected<%}%>	>중국</option>
-						<option value="Japan"	<%if(board.boardclassify=="Japan"){%>selected<%}%>	>일본</option>
+					<select name = "boardClassify">
+						<option value="Korea"	<%if(board.boardClassify=="Korea"){%>selected<%}%>	>한국</option>
+						<option value="China"	<%if(board.boardClassify=="China"){%>selected<%}%>	>중국</option>
+						<option value="Japan"	<%if(board.boardClassify=="Japan"){%>selected<%}%>	>일본</option>
 					</select>
 					<br>
 				<%}%>
