@@ -63,9 +63,10 @@
 							<tr>
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black">
-									<%if(boardList[indexNo-1].boardClassfy=="Korea"{%>한국
+									<%if(boardList[indexNo-1].boardClassfy=="Korea"){%>한국
 									<%}else if(boardList[indexNo-1].boardClassfy=="Japan"){%>일본
-									}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국<%}%>
+									<%}else if(boardList[indexNo-1].boardClassfy=="China"){%>중국
+									<%}%>
 								</a></td>
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardTitle%></a></td>	
 								<td><a href= "./countryForum2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].boardWriter%></a></td>
