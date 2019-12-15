@@ -8,7 +8,7 @@
 
 //검색된 보드수
 var numberOfBoardListSearched=0;
-numberOfBoardListSearched=boardLis.length;
+numberOfBoardListSearched=boardList.length;
 	//페이지당 보드 출력수.
 	var boardIndexNoPerPage=15;
 %>
@@ -53,7 +53,7 @@ numberOfBoardListSearched=boardLis.length;
 					//가장 오랜된글 >>(맨끝으로)
 					//1 : <<(최신글로)
 					//MaxIndexAdd1 : 10개 못채우는 나머지 있을때 최대페이지번호 +1해줘야함.
-					if(boardLis!=""&&numberOfBoardListSearched!=0){
+					if(boardList!=""&&numberOfBoardListSearched!=0){
 						var MaxIndexAdd1=0;		if(numberOfBoardListSearched%boardIndexNoPerPage!=0){MaxIndexAdd1=1;}
 						var MaxIndex=	parseInt(numberOfBoardListSearched/boardIndexNoPerPage)		+MaxIndexAdd1;%> 
 						<div id="BoardPageNo">
@@ -102,7 +102,7 @@ numberOfBoardListSearched=boardLis.length;
 					<tbody>
 		<%//보드 내용 검색
 		//보드 에러
-					if(boardLis==""){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
+					if(boardList==""){%><tr><td colspan = "6"><h1 >등록된 보드가 없습니다.</h1></td></tr><%}
 		//보드 검색내용 없음
 					else if(numberOfBoardListSearched==0){%><tr><td colspan = "6"><h1 >등록된 글이 없습니다.</h1></td></tr><%}
 		//보드 검색중.
@@ -111,12 +111,12 @@ numberOfBoardListSearched=boardLis.length;
 						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=boardLis[indexNo].travelCountry%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=boardLis[indexNo].travelStartDate%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=boardLis[indexNo].travelTatalSpanTime%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=boardLis[indexNo].travelWriter%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardLis[indexNo].key%>" style="text-decoration:none;color:black"><%=boardLis[indexNo].travelContent%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelCountry%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelStartDate%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTatalSpanTime%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelWriter%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelContent%></a></td>	
 								</tr>
 							<%}
 						}%>
