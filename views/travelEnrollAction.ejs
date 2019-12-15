@@ -5,7 +5,7 @@ var res = ard.split("&");
 
 var travelWriter = "";
 var travelWriterID="";
-var travelClassfy = "";
+var travelClassify = "";
 var travelTitle = "";
 var travelStartDate= 0;
 var travelTatalSpanTime= 0;
@@ -32,101 +32,100 @@ var travelMapPos8=0;
 var travelMapPos9=0;
 var travelMapPos10=0;
 
-//href로 검색한것 int변형해서 가져올수 있다면, 페이지번호 바꿔줌.
 if(res.length!=0)
 	{
 		for(int i=0; i<res.length;i++)
 		{
 			var r=res[i]
-			if(r.split("=")[0]==("travelWriterID")
+			if(r.split("=")[0]==("travelWriterID"))
 			{
 				travelWriterID=r.split("=")[1];
 			}
-      else if(r.split("=")[0]==("travelWriter ")
+      		else if(r.split("=")[0]==("travelWriter "))
 			{
 				travelWriter =r.split("=")[1];
 			}
-      else if(r.split("=")[0]==("travelClassfy")
+      else if(r.split("=")[0]==("travelClassify"))
 			{
-				travelClassfy=r.split("=")[1];
+				travelClassify=r.split("=")[1];
 			}
-      else if(r.split("=")[0]==("travelTitle")
+      else if(r.split("=")[0]==("travelTitle"))
 			{
 				travelTitle=r.split("=")[1];
 			}
-      else if(r.split("=")[0]==("travelStartDate")
+      else if(r.split("=")[0]==("travelStartDate"))
 			{
 				travelStartDate=r.parseInt(split("=")[1]);
 			}
-      else if(r.split("=")[0]==("travelTatalSpanTime")
+      else if(r.split("=")[0]==("travelTatalSpanTime"))
 			{
 				travelTatalSpanTime=parseInt(r.split("=")[1]);
 			}
-      else if(r.split("=")[0]==("travelCountry")
+      else if(r.split("=")[0]==("travelCountry"))
 			{
 				travelCountry=r.split("=")[1];
 			}
 
-      else if(r.split("=")[0]==("travelContent1")
+      else if(r.split("=")[0]==("travelContent1"))
 			{
 				travelContent1=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent2")
+			} else if(r.split("=")[0]==("travelContent2"))
 			{
 				travelContent2=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent3")
+			} else if(r.split("=")[0]==("travelContent3"))
 			{
 				travelContent3=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent4")
+			} else if(r.split("=")[0]==("travelContent4"))
 			{
 				travelContent4=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent5")
+			} else if(r.split("=")[0]==("travelContent5"))
 			{
 				travelContent5=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent6")
+			} else if(r.split("=")[0]==("travelContent6"))
 			{
 				travelContent6=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent7")
+			} else if(r.split("=")[0]==("travelContent7"))
 			{
 				travelContent7=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent8")
+			} else if(r.split("=")[0]==("travelContent8"))
 			{
 				travelContent8=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent9")
+			} else if(r.split("=")[0]==("travelContent9"))
 			{
 				travelContent9=r.split("=")[1];
-			} else if(r.split("=")[0]==("travelContent10")
+			} else if(r.split("=")[0]==("travelContent10"))
 			{
 				travelContent10=r.split("=")[1];
 			}
 
-      else if(r.split("=")[0]==("travelMapPos1")
+      else if(r.split("=")[0]==("travelMapPos1"))
 			{
 				travelMapPos1=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos2")
+			}else if(r.split("=")[0]==("travelMapPos2"))
 			{
 				travelMapPos2=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos3")
+			}else if(r.split("=")[0]==("travelMapPos3"))
 			{
 				travelMapPos3=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos4")
+			}else if(r.split("=")[0]==("travelMapPos4"))
 			{
 				travelMapPos4=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos5")
+			}else if(r.split("=")[0]==("travelMapPos5"))
 			{
 				travelMapPos5=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos6")
+			}else if(r.split("=")[0]==("travelMapPos6"))
 			{
 				travelMapPos6=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos7")
+			}else if(r.split("=")[0]==("travelMapPos7"))
 			{
 				travelMapPos7=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos8")
+			}else if(r.split("=")[0]==("travelMapPos8"))
 			{
 				travelMapPos8=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos9")
+			}else if(r.split("=")[0]==("travelMapPos9"))
 			{
 				travelMapPos9=parseInt(r.split("=")[1]);
-			}else if(r.split("=")[0]==("travelMapPos10")
+			}else if(r.split("=")[0]==("travelMapPos10"))
 			{
 				travelMapPos10=parseInt(r.split("=")[1]);
 			}
@@ -144,8 +143,8 @@ if(res.length!=0)
   <body>
 
     <%PrintWriter script = response.getWriter();
-    if(travelWriter ==null||travelWriterID == null||travelClassfy == null|| travelTitle == null||travelCountry == null||travelStartDate == 0||travelTatalSpanTime == 0
-        ||travelWriter==""||travelWriterID==""||travelClassfy==""||travelTitle==""||travelCountry=="" 	)
+    if(travelWriter ==null||travelWriterID == null||travelClassify == null|| travelTitle == null||travelCountry == null||travelStartDate == 0||travelTatalSpanTime == 0
+        ||travelWriter==""||travelWriterID==""||travelClassify==""||travelTitle==""||travelCountry=="" 	)
     <%{
             <a href = "./travelEnroll">입력되지 않은사항이 있습니다. 돌아가시려면 클릭하거나 뒤로가기를 누르시오.</a>
     <%}
