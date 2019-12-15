@@ -150,6 +150,7 @@ app.get('/boardEnroll', function(req, res){
   }
 });
 
+//글쓰기 저장
 app.post('/boardEnrollAction', function(req, res){
   var boardKey = firebase.database().ref().child('boards').push().key;
   console.log(req.body);
@@ -174,11 +175,41 @@ app.post('/boardEnrollAction', function(req, res){
   });
 });
 
+//글쓰기 갱신 폼
+app.get('/reformBoard', function(req, res){
+  var key = req.query.key;
+  firebase.database().ref('boards/' + key).once('value').then(function(snapshot){
+    var board = snapshot.val();
+    board.key = snapshot.key;
+    console.log(board);
+    res.render('reformBoard', {board : board});
+  });
+});
+
+//글쓰기 갱신
+app.post('/reformBoardAction', function(req, res){
+  var key = req.body.key;
+  var data = {
+    boardWriterID : firebase.auth().currentUser.email,
+    boardType : req.body.boardType,
+    boardClassify : req.body.boardClassify,
+    boardTitle : req.body.boardTitle,
+    boardWriter : req.body.boardWriter,
+    boardContent : req.body.boardContent
+  };
+  if(req.body.tripForumMon){
+    data.tripForumMon = req.body.tripForumMon;
+  }
+  firebase.database().ref('boards/' + key).update(data);
+  res.sent('<script>document.location.href=document.referrer;</script>');
+});
+
 //여행 계획 글쓰기 폼
 app.get('/travelEnroll', function(req, res){
   res.render('travelEnroll');
 });
 
+//여행계획 글쓰기 저장
 app.post('/travelEnrollAction', function(req, res){
   var travelKey = firebase.database().ref().child('travels').push().key;
   console.log(req.body);
@@ -206,15 +237,23 @@ app.post('/travelEnrollAction', function(req, res){
   });
 });
 
+//글 삭제
 app.get('/deleteActionBoard', function(req, res){
 
   var key = req.query.key;
   var boardType;
+  var writer;
   firebase.database().ref('boards/' + key).once('value', function(snapshot){
     boardType = snapshot.val().boardType;
+    writer = snapshot.val().boardWriterID;
   }).then(function(){
     if(!firebase.auth().currentUser){
       res.send("<script>alert('로그인 하세요');"
+      + "document.location.href='"+ boardType +"';</script>'");
+      return;
+    }
+    if(firebase.auth().currentUser.email != writer){
+      res.send("<script>alert('권한이 없습니다');"
       + "document.location.href='"+ boardType +"';</script>'");
       return;
     }
