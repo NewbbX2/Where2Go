@@ -27,7 +27,6 @@ numberOfBoardListSearched=boardList.length;
 			<script type="text/javascript">	</script>
 		</head>
   </head>
-  
   <body>
   	<header>
 		<%- include ('./part/header.ejs') %>
@@ -43,7 +42,7 @@ numberOfBoardListSearched=boardList.length;
 						<label>언제 출발하시나요?</label>
 						<input type="number"min="190001010" max="21000101" name="indexStarttDate" />
 						<label>여행일자는 몇일인가요?</label>
-						<input type="number" min="1" max="10" name="travelTatalSpanTime" />
+						<input type="number" min="1" max="10" name="travelTotalSpanTime" />
 						<button type = "submit" class = "btn-search">검색</button>
 					</form>
 				</div>
@@ -115,9 +114,9 @@ numberOfBoardListSearched=boardList.length;
 									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
 									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelCountry%></a></td>	
 									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelStartDate%></a></td>	
-									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTatalSpanTime%></a></td>	
+									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTotalSpanTime%></a></td>	
 									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelWriter%></a></td>	
-									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelContent%></a></td>	
+									<td><a href = "./tripLog2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTitle%></a></td>	
 								</tr>
 						
 							<%}
