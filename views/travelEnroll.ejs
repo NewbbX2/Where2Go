@@ -3,8 +3,6 @@
 	//var userID = "";
 	//var userName="";
 
-	//request에서 가져온 여행일자
-	var travelTotalSpanTime=0;
 %>
 <!DOCTYPE html>
 <html>
@@ -75,7 +73,7 @@
 		<label >여행일자는 총 몇일인가요?</label>
 
 		<div id="displayToHide">
-			<input type = "number" id = "totalTime"  class = "form-control" min="1" max="10" style = "width:300px"><br />
+			<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
 			<button onclick="showUp()" >일자 선택</button>
 			<a href = "./tripPlan"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 		</div>
@@ -84,9 +82,7 @@
 
 		<div id = "hideToDisplay" style="display:none">
 			<form action="./travelEnrollAction" method="post">
-				<%// 이젠에서 받아온 여행일자랑, 아이디를 저장.%>
-				<select name = "travelTotalSpanTime" style="display: none;"><option value = <%=travelTotalSpanTime%> style="display:none"></option></select>
-				<input type = "number" id = "totalTime" name="totalTime" class = "form-control" min="1" max="10" style = "width:300px" style="display: none;">
+				<%// 이젠에서 받아온 아이디를 저장.%>
 				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
 				<label>게시판분류</label>
 				<select name = "travelClassify" >
