@@ -108,15 +108,15 @@ numberOfBoardListSearched=boardList.length;
 		//보드 검색중.
 					else{
 						var NoStart = numberOfBoardListSearched-(pageNo-1)*boardIndexNoPerPage;
-						var NoNextStart = NoStart-boardIndexNoPerPage;
+						var NoNextStart = NoStart-boardIndexNoPerPagez;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelCountry%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelStartDate%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTotalSpanTime%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelWriter%></a></td>	
-									<td><a href = "./tripPlan2?key=<%=boardList[indexNo].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo].travelTitle%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].travelCountry%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].travelStartDate%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].travelTotalSpanTime%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].travelWriter%></a></td>	
+									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=boardList[indexNo-1].travelTitle%></a></td>	
 								</tr>
 							<%}
 						}%>
