@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <!-- googlemap-->
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
@@ -22,7 +22,52 @@
 <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
 
+
+	<script>
+		function initialize() {
+			var Y_point			= 35.87110100714382;		// Y 좌표
+			var X_point			= 128.60169690333006;		// X 좌표
+					   
+			var zoomLevel		= 16;						// 지도의 확대 레벨 : 숫자가 클수록 확대됨
+			var markerTitle		= "위즈소프트";				// 현재 위치 마커에 마우스를 올렸을때 나타나는 정보
+
+			var markerMaxWidth	= 300;						// 마커를 클릭했을때 나타나는 말풍선의 최대 크기
+
+			// 말풍선 내용
+
+			var contentString	= '<div>' +
+			'<h2>위즈소프트</h2>'+
+			'<p>위즈소프트는 WEB Agency & SI 분야에서 10년 이상의 풍부한 경험을 보유한<br />' +
+            '전문 인력으로 구성된 E-Business 전문 기업입니다.</p>' +
+			'</div>';
+
+			var myLatlng = new google.maps.LatLng(Y_point, X_point);
+			var mapOptions = {
+								zoom: zoomLevel,
+								center: myLatlng,
+								mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			var map = new google.maps.Map(document.getElementById('map_view'), mapOptions);
+
+			var marker = new google.maps.Marker({
+													position: myLatlng,
+													map: map,
+													title: markerTitle
+			});
+
+			var infowindow = new google.maps.InfoWindow({
+				content: contentString,
+				maxWidth: markerMaxWidth
+			});
+
+			google.maps.event.addListener(marker, 'click', function() {
+				infowindow.open(map, marker);
+			});
+		}
+	</script>
+
 </head>
+
 
 <script>
 $(document).ready(function() {
@@ -59,6 +104,8 @@ function goWrite(frm) {
 	var content = frm.content.value;
 
 		$("#test").html(content);
+		$("#test").append("<div id="map_view" style="width:500px; height:300px;"></div>");
+		Initialize();
 	
 	if (boardTitle.trim() == ''){
 		alert("plz insert title");
@@ -79,7 +126,6 @@ function goWrite(frm) {
 	frm.submit();
 }
 </script>
-
 
 <script>
 //firebase upload code
