@@ -69,19 +69,14 @@
 
 
 	<body >
-
-		<label >여행일자는 총 몇일인가요?</label>
-
-		<div id="displayToHide">
-			<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
-			<button onclick="showUp()" >일자 선택</button>
-			<button onclick="document.location.href=document.referrer" >취소</button>
-		</div>
-
-
-
-		<div id = "hideToDisplay" style="display:none">
-			<form action="./travelEnrollAction" method="post">
+		<form action="./travelEnrollAction" method="post">
+				<label >여행일자는 총 몇일인가요?</label>
+				<div id="displayToHide">
+					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
+					<button type="button" onclick="showUp()" >일자 선택</button>
+					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+				</div>
+				<div id = "hideToDisplay" style="display:none">
 				<%// 이젠에서 받아온 아이디를 저장.%>
 				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
 				<label>게시판분류</label>
