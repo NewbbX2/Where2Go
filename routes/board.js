@@ -6,7 +6,6 @@ require('firebase/database');
 
 //게시판 로드시 사용되는 함수
 var initBoard = function(boardType, page, req, res){
-  var pagwae;
   var userName;
   var rows = [];
   if(firebase.auth().currentUser){
@@ -22,6 +21,27 @@ var initBoard = function(boardType, page, req, res){
       }
     });
     console.log(boardType + ' load');
+    res.render(boardType, {boardList : rows, userName : userName, pageNo : page});
+  });
+}
+
+var initBoard2 = function(boardType, page, req, res){
+  var userName;
+  var rows = [];
+  if(firebase.auth().currentUser){
+    userName = firebase.auth().currentUser.displayName;
+    console.log(userName + ' is LogIn');
+  }
+  firebase.database().ref('/travels').once('value').then(function(snapshot){
+    snapshot.forEach(function(childSnapshot){
+      var childData = childSnapshot.val();
+      if(childData.travelClassify == boardType){
+        childData.key = childSnapshot.key;
+        rows.push(childData);
+      }
+    });
+    console.log(boardType + ' load');
+    //console.log(rows);
     res.render(boardType, {boardList : rows, userName : userName, pageNo : page});
   });
 }
@@ -43,6 +63,22 @@ var initContent = function(key, path, req, res){
   });
 }
 
+var initContent2 = function(key, path, req, res){
+  var userName;
+  var userID;
+  var board;
+  if(firebase.auth().currentUser){
+    userName = firebase.auth().currentUser.displayName;
+    userID = firebase.auth().currentUser.email;
+    console.log(userName + ' is LogIn');
+  }
+  firebase.database().ref('/travels/' + key).once('value').then(function(snapshot){
+    board = snapshot.val();
+    board.key = key;
+    res.render(path, {board : board, userName : userName, userID : userID});
+  });
+}
+
 
 //계획 게시판
 app.get('/tripPlan', function(req, res){
@@ -50,12 +86,17 @@ app.get('/tripPlan', function(req, res){
   if(!page){
     page = 1;
   }
-  initBoard('tripPlan',page, req, res);
+  initBoard2('tripPlan',page, req, res);
 });
 
 app.get('/tripPlan2', function(req, res){
 var key = req.query.travelNo;
-
+if(key){
+  initContent2(key, 'tripPlan2', req, res);
+}else{
+  res.send("<script>alert('존재하지 않는 게시물입니다');"
+  + "document.location.href=document.referrer;</script>");
+}
 });
 
 //일지 게시판
@@ -64,13 +105,13 @@ app.get('/tripLog', function(req, res){
   if(!page){
     page = 1;
   }
-  initBoard('tripLog', page, req, res);
+  initBoard2('tripLog', page, req, res);
 });
 
 app.get('/tripLog2', function(req, res){
   var key = req.query.key;
   if(key){
-    initContent(key, 'tripLog2', req, res);
+    initContent2(key, 'tripLog2', req, res);
   }else{
     res.send("<script>alert('존재하지 않는 게시물입니다');"
     + "document.location.href=document.referrer;</script>");
@@ -222,7 +263,7 @@ app.post('/travelEnrollAction', function(req, res){
   console.log(req.body);
   var data = {
     travelTotalSpanTime : req.body.travelTotalSpanTime,
-    travelWriterID : req.body.travelWriter,
+    travelWriterID : req.body.travelWriterID,
     travelClassify : req.body.travelClassify,
     travelTitle : req.body.travelTitle,
     travelStartDate : req.body.travelStartDate,
@@ -237,16 +278,43 @@ app.post('/travelEnrollAction', function(req, res){
   }
   firebase.database().ref('travels/' + travelKey).set(data).then(function(){
     res.send("<script>alert('등록되었습니다');"
-    + "document.location.href='./"+ req.body.boardType +"';</script>'");
+    + "document.location.href='./"+ req.body.travelClassify +"';</script>'");
   }).catch(function(error){
     console.log(error);
     res.send("<script>alert('작성 실패');"
-    + "document.location.href='./"+ boardType +"';</script>'");
+    + "document.location.href='./"+ req.body.travelClassify +"';</script>'");
   });
 });
 
 //글 삭제
 app.get('/deleteActionBoard', function(req, res){
+
+  var key = req.query.key;
+  var boardType;
+  var writer;
+  firebase.database().ref('boards/' + key).once('value', function(snapshot){
+    boardType = snapshot.val().boardType;
+    writer = snapshot.val().boardWriterID;
+  }).then(function(){
+    if(!firebase.auth().currentUser){
+      res.send("<script>alert('로그인 하세요');"
+      + "document.location.href='"+ boardType +"';</script>'");
+      return;
+    }
+    if(firebase.auth().currentUser.email != writer){
+      res.send("<script>alert('권한이 없습니다');"
+      + "document.location.href='"+ boardType +"';</script>'");
+      return;
+    }
+    firebase.database().ref('/boards/' + key).remove().then(function(){
+      console.log(key + ' is deleted');
+      res.send("<script>alert('삭제되었습니다');"
+      + "document.location.href='./"+ boardType +"';</script>'");
+    });
+  });
+});
+
+app.get('/deleteActionTravel', function(req, res){
 
   var key = req.query.key;
   var boardType;
