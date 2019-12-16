@@ -18,63 +18,44 @@ var pageNo=1;
 		<title>WTG</title>
 		<link rel = "stylesheet" href = "./styles/styles.css"/>
 		<script>
-			function renewContent()
-			{
+			function renewContent(){
 				var CL="";
 				var CR="";
-				if(pageNo==1)
-				{
+				if(pageNo==1){
 					CL=board.travelContent1;
 					CR=board.travelContent2;
-				}
-				else if(pageNo==2)
-				{
+				}else if(pageNo==2){
 					CL=board.travelContent2;
 					CR=board.travelContent3;
-				}
-				else if(pageNo==3)
-				{
+				}else if(pageNo==3){
 					CL=board.travelContent3;
 					CR=board.travelContent4;
-				}
-				else if(pageNo==4)
-				{
+				}else if(pageNo==4){
 					CL=board.travelContent4;
 					CR=board.travelContent5;
-				}
-				else if(pageNo==5)
-				{
+				}else if(pageNo==5){
 					CL=board.travelContent5;
 					CR=board.travelContent6;
-				}
-				else if(pageNo==6)
-				{
+				}else if(pageNo==6){
 					CL=board.travelContent6;
 					CR=board.travelContent7;
-				}
-				else if(pageNo==7)
-				{
+				}else if(pageNo==7){
 					CL=board.travelContent7;
 					CR=board.travelContent8;
-				}
-				else if(pageNo==8)
-				{
+				}else if(pageNo==8){
 					CL=board.travelContent8;
 					CR=board.travelContent9;
-				}
-				else if(pageNo==9)
-				{
+				}else if(pageNo==9){
 					CL=board.travelContent9;
 					CR=board.travelContent10;
-				}
-				else{
+				}else{
 					pageNo==1;
 					CL=board.travelContent1;
 					CR=board.travelContent2;
 				}
 
-				document.getElementById("travelContentL").innerHTML = CL;
-				document.getElementById("travelContentR").innerHTML = CR;
+				document.getElementById("travelContentL").value = CL;
+				document.getElementById("travelContentR").value = CR;
 
 
 			}
