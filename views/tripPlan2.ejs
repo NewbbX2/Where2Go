@@ -136,18 +136,14 @@ var pageNo=1;
 				</div>
 														
 				<div >
-					<%if(pageNo<9)
-					{%>
+					<%if(pageNo<9){%>
 						<button onclick="pageUp()" >다음페이지로</button>
-					<%}
-					if(pageNo>1)
-					{%>
-						<button onclick="pageDown()" >이전페이지로</button>=
-					<%}
-					if((board.travelWriterID==userID)){%>
-					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
-					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
-				<%}%>
+					<%}if(pageNo>1){%>
+						<button onclick="pageDown()" >이전페이지로</button>
+					<%}if((board.travelWriterID==userID)){%>
+						<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
+						<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
+					<%}%>
 				</div>
 			</article>
 			<article id = "LoginMenu">
@@ -158,7 +154,7 @@ var pageNo=1;
 			<%- include ('./part/footer.ejs') %>
 		</footer>
 	</body>
-	</html>
+</html>
 	
 	
 	
