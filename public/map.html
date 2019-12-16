@@ -1,32 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
-
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
-
-<!-- include summernote css/js-->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
-<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-
-
-
-<!-- googlemap   ~line 109 
-<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-<!-- Api key--
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC5uIp1_ndIbazWrzJOy5wZN9t70JH3QoI"></script>-->
-
+  <head>
+    <title>Place Autocomplete</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -107,39 +84,11 @@
         padding: 6px 12px;
       }
     </style>
-</head>
 
-
-<script>
-$(document).ready(function() {
-  $('#summernote').summernote({placeholder: 'content',
-	        minHeight: 400,
-	        maxHeight: null,
-	        focus: true, 
-	        lang : 'ko-KR'});//에디터 크기 설정
-});
-</script>
-
-<!-- //Summernote Editer, title/textarea -->
-<body>
-<div style="width: 60%; margin: auto;">
-	<form method="post" action="/write">
-		<input type="text" name="boardTitle" style="width: 100%;" placeholder="Title"/>
-		<br><br> 
-		<textarea id="summernote" name="content"></textarea>
-		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
-	</form>
-</div>
-
-
-	<!-- test for summernote in cotent -->
-	<div id="test">
-		 aaa
-	</div>
-
-
-	<!-- map -->
-	<div class="pac-card" id="pac-card">
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"></script>
+  </head>
+  <body>
+    <div class="pac-card" id="pac-card">
       <div>
         <div id="title">
           Autocomplete search
@@ -174,132 +123,8 @@ $(document).ready(function() {
       <span id="place-address"></span>
     </div>
 
-
-	<div id="location">
-		 (37.625607 / 127.073024)<br/><br/>
-	</div>
-
-
-<script>
-// check before upload
-function goWrite(frm) {
-	var boardTitle = frm.boardTitle.value;
-	var content = frm.content.value;
-
-	var Y_point	= 37.625607;// Y 좌표
-	var X_point	= 127.073024;// X 좌표
-
-	var myLatlng = new google.maps.LatLng(Y_point, X_point);
-		$("#test").html(content);
-		startMap(myLatlng);
-	
-	if (boardTitle.trim() == ''){
-		alert("plz insert title");
-		return false;
-	}
-	if (content.trim() == ''){
-		alert("plz insert content");
-		return false;
-	}
-	//일단은 제목과 내용만 보내게 코드 짬
-	submitDB(frm.boardTitle.value, frm.content.value);
-	//must have 2line above 밑에 2줄이 있어야 정상작동
-	$('.summernote').append('<input type="hidden" name="content", id="content" />');
-	$('#content').val($('.summernote').code());
-
-
-	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
-	frm.submit();
-}
-</script>
-
-<script>
-//firebase upload code
-function submitDB(btitle, bcontent){
-  // Your web app's Firebase configuration
-  var firebaseConfig = {
-    apiKey: "AIzaSyCTMbPV8BsmuGgzf97n-At-1CnOV4n0KRA",
-    authDomain: "wtgo-17e32.firebaseapp.com",
-    databaseURL: "https://wtgo-17e32.firebaseio.com",
-    projectId: "wtgo-17e32",
-    storageBucket: "wtgo-17e32.appspot.com",
-    messagingSenderId: "442941794543",
-    appId: "1:442941794543:web:079c3981e37f3d6d77531a",
-    measurementId: "G-NFMN1S3123"
-  };
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
-  firebase.analytics();
-  
-  var newPostKey = firebase.database().ref().child('posts').push().key;
-  
-  var postData = {
-    brdno: newPostKey,
-	brdwriter:"test.html",	
-    brdtitle:btitle,
-    brdmemo:bcontent,
-    brddate: Date.now()
-  };
- 
-  var updates = {};
-  updates['board/' + newPostKey] = postData;
- 
-  firebase.database().ref().update(updates);
-  }
-
-</script>
-
-
-<script>
-	function startMap(myLatlng){
-	$("#location").append('<div id="map_view" style="width:500px; height:300px;"></div>');
-			//var Y_point	= 37.625607;// Y 좌표
-			//var X_point	= 127.073024;// X 좌표
-			alert('map stert');
-			var zoomLevel	= 10;// 지도의 확대 레벨 : 숫자가 클수록 확대됨
-			var markerTitle	= "공릉";	// 현재 위치 마커에 마우스를 올렸을때 나타나는 정보
-
-			var markerMaxWidth	= 300;// 마커를 클릭했을때 나타나는 말풍선의 최대 크기
-
-			// 말풍선 내용
-
-			var contentString	= '<div>' +
-			'<h2>공릉역</h2>'+
-			'<p>과기대에서 가장 가까운<br/>' +
-            '7호선 입니다.</p>' +
-			'</div>';
-
-			//var myLatlng = new google.maps.LatLng(Y_point, X_point);
-			var mapOptions = {
-								zoom: zoomLevel,
-								center: myLatlng,
-								mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-			var map = new google.maps.Map(document.getElementById('map_view'), mapOptions);
-
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				map: map,
-				title: markerTitle
-			});
-
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString,
-				maxWidth: markerMaxWidth
-			});
-			
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.open(map, marker);
-			});
-		}
-</script>
-
-
-		
-		<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"></script>-->
-		<script>
-		//맵 로딩
-		 function initMap() {
+    <script>
+        function initMap() {
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13
@@ -351,10 +176,6 @@ function submitDB(btitle, bcontent){
           marker.setPosition(place.geometry.location);
           marker.setVisible(true);
 
-		  var markerPos = place.geometry.location;
-		  alert(markerPos);
-		  startMap(markerPos);
-
           var address = '';
           if (place.address_components) {
             address = [
@@ -389,15 +210,9 @@ function submitDB(btitle, bcontent){
               console.log('Checkbox clicked! New state=' + this.checked);
               autocomplete.setOptions({strictBounds: this.checked});
             });
-
-		google.maps.event.addListener(marker, 'click', function() {
-				var markerPos = marker.getPosition(place.geometry.location);
-				alert(markerPos);
-				$("#test").append(markerPos);
-		});
       }
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>
-</body>
-
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"
+        async defer></script>
+  </body>
 </html>
