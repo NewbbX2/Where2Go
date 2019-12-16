@@ -3,20 +3,45 @@
 	//var userID = "";
 	//var userName="";
 
-	//request에서 가져온 여행일자
-	var travelTotalSpanTime=0;
-
 %>
 <!DOCTYPE html>
 <html>
-	<script>
-	
-	function showup(){
-		travelTotalSpanTime=document.getElementByID("totalTime").value;
-		document.getElementByID("hideToDisplay").style.display="block";
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous">
+</script>
 
+<script>
+	function showUp(){
+		var index = $("#totalTime").val();
+		if(!index){
+			alert("여행 일자를 입력하세요");
+			return;
+		}
+		$("#item1").show();
+		$("#hideToDisplay").show();
+		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
+		if(index==lastIndex){
+			return;
+		}else if(index<lastIndex){
+			for(var i=lastIndex; i>index ;i--){
+				$("#contents tr:last").remove();
+			}
+		}else if(index>lastIndex){
+			for(var i=lastIndex; i<index; i++){
+				var newItem = $("#contents tr:eq(0)").clone();
+				var nextIndex = (parseInt(i)+1);
+				newItem.attr("id","item"+ nextIndex);
+				newItem.children("td").children("label").text(nextIndex + "일차");
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
+				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
+				//newItem.children("td").children("textarea").text = ""
+				$("#contents").append(newItem);
+			}
+		}
 	}
-	
+
 	</script>
 
 	<head>
@@ -34,7 +59,7 @@
 			}
 		 </style>
 	</head>
-	
+
 
 
 
@@ -44,45 +69,42 @@
 
 
 	<body >
-		
-		<label >여행일자는 총 몇일인가요?</label>
-		
-		<div id="displayToHide">
-			<input type = "number" name = "totalTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
-			<button onclick="showUp()" >다음페이지로</button>
-			<a href = "./tripPlan"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
-		</div>
-
-
-
-		<div id = "hideToDisplay" style="display:nene">
-			<form action="./travelEnrollAction" method="post">
-				<%// 이젠에서 받아온 여행일자랑, 아이디를 저장.%>
-				<select name = "travelTotalSpanTime" style="display: none;"><option value = <%=travelTotalSpanTime%> style="display:none"></option></select>
+		<form action="./travelEnrollAction" method="post">
+				<label >여행일자는 총 몇일인가요?</label>
+				<div id="displayToHide">
+					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
+					<button type="button" onclick="showUp()" >일자 선택</button>
+					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+				</div>
+				<div id = "hideToDisplay" style="display:none">
+				<%// 이젠에서 받아온 아이디를 저장.%>
 				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
 				<label>게시판분류</label>
 				<select name = "travelClassify" >
-					<option value="tripPlan">여행계획</option>	
+					<option value="tripPlan">여행계획</option>
 					<option value="tripLog">여행일지</option>
 				</select><br>
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
-				<label>여행시작일 8자리를 넣어주세요</label><%19940415같이 8자리%>
+				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"><br />
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				<label>작성자이름</label>
-				<select name = "travelWriter" ><option value = "<%=userID%>" selected><%=userID%></option></select><br>
-				<%<for(var i=0;i<travelTotalSpanTime;i++){%>
-					<%=var lat=0; lng=0%>
-					<label><%=i%>일차</label>
-					<div id="map"></div>
-					<input type = "number" name = travelMapPos<%=i%> value=<%=Lat*1000+lng%>style="display:none">
-					<textarea  name = "travelContent<%=i%>" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
+				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 
-				<%}%>
-				
-					
+				<table id="contents">
+					<tr id="item1" style="display.non">
+						<td>
+							<label id="day">1일차</label>
+							<div id="map"></div>
+							<input type = "number" name = "travelMapPos1" value="1" style="display:none">
+							<textarea  name = "travelContent1" maxlength = "4096" style = "height:180px; width:700px;"></textarea><br/>
+						</td>
+					</tr>
+				</table>
+
+
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
 			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>

@@ -201,12 +201,19 @@ app.post('/reformBoardAction', function(req, res){
     data.tripForumMon = req.body.tripForumMon;
   }
   firebase.database().ref('boards/' + key).update(data);
-  res.sent('<script>document.location.href=document.referrer;</script>');
+  res.send('<script>document.location.href=document.referrer;</script>');
 });
 
 //여행 계획 글쓰기 폼
 app.get('/travelEnroll', function(req, res){
-  res.render('travelEnroll');
+  var user = firebase.auth().currentUser;
+  if(user){
+    res.render('travelEnroll',{ userID : user.email, userName : user.displayName });
+  }else{
+    res.send("<script>alert('로그인 하세요');"
+    + "document.location.href=document.referrer;</script>'");
+    res.send('<script>document.location.href=document.referrer;</script>');
+  }
 });
 
 //여행계획 글쓰기 저장
@@ -226,6 +233,7 @@ app.post('/travelEnrollAction', function(req, res){
   while(req.body['travelMapPos' + day]){
     data['travelMapPos' + day] = req.body['travelMapPos' + day];
     data['travelContent' + day] = req.body['travelContent' + day];
+    day++;
   }
   firebase.database().ref('travels/' + travelKey).set(data).then(function(){
     res.send("<script>alert('등록되었습니다');"
