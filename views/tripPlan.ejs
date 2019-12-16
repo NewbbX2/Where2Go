@@ -108,7 +108,7 @@ numberOfBoardListSearched=boardList.length;
 		//보드 검색중.
 					else{
 						var NoStart = numberOfBoardListSearched-(pageNo-1)*boardIndexNoPerPage;
-						var NoNextStart = NoStart-boardIndexNoPerPagez;
+						var NoNextStart = NoStart-boardIndexNoPerPage;
 						for(var indexNo=NoStart ;(indexNo>=1)&&(indexNo>NoNextStart);indexNo--){%>
 								<tr>
 									<td><a href = "./tripPlan2?key=<%=boardList[indexNo-1].key%>" style="text-decoration:none;color:black"><%=indexNo%></a></td>	
