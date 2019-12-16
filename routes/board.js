@@ -233,6 +233,7 @@ app.post('/travelEnrollAction', function(req, res){
   while(req.body['travelMapPos' + day]){
     data['travelMapPos' + day] = req.body['travelMapPos' + day];
     data['travelContent' + day] = req.body['travelContent' + day];
+    day++;
   }
   firebase.database().ref('travels/' + travelKey).set(data).then(function(){
     res.send("<script>alert('등록되었습니다');"
