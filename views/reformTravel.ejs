@@ -15,7 +15,7 @@
 	window.onload=showStart();
 
 	function showStart(){
-		var index = board.totalTime;
+		var index = board.travelTotalSpaTotalSpanTime;
 		$("#item1").show();
 		$("#hideToDisplay").show();
 		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
@@ -100,7 +100,7 @@
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
-					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
+					<input type = "number" id = "totalTime"  name = "travelTotalSpaTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
 					value = "<%=board.travelTotalSpanTime%>"><br />
 					<button type="button" onclick="showUp()" >일자 선택</button>
 					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
@@ -152,7 +152,7 @@
 
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<a href = "document.referer"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 		</div>
 	</body>
 </html>
