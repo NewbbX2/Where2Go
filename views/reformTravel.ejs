@@ -13,8 +13,7 @@
 
 <script>
 	var board = <%-JSON.stringify(board)%>;
-	$("body").ready(function)
-	{
+	$("body").ready(function(){
 		var index = board.travelTotalSpaTotalSpanTime;
 		$("#item1").show();
 		$("#hideToDisplay").show();
@@ -38,7 +37,7 @@
 				$("#contents").append(newItem);
 			}
 		}
-	}
+	});
 
 	function showUp(){
 		var index = $("#totalTime").val();
