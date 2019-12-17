@@ -13,7 +13,7 @@
 
 <script>
 	var board = <%-JSON.stringify(board)%>;
-	$("body").onload(function(){
+	function StartV(){
 		var index = board.travelTotalSpaTotalSpanTime;
 		$("#item1").show();
 		$("#hideToDisplay").show();
@@ -95,7 +95,7 @@
 
 
 
-	<body >
+	<body onload=startV()>
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
