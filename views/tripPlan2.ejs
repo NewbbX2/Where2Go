@@ -26,10 +26,11 @@ var pageNo=1;
 		</script>
 		<script>
 			var pageNo = <%-JSON.stringify(pageNo)%>;
+			var board = <%-JSON.stringify(board)%>;
 			function renewContent()
 			{
-				$("#travelContentL").val(boardContent[pageNo]);
-				$("#travelContentR").val(boardContent[pageNo+1]);
+				$("#travelContentL").val(board.boardContent[pageNo]);
+				$("#travelContentR").val(board.boardContent[pageNo+1]);
 				
 
 			}
