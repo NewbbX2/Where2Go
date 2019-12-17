@@ -30,8 +30,9 @@ crossorigin="anonymous">
 			var board = <%-JSON.stringify(board)%>;
 			function renewContent()
 			{
-				$("#travelContentL").val(board.travelContent[pageNo+1]);
-				$("#travelContentR").val(board.travelContent[pageNo+1]);
+				
+				$("#travelContentR").val(board["travelContent"+pageNo]);
+				$("#travelContentR").val(board["travelContent"+pageNo+1]);
 				
 
 			}
