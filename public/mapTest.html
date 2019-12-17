@@ -24,8 +24,6 @@
 
 <!-- googlemap   ~line 109 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-<!-- Api key-->
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY"></script>
 
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -175,7 +173,7 @@ $(document).ready(function() {
             placeholder="Enter a location">
       </div>
     </div>
-    <div id="map"  ></div>
+    <div id="map"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name"  class="title"></span><br>
@@ -216,7 +214,7 @@ function goWrite(frm) {
 	$('.summernote').append('<input type="hidden" name="content", id="content" />');
 	$('#content').val($('.summernote').code());
 	//일단은 제목과 내용만 보내게 코드 짬
-	submitDB(boardTitle, content, myLatlng);
+	submitDB(frm.boardTitle.value, frm.content.value, frm.travelMapPos1.value);
 
 	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
 	frm.submit();
@@ -252,7 +250,7 @@ function submitDB(btitle, bcontent, bmyLatlng){
   };
  
   var updates = {};
-  updates['board/' + newPostKey] = postData;
+  updates['/board/' + newPostKey] = postData;
  
   firebase.database().ref().update(updates);
   }
@@ -367,11 +365,33 @@ function submitDB(btitle, bcontent, bmyLatlng){
             ].join(' ');
           }
 
+
+
           infowindowContent.children['place-icon'].src = place.icon;
           infowindowContent.children['place-name'].textContent = place.name;
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
         });
+
+		        // Sets a listener on a radio button to change the filter type on Places
+        // Autocomplete.
+        function setupClickListener(id, types) {
+          var radioButton = document.getElementById(id);
+          radioButton.addEventListener('click', function() {
+            autocomplete.setTypes(types);
+          });
+        }
+
+		document.getElementById('use-strict-bounds')
+            .addEventListener('click', function() {
+              console.log('Checkbox clicked! New state=' + this.checked);
+              autocomplete.setOptions({strictBounds: this.checked});
+            });
+
+			        setupClickListener('changetype-all', []);
+        setupClickListener('changetype-address', ['address']);
+        setupClickListener('changetype-establishment', ['establishment']);
+        setupClickListener('changetype-geocode', ['geocode']);
 
 		google.maps.event.addListener(marker, 'click', function() {
 				var markerPos = marker.getPosition(place.geometry.location);
