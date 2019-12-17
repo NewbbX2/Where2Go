@@ -205,9 +205,20 @@
         }
       }
 </script>
+
+<script>
+	function placeSummernote(day) {
+	$('#summernote'+day).summernote({
+		placeholder: 'content',
+	    minHeight: 400,
+	    maxHeight: null,
+	    focus: true, 
+	    lang : 'ko-KR'});//에디터 크기 설정
+	}
+	</script>
 </head>
 
-
+<!--
 <script>
 $(document).ready(function() {
   $('#summernote').summernote({placeholder: 'content',
@@ -216,10 +227,10 @@ $(document).ready(function() {
 	        focus: true, 
 	        lang : 'ko-KR'});//에디터 크기 설정
 });
-</script>
+</script>-->
 
 <!-- //Summernote Editer, title/textarea -->
-<body onload="placeMap(5)">
+<body onload="placeMap(5);placeSummernote(1)">
 <table id="contents">
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
@@ -227,7 +238,7 @@ $(document).ready(function() {
 		<br>
 		<input id="inputMapPos1" type="text" name="travelMapPos1" style="width: 100%;" placeholder="Pos"/>
 		<br><br> 
-		<textarea id="summernote" name="content"></textarea>
+		<textarea id="summernote1" name="content"></textarea>
 		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>

@@ -37,10 +37,11 @@
 				//newItem.children("td").children("div").children("id").append(nextIndex);
 				newItem.children("td").children("#map1").attr("id", "map"+nextIndex);
 				newItem.children("td").children("#pac-card1").attr("id", "pac-card"+nextIndex);
-				newItem.children("td").children("#pac-input1").attr("id", "pac-input"+nextIndex);
+				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input1").attr("id", "pac-input"+nextIndex);
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
+				newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 				//newItem.children("td").children("textarea").val($('.summernote').code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
@@ -232,22 +233,22 @@
       }
 	</script>
 
+	<script>
+	function placeSummernote(day) {
+	$('#summernote'+day).summernote({
+		placeholder: 'content',
+	    minHeight: 400,
+	    maxHeight: null,
+	    focus: true, 
+	    lang : 'ko-KR'});//에디터 크기 설정
+	}
+	</script>
 	</head>
 
-	<script>
-	$(document).ready(function() {
-	$('#summernote').summernote({
-	       minHeight: 400,
-	       maxHeight: null,
-	       focus: true, 
-	       lang : 'ko-KR'});//에디터 크기 설정
-	});
-	</script>
 
 
 
-
-	<body onload="mapPlace(1)">
+	<body onload="mapPlace(1);placeSummernote(1)">
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
@@ -296,7 +297,7 @@
 							    </div>
 
 							<input id="inputMapPos1" type = "text" name = "travelMapPos1" value="1" style="display:none;">
-							<textarea  id="summernote" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
+							<textarea  id="summernote1" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
 				</table>
