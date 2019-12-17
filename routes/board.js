@@ -4,6 +4,30 @@ var firebase = require('firebase/app');
 require('firebase/auth');
 require('firebase/database');
 
+//로그인 체크
+var loginChk = function(res){
+  var user = firebase.auth().currentUser;
+  if(user){
+    return true;
+  }else{
+    res.send("<script>alert('로그인을 해주세요');"
+    + "document.location.href=history.back();</script>'");
+    return false;
+  }
+}
+
+//본인 확인
+var isWriter = function(writer, res){
+    var user = firebase.auth().currentUser;
+    if(user == writer){
+      return true;
+    }else{
+      res.send("<script>alert('권한이 없습니다');"
+      + "document.location.href=history.back();</script>'");
+      return false;
+    }
+}
+
 //게시판 로드시 사용되는 함수
 var initBoard = function(boardType, page, req, res){
   var userName;
@@ -189,23 +213,18 @@ app.get('/tripForum2', function(req, res){
 
 //글쓰기 폼
 app.get('/boardEnroll', function(req, res){
+  loginChk(res);
   var user = firebase.auth().currentUser;
   var boardType = req.query.boardType;
-  if(user){
-    var userName = user.displayName;
-    var userID = user.email;
-    console.log('write ' + boardType);
-    res.render('boardEnroll', {userID :userID, userName : userName, boardType : boardType});
-  }else{
-    res.send("<script>alert('로그인을 해주세요');"
-    + "document.location.href='./"+ boardType +"';</script>'");
-  }
+  //console.log('write ' + boardType);
+  res.render('boardEnroll', {userID :user.email, userName : user.displayName, boardType : boardType});
 });
 
 //글쓰기 저장
 app.post('/boardEnrollAction', function(req, res){
+  loginChk(res);
   var boardKey = firebase.database().ref().child('boards').push().key;
-  console.log(req.body);
+  //console.log(req.body);
   var data = {
     boardWriterID : firebase.auth().currentUser.email,
     boardType : req.body.boardType,
@@ -229,17 +248,18 @@ app.post('/boardEnrollAction', function(req, res){
 
 //글쓰기 갱신 폼
 app.get('/reformBoard', function(req, res){
+  loginChk(res);
   var key = req.query.key;
   firebase.database().ref('boards/' + key).once('value').then(function(snapshot){
     var board = snapshot.val();
     board.key = snapshot.key;
-    console.log(board);
+    //console.log(board);
     res.render('reformBoard', {board : board});
   });
 });
-
 //글쓰기 갱신
 app.post('/reformBoardAction', function(req, res){
+  loginChk(res);
   var key = req.body.key;
   var data = {
     boardWriterID : firebase.auth().currentUser.email,
@@ -256,22 +276,37 @@ app.post('/reformBoardAction', function(req, res){
   res.send('<script>document.location.href=document.referrer;</script>');
 });
 
+//글쓰기 삭제
+app.get('/deleteActionBoard', function(req, res){
+  loginChk(res);
+  var key = req.query.key;
+  var boardType;
+  var writer;
+  firebase.database().ref('boards/' + key).once('value', function(snapshot){
+    boardType = snapshot.val().boardType;
+    writer = snapshot.val().boardWriterID;
+  }).then(function(){
+    isWriter(writer, res);
+    firebase.database().ref('/boards/' + key).remove().then(function(){
+      console.log(key + ' is deleted');
+      res.send("<script>alert('삭제되었습니다');"
+      + "document.location.href='./"+ boardType +"';</script>'");
+    });
+  });
+});
+
 //여행 계획 글쓰기 폼
 app.get('/travelEnroll', function(req, res){
+  loginChk(res);
   var user = firebase.auth().currentUser;
-  if(user){
-    res.render('travelEnroll',{ userID : user.email, userName : user.displayName });
-  }else{
-    res.send("<script>alert('로그인 하세요');"
-    + "document.location.href=document.referrer;</script>'");
-    res.send('<script>document.location.href=document.referrer;</script>');
-  }
+  res.render('travelEnroll',{ userID : user.email, userName : user.displayName });
 });
 
 //여행계획 글쓰기 저장
 app.post('/travelEnrollAction', function(req, res){
+  loginChk(res);
   var travelKey = firebase.database().ref().child('travels').push().key;
-  console.log(req.body);
+  //console.log(req.body);
   var data = {
     travelTotalSpanTime : req.body.travelTotalSpanTime,
     travelWriterID : req.body.travelWriterID,
@@ -297,53 +332,56 @@ app.post('/travelEnrollAction', function(req, res){
   });
 });
 
-//글 삭제
-app.get('/deleteActionBoard', function(req, res){
-
+//여행계획 갱신 폼
+app.get('/reformTravel', function(req, res){
+  loginChk(res);
   var key = req.query.key;
-  var boardType;
-  var writer;
-  firebase.database().ref('boards/' + key).once('value', function(snapshot){
-    boardType = snapshot.val().boardType;
-    writer = snapshot.val().boardWriterID;
-  }).then(function(){
-    if(!firebase.auth().currentUser){
-      res.send("<script>alert('로그인 하세요');"
-      + "document.location.href='"+ boardType +"';</script>'");
-      return;
-    }
-    if(firebase.auth().currentUser.email != writer){
-      res.send("<script>alert('권한이 없습니다');"
-      + "document.location.href='"+ boardType +"';</script>'");
-      return;
-    }
-    firebase.database().ref('/boards/' + key).remove().then(function(){
-      console.log(key + ' is deleted');
-      res.send("<script>alert('삭제되었습니다');"
-      + "document.location.href='./"+ boardType +"';</script>'");
-    });
+  firebase.database().ref('travels/' + key).once('value').then(function(snapshot){
+    var board = snapshot.val();
+    board.key = snapshot.key;
+    //console.log(board);
+    res.render('reformTravel', {board : board});
   });
 });
 
-app.get('/deleteActionTravel', function(req, res){
+//여행계획 갱신
+app.post('/reformTravelAction', function(req, res){
+  loginChk(res);
+  var key = req.body.key;
+  var data = {
+    travelTotalSpanTime : req.body.travelTotalSpanTime,
+    travelWriterID : req.body.travelWriterID,
+    travelClassify : req.body.travelClassify,
+    travelTitle : req.body.travelTitle,
+    travelStartDate : req.body.travelStartDate,
+    travelCountry : req.body.travelCountry,
+    travelWriter : req.body.travelWriter
+  };
+  var day = 1;
+  while(req.body['travelMapPos' + day]){
+    data['travelMapPos' + day] = req.body['travelMapPos' + day];
+    data['travelContent' + day] = req.body['travelContent' + day];
+    day++;
+  }
+  if(req.body.tripForumMon){
+    data.tripForumMon = req.body.tripForumMon;
+  }
+  firebase.database().ref('travels/' + key).update(data);
+  res.send('<script>document.location.href=document.referrer;</script>');
+});
 
+
+//여행계획 삭제
+app.get('/deleteActionTravel', function(req, res){
+  loginChk(res);
   var key = req.query.key;
   var boardType;
   var writer;
-  firebase.database().ref('boards/' + key).once('value', function(snapshot){
-    boardType = snapshot.val().boardType;
-    writer = snapshot.val().boardWriterID;
+  firebase.database().ref('travels/' + key).once('value', function(snapshot){
+    boardType = snapshot.val().travelClassify;
+    writer = snapshot.val().travelWriterID;
   }).then(function(){
-    if(!firebase.auth().currentUser){
-      res.send("<script>alert('로그인 하세요');"
-      + "document.location.href='"+ boardType +"';</script>'");
-      return;
-    }
-    if(firebase.auth().currentUser.email != writer){
-      res.send("<script>alert('권한이 없습니다');"
-      + "document.location.href='"+ boardType +"';</script>'");
-      return;
-    }
+    isWriter(writer, res);
     firebase.database().ref('/boards/' + key).remove().then(function(){
       console.log(key + ' is deleted');
       res.send("<script>alert('삭제되었습니다');"
