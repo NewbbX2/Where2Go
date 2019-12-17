@@ -36,6 +36,8 @@
 				newItem.children("td").children("label").text(nextIndex + "일차");
 				//newItem.children("td").children("div").children("id").append(nextIndex);
 				newItem.children("td").children("#map").attr("id", "map"+nextIndex);
+				newItem.children("td").children("#pac-card").attr("id", "pac-card"+nextIndex);
+				newItem.children("td").children("#pac-input").attr("id", "pac-input"+nextIndex);
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
@@ -158,10 +160,8 @@
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13
         });
-        var card = document.getElementById('pac-card');
-        var input = document.getElementById('pac-input');
-        var types = document.getElementById('type-selector');
-        var strictBounds = document.getElementById('strict-bounds-selector');
+        var card = document.getElementById('pac-card'+day);
+        var input = document.getElementById('pac-input'+day);
 
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
@@ -278,14 +278,14 @@
 							<label id="day">1일차</label>
 
 								<!--map-->
-								<div class="pac-card" id="pac-card">
+								<div class="pac-card" id="pac-card1">
 							     <div>
 							        <div id="title">
 							          search Where To GO!
 							        </div>
 							      </div>
 							      <div id="pac-container">
-							        <input id="pac-input" type="text"
+							        <input id="pac-input1" type="text"
 							            placeholder="Enter a location">
 							      </div>
 							    </div>
