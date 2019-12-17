@@ -21,11 +21,18 @@
 			var nextIndex = (parseInt(i)+1);
 			newItem.attr("id","item"+ nextIndex);
 			newItem.children("td").children("label").text(nextIndex + "일차");
-			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board["travelMapPos"+nextIndex]);;
+			newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
+			newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
+			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
+			newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
+			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board["travelMapPos"+nextIndex]);
+			newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board["travelContent"+nextIndex]);
 			//newItem.children("td").children("textarea").text = ""
 			$("#contents").append(newItem);
-		newItem.show();
+			newItem.show();
+			displayMap(nextIndex, board["travelMapPos"+nextIndex]);
+			placeSummernote(nextIndex);
 		}
 	};
 
@@ -116,34 +123,48 @@
 
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"
-				 value = "<%=board.travelTitle%>"			>
+				 value = "<%=travelTitle%>">
 				<br />
 				
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
-					vlaue = "<%=board.travelStartDate%>">
+					vlaue = "<%=travelStartDate%>">
 					<br />
 
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"
-					value = "<%=board.travelCountry%>"		>
+					value = "<%=travelCountry%>">
 					<br />
 				<label>작성자이름</label>
 				<select name = "travelWriter" >
-					<option value = "<%=board.travelWriter%>" selected>
-					<%=board.travelWriter%></option>
+					<option value = "<%=travelWriter%>" selected></option>
 				</select><br>
 				
 				<table id="contents">
-					<tr id="item1" style="display:none">
+					<tr id="item0" style="display:none">
 						<td>
-							<label id="day">1일차</label>
-							<div id="map"></div>
-							<input type = "number" name = "travelMapPos1" value=<%=board.travelMapPos1%> style="display:none"  >
-							<textarea  name = "travelContent1" maxlength = "4096" style = "height:180px; width:700px;"
-								value = "<%=board.travelContent1%>">
-								<%=board.travelContent1%>
-							</textarea><br/>
+							<label id="day">0일차</label>
+
+							<!--map start-->
+							<div class="pac-card" id="pac-card0">
+								<div>
+								   <div id="title">
+									 search Where To GO!
+								   </div>
+								 </div>
+								 <div id="pac-container">
+								 <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
+								 </div>
+							   </div>
+							   <div id="map0"style="width:700px; height:500px;"></div>
+							   <div id="infowindow-content">
+								 <img src="" width="16" height="16" id="place-icon">
+								 <span id="place-name"  class="title"></span><br>
+								 <span id="place-address"></span>
+							   </div><!--map end-->
+				
+							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
+							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
 				</table>
@@ -152,5 +173,6 @@
 			</form>
 			<a href = "document.referer"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 		</div>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"async defer></script>
 	</body>
 </html>
