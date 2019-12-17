@@ -44,6 +44,7 @@
 				//newItem.children("td").children("textarea").val($('.summernote').code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
+				newItem.show();
 				mapPlace(nextIndex);
 				placeSummernote(nextIndex);
 			}
@@ -274,30 +275,30 @@
 				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 
 				<table id="contents">
-					<tr id="item1">
+					<tr id="item0" style = " display:none">
 						<td>
-							<label id="day">1일차</label>
+							<label id="day">0일차</label>
 
-								<!--map-->
-								<div class="pac-card" id="pac-card1">
+								<!--map start-->
+								<div class="pac-card" id="pac-card0">
 							     <div>
 							        <div id="title">
 							          search Where To GO!
 							        </div>
 							      </div>
 							      <div id="pac-container">
-								  <input id="pac-input1" type="text" style="font-size: 20px;" placeholder="Enter a location">
+								  <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
 							      </div>
 							    </div>
-							    <div id="map1"style="width:700px; height:500px;"></div>
+							    <div id="map0"style="width:700px; height:500px;"></div>
 							    <div id="infowindow-content">
 							      <img src="" width="16" height="16" id="place-icon">
 							      <span id="place-name"  class="title"></span><br>
 							      <span id="place-address"></span>
-							    </div>
+							    </div><!--map end-->
 
-							<input id="inputMapPos1" type = "text" name = "travelMapPos1" value="1" style="display:none;">
-							<textarea  id="summernote1" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
+							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
+							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
 				</table>
