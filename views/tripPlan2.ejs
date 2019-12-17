@@ -18,77 +18,22 @@ var pageNo=1;
 		<meta charset = "UTF-8">
 		<title>WTG</title>
 		<link rel = "stylesheet" href = "./styles/styles.css"/>
+		
+		<script
+		src="https://code.jquery.com/jquery-3.4.1.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+		crossorigin="anonymous">
+		</script>
 		<script>
 			function renewContent()
 			{
-				var CL="";
-				var CR="";
-				if(pageNo==1)
-				{
-					CL=board.travelContent1;
-					CR=board.travelContent2;
-				}
-				else if(pageNo==2)
-				{
-					CL=board.travelContent2;
-					CR=board.travelContent3;
-				}
-				else if(pageNo==3)
-				{
-					CL=board.travelContent3;
-					CR=board.travelContent4;
-				}
-				else if(pageNo==4)
-				{
-					CL=board.travelContent4;
-					CR=board.travelContent5;
-				}
-				else if(pageNo==5)
-				{
-					CL=board.travelContent5;
-					CR=board.travelContent6;
-				}
-				else if(pageNo==6)
-				{
-					CL=board.travelContent6;
-					CR=board.travelContent7;
-				}
-				else if(pageNo==7)
-				{
-					CL=board.travelContent7;
-					CR=board.travelContent8;
-				}
-				else if(pageNo==8)
-				{
-					CL=board.travelContent8;
-					CR=board.travelContent9;
-				}
-				else if(pageNo==9)
-				{
-					CL=board.travelContent9;
-					CR=board.travelContent10;
-				}
-				else{
-					pageNo==1;
-					CL=board.travelContent1;
-					CR=board.travelContent2;
-				}
-
-				document.getElementById("travelContentL").value = CL;
-				document.getElementById("travelContentR").value = CR;
-
+				$("#travelContentL").val(boardContent<%=pageNo%>);
+				$("#travelContentR").val(boardContent<%=pageNo+1%>);
+				
 
 			}
-			function pageUp() {
-				pageNo+=1;
-				renewContent();
-
-			}
-			function pageDown()
-			{
-				pageNo-=1;
-				renewContent();
-			}
+			function pageUp() {pageNo+=1;renewContent();}
+			function pageDown(){pageNo-=1;renewContent();}
 
 		</script>
 	</head>
@@ -128,21 +73,27 @@ var pageNo=1;
 								</tr>
 							</thead>
 							<tbody >
-								<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
-								<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
+								<%if(board.travelTotalSpanTime==1){%>
+									<td colspan = "6" id="travelContent"><%=board.travelContent1%></td>
+								<%}else{%>
+									<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
+									<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
+								<%}%>
 							</tbody>
 						</table>
 				</div>
 														
 				<div >
-					<%if(pageNo<9){%>
-						<button onclick="pageUp()" >다음페이지로</button>
-					<%}if(pageNo>1){%>
-						<button onclick="pageDown()" >이전페이지로</button>
-					<%}if((board.travelWriterID==userID)){%>
-						<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
-						<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
-					<%}%>
+					<%if(board.travelTotalSpanTime>1){
+						if(pageNo<board.travelTotalSpanTime-1){%>
+							<button onclick="pageUp()" >다음페이지로</button>
+						<%}if(pageNo>1){%>
+							<button onclick="pageDown()" >이전페이지로</button>
+						<%}if((board.travelWriterID==userID)){%>
+							<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
+							<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
+						<%}
+					}%>
 				</div>
 			</article>
 			<article id = "LoginMenu">

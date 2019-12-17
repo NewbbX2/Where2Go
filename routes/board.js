@@ -58,8 +58,13 @@ var initContent = function(key, path, req, res){
   }
   firebase.database().ref('/boards/' + key).once('value').then(function(snapshot){
     board = snapshot.val();
-    board.key = key;
-    res.render(path, {board : board, userName : userName, userID : userID});
+    if(board){
+      board.key = key;
+      res.render(path, {board : board, userName : userName, userID : userID});
+    }else{
+      res.send("<script>alert('존재하지 않는 게시물입니다');"
+      + "document.location.href=history.back();</script>");
+    }
   });
 }
 
@@ -74,8 +79,14 @@ var initContent2 = function(key, path, req, res){
   }
   firebase.database().ref('/travels/' + key).once('value').then(function(snapshot){
     board = snapshot.val();
-    board.key = key;
-    res.render(path, {board : board, userName : userName, userID : userID});
+    //console.log(board);
+    if(board){
+      board.key = key;
+      res.render(path, {board : board, userName : userName, userID : userID});
+    }else{
+      res.send("<script>alert('존재하지 않는 게시물입니다');"
+      + "document.location.href=history.back();</script>");
+    }
   });
 }
 
@@ -90,7 +101,7 @@ app.get('/tripPlan', function(req, res){
 });
 
 app.get('/tripPlan2', function(req, res){
-var key = req.query.travelNo;
+var key = req.query.key;
 if(key){
   initContent2(key, 'tripPlan2', req, res);
 }else{
