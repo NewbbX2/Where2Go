@@ -31,7 +31,7 @@
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 100%;
+		width:500px; height:300px;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -150,6 +150,7 @@ $(document).ready(function() {
         <div id="title">
           search Where To GO!
         </div>
+		<!--
         <div id="type-selector" class="pac-controls">
           <input type="radio" name="type" id="changetype-all" checked="checked">
           <label for="changetype-all">All</label>
@@ -167,6 +168,7 @@ $(document).ready(function() {
           <input type="checkbox" id="use-strict-bounds" value="">
           <label for="use-strict-bounds">Strict Bounds</label>
         </div>
+		-->
       </div>
       <div id="pac-container">
         <input id="pac-input" type="text"
