@@ -18,8 +18,14 @@ var pageNo=1;
 		<title>WTG</title>
 		<link rel = "stylesheet" href = "./styles/styles.css"/>
 	
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous">
+</script>
 		<script>
 			var pageNo = <%-JSON.stringify(pageNo)%>;
+			var board = <%-JSON.stringify(board)%>;
 			function renewContent()
 			{
 				$("#travelContentL").val(board.boardContent[pageNo]);
