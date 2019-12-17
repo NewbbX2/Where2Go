@@ -121,7 +121,7 @@ $(document).ready(function() {
 </script>
 
 <!-- //Summernote Editer, title/textarea -->
-<body>
+<body onload="placeMap(5)">
 <table id="contents">
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
@@ -129,7 +129,7 @@ $(document).ready(function() {
 		<br>
 		<input id="inputMapPos1" type="text" name="travelMapPos1" style="width: 100%;" placeholder="Pos"/>
 		<br><br> 
-		<textarea id="summernote" name="content1"></textarea>
+		<textarea id="summernote" name="content"></textarea>
 		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>
@@ -175,7 +175,7 @@ $(document).ready(function() {
             placeholder="Enter a location">
       </div>
     </div>
-    <div id="map"></div>
+    <div id="map"  ></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name"  class="title"></span><br>
@@ -193,9 +193,11 @@ $(document).ready(function() {
 // check before upload
 function goWrite(frm) {
 	var boardTitle = frm.boardTitle.value;
-	var content = frm.content1.value;
+	var content = frm.content.value;
 	var myLatlng = frm.travelMapPos1.value;
 
+	//frm.textarea.val($('.summernote').code());
+	
 	//var Y_point	= 37.625607;// Y 좌표
 	//var X_point	= 127.073024;// X 좌표
 
@@ -211,12 +213,10 @@ function goWrite(frm) {
 		alert("plz insert content");
 		return false;
 	}
+	$('.summernote').append('<input type="hidden" name="content", id="content" />');
+	$('#content').val($('.summernote').code());
 	//일단은 제목과 내용만 보내게 코드 짬
 	submitDB(boardTitle, content, myLatlng);
-	//must have 2line above 밑에 2줄이 있어야 정상작동
-	//$('.summernote').append('<input type="hidden" name="content' + '1' +'", id="content" />');
-	$('#content'+'1').val($('.summernote').code());
-
 
 	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
 	frm.submit();
@@ -291,7 +291,8 @@ function submitDB(btitle, bcontent, bmyLatlng){
 		<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"></script>-->
 		<script>
 		//맵 로딩
-		 function initMap() {
+		 function placeMap(a) {
+		alert(a);
         var map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13
@@ -372,12 +373,6 @@ function submitDB(btitle, bcontent, bmyLatlng){
           infowindow.open(map, marker);
         });
 
-        document.getElementById('use-strict-bounds')
-            .addEventListener('click', function() {
-              console.log('Checkbox clicked! New state=' + this.checked);
-              autocomplete.setOptions({strictBounds: this.checked});
-            });
-
 		google.maps.event.addListener(marker, 'click', function() {
 				var markerPos = marker.getPosition(place.geometry.location);
 				alert(markerPos);
@@ -385,8 +380,8 @@ function submitDB(btitle, bcontent, bmyLatlng){
 		});
       }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>
-<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=placeMap(5)"async defer></script>-->
 </body>
 
 </html>

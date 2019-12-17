@@ -42,6 +42,7 @@
 				newItem.children("td").children("textarea").val($('.summernote').code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
+				mapPlace(nextIndex);
 			}
 		}
 	}
@@ -160,7 +161,7 @@
 
 
 
-	<body>
+	<body onload="mapPlace(1)">
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
@@ -202,7 +203,7 @@
 							            placeholder="Enter a location">
 							      </div>
 							    </div>
-							    <div id="map1" onload="mapPlace(this.id)"></div>
+							    <div id="map1"></div>
 							    <div id="infowindow-content">
 							      <img src="" width="16" height="16" id="place-icon">
 							      <span id="place-name"  class="title"></span><br>
@@ -222,11 +223,9 @@
 		</div>
 
 
-
 		<script>
 		//맵 로딩
-		 function mapPlace(mapId) {
-		 var day = mapId.replace("map", "");
+		 function mapPlace(day) {
 
         var map = new google.maps.Map(document.getElementById('map'+day), {
           center: {lat: -33.8688, lng: 151.2195},
@@ -298,12 +297,6 @@
           infowindow.open(map, marker);
         });
 
-        document.getElementById('use-strict-bounds')
-            .addEventListener('click', function() {
-              console.log('Checkbox clicked! New state=' + this.checked);
-              autocomplete.setOptions({strictBounds: this.checked});
-            });
-
 		google.maps.event.addListener(marker, 'click', function() {
 				var markerPos = marker.getPosition(place.geometry.location);
 				alert(markerPos);
@@ -311,6 +304,6 @@
 		});
       }
 	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY></script>
 	</body>
 </html>
