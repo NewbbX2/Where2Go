@@ -61,7 +61,7 @@
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos);
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos[nextIndex]);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board.travelContent[nextIndex]);
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
