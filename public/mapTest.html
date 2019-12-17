@@ -24,8 +24,8 @@
 
 <!-- googlemap   ~line 109 
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
-<!-- Api key--
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC5uIp1_ndIbazWrzJOy5wZN9t70JH3QoI"></script>-->
+<!-- Api key-->
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY"></script>
 
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -127,9 +127,9 @@ $(document).ready(function() {
 	<form method="post" action="/write">
 		<input type="text" name="boardTitle" style="width: 100%;" placeholder="Title"/>
 		<br>
-		<input id="inputMapPos" type="text" name="travelMapPos1" style="width: 100%;" placeholder="Pos"/>
+		<input id="inputMapPos1" type="text" name="travelMapPos1" style="width: 100%;" placeholder="Pos"/>
 		<br><br> 
-		<textarea id="summernote" name="content"></textarea>
+		<textarea id="summernote" name="content1"></textarea>
 		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>
@@ -182,6 +182,7 @@ $(document).ready(function() {
       <span id="place-address"></span>
     </div>
 
+	<div id="map_view" style="width:500px; height:300px;"></div>
 
 	<div id="location">
 		 (37.625607 / 127.073024)<br/><br/>
@@ -192,7 +193,7 @@ $(document).ready(function() {
 // check before upload
 function goWrite(frm) {
 	var boardTitle = frm.boardTitle.value;
-	var content = frm.content.value;
+	var content = frm.content1.value;
 	var myLatlng = frm.travelMapPos1.value;
 
 	//var Y_point	= 37.625607;// Y 좌표
@@ -211,10 +212,10 @@ function goWrite(frm) {
 		return false;
 	}
 	//일단은 제목과 내용만 보내게 코드 짬
-	submitDB(frm.boardTitle.value, frm.content.value, frm.travelMapPos1.value);
+	submitDB(boardTitle, content, myLatlng);
 	//must have 2line above 밑에 2줄이 있어야 정상작동
-	$('.summernote').append('<input type="hidden" name="content", id="content" />');
-	$('#content').val($('.summernote').code());
+	//$('.summernote').append('<input type="hidden" name="content' + '1' +'", id="content" />');
+	$('#content'+'1').val($('.summernote').code());
 
 
 	//$('textarea[name="content"]').val($('#summernote').summernote('code'));
@@ -347,7 +348,7 @@ function submitDB(btitle, bcontent, bmyLatlng){
 		  //삽입부
 		  var markerPos = place.geometry.location;
 		  alert(markerPos);
-		  $('#inputMapPos').attr("value", JSON.stringify(markerPos));
+		  $('#inputMapPos1').attr("value", JSON.stringify(markerPos));
 		  //$("#travelMapPos1").html(markerPos);
 		  $("#mapPos").html(markerPos);
 		  startMap(markerPos);
@@ -371,20 +372,6 @@ function submitDB(btitle, bcontent, bmyLatlng){
           infowindow.open(map, marker);
         });
 
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          var radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
-        }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
-
         document.getElementById('use-strict-bounds')
             .addEventListener('click', function() {
               console.log('Checkbox clicked! New state=' + this.checked);
@@ -399,6 +386,7 @@ function submitDB(btitle, bcontent, bmyLatlng){
       }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>-->
 </body>
 
 </html>

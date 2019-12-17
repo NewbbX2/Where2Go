@@ -34,8 +34,12 @@
 				var nextIndex = (parseInt(i)+1);
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
+				//newItem.children("td").children("div").children("id").append(nextIndex);
+				newItem.children("td").children("#map").attr("id", "map"+nextIndex);
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
+				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
+				newItem.children("td").children("textarea").val($('.summernote'+nextIndex).code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
 			}
@@ -151,14 +155,12 @@
 	       focus: true, 
 	       lang : 'ko-KR'});//에디터 크기 설정
 	});
-	$('.summernote').append('<input type="hidden" name="travelContent1t", id="content" />');
-	$('#travelContent1').val($('.summernote').code());
 	</script>
 
 
 
 
-	<body >
+	<body>
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
@@ -189,25 +191,25 @@
 							<label id="day">1일차</label>
 
 								<!--map-->
-								<div class="pac-card" id="pac-card">
+								<div class="pac-card" id="pac-card1">
 							     <div>
 							        <div id="title">
 							          search Where To GO!
 							        </div>
 							      </div>
 							      <div id="pac-container">
-							        <input id="pac-input" type="text"
+							        <input id="pac-input1" type="text"
 							            placeholder="Enter a location">
 							      </div>
 							    </div>
-							    <div id="map"></div>
+							    <div id="map1" onload="mapPlace(this.id)"></div>
 							    <div id="infowindow-content">
 							      <img src="" width="16" height="16" id="place-icon">
 							      <span id="place-name"  class="title"></span><br>
 							      <span id="place-address"></span>
 							    </div>
 
-							<input id="inputMapPos" type = "text" name = "travelMapPos1" value="1" style="display:none">
+							<input id="inputMapPos1" type = "text" name = "travelMapPos1" value="1" style="display:none">
 							<textarea  id="summernote" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
@@ -223,8 +225,10 @@
 
 		<script>
 		//맵 로딩
-		 function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
+		 function mapPlace(mapId) {
+		 var day = mapId.replace("map", "");
+
+        var map = new google.maps.Map(document.getElementById('map'+day), {
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13
         });
@@ -247,7 +251,7 @@
             ['address_components', 'geometry', 'icon', 'name']);
 
         var infowindow = new google.maps.InfoWindow();
-        var infowindowContent = document.getElementById('infowindow-content');
+        var infowindowContent = document.getElementById('infowindow-content'+day);
         infowindow.setContent(infowindowContent);
         var marker = new google.maps.Marker({
           map: map,
@@ -277,7 +281,7 @@
 
 		  //경도 위도 삽입부
 		  var markerPos = place.geometry.location;
-		  $('#inputMapPos').attr("value", JSON.stringify(markerPos));
+		  $('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
 
           var address = '';
           if (place.address_components) {
@@ -294,20 +298,6 @@
           infowindow.open(map, marker);
         });
 
-        // Sets a listener on a radio button to change the filter type on Places
-        // Autocomplete.
-        function setupClickListener(id, types) {
-          var radioButton = document.getElementById(id);
-          radioButton.addEventListener('click', function() {
-            autocomplete.setTypes(types);
-          });
-        }
-
-        setupClickListener('changetype-all', []);
-        setupClickListener('changetype-address', ['address']);
-        setupClickListener('changetype-establishment', ['establishment']);
-        setupClickListener('changetype-geocode', ['geocode']);
-
         document.getElementById('use-strict-bounds')
             .addEventListener('click', function() {
               console.log('Checkbox clicked! New state=' + this.checked);
@@ -321,6 +311,6 @@
 		});
       }
 	</script>
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=initMap"async defer></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY"></script>
 	</body>
 </html>
