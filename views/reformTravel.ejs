@@ -84,8 +84,8 @@
 				<select name = "travelWriterID" style="display: none;"><option value = <%=board.travelWriterID%> style="display:none"></option></select>
 				<label>게시판분류</label>
 				<select name = "travelClassify" >
-					<option value="tripPlan"	<%if(board.travelClassify==tripPlan){%>selected<%}%>	></option>>여행계획</option>
-					<option value="tripLog"		<%if(board.travelClassify==tripLog){%>selected<%}%>	>여행일지</option>
+					<option value="tripPlan"	<%if(board.travelClassify=="tripPlan"){%>selected<%}%>	></option>>여행계획</option>
+					<option value="tripLog"		<%if(board.travelClassify=="tripLog"){%>selected<%}%>	>여행일지</option>
 				</select><br>
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px" value = "<%board.travelTitle%>"<br />
