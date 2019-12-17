@@ -19,7 +19,6 @@
 			alert("여행 일자를 입력하세요");
 			return;
 		}
-		$("#item1").show();
 		$("#hideToDisplay").show();
 		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
 		if(index==lastIndex){
@@ -35,9 +34,9 @@
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
 				//newItem.children("td").children("div").children("id").append(nextIndex);
-				newItem.children("td").children("#map1").attr("id", "map"+nextIndex);
 				newItem.children("td").children("#pac-card1").attr("id", "pac-card"+nextIndex);
 				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input1").attr("id", "pac-input"+nextIndex);
+				newItem.children("td").children("#map1").attr("id", "map"+nextIndex);
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
@@ -273,7 +272,7 @@
 				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
 
 				<table id="contents">
-					<tr id="item1" style="display.non">
+					<tr id="item1">
 						<td>
 							<label id="day">1일차</label>
 
