@@ -92,17 +92,18 @@
 				</select><br>
 
 				<label>제목</label>
-				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px" value = "<%board.travelTitle%>"
-				><br />
+				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"
+				 value = "<%=board.travelTitle%>"			>
+				<br />
 				
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
-					vlaue = <%=board.travelStartDate%>>
+					vlaue = "<%=board.travelStartDate%>"">
 					<br />
 
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"
-					value = "<%=board.travelCountry%>">
+					value = "<%=board.travelCountry%>"		>
 					<br />
 				<label>작성자이름</label>
 				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=board.travelWriter%></option></select><br>
