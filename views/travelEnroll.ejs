@@ -39,7 +39,7 @@
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
-				newItem.children("td").children("textarea").val($('.summernote').code());
+				//newItem.children("td").children("textarea").val($('.summernote').code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
 				mapPlace(nextIndex);
@@ -285,7 +285,7 @@
 							        </div>
 							      </div>
 							      <div id="pac-container">
-							        <input id="pac-input1" type="text"
+							        <input id="pac-input" type="text"
 							            placeholder="Enter a location">
 							      </div>
 							    </div>
