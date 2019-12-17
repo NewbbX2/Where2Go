@@ -31,7 +31,7 @@
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos);
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos[nextIndex]);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board.travelContent[nextIndex]);
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
@@ -133,7 +133,10 @@
 					value = "<%=board.travelCountry%>"		>
 					<br />
 				<label>작성자이름</label>
-				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=board.travelWriter%></option></select><br>
+				<select name = "travelWriter" >
+					<option value = "<%=board.travelWriter%>" selected>
+					<%=board.travelWriter%></option>
+				</select><br>
 				
 				<table id="contents">
 					<tr id="item1" style="display:none">
