@@ -34,7 +34,7 @@
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos[nextIndex]);
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board.travelContent[nextIndex]);
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
@@ -79,10 +79,10 @@
 				</div>
 				<div id = "hideToDisplay">
 				<%// 이젠에서 받아온 아이디를 저장.%>
-				<select name = "travelWriterID" style="display: none;"><option value = <%=board.travelWriterID%> style="display:none"></option></select>
+				<select name = "travelWriterID" style="display: none;"><option value = <%=board.travelWriterID%> style="display:none"><%=board.travelWriterID%> </option></select>
 				<label>게시판분류</label>
 				<select name = "travelClassify" >
-					<option value="tripPlan"	<%if(board.travelClassify=="tripPlan"){%>selected<%}%>	></option>>여행계획</option>
+					<option value="tripPlan"	<%if(board.travelClassify=="tripPlan"){%>selected<%}%>	>여행계획</option>
 					<option value="tripLog"		<%if(board.travelClassify=="tripLog"){%>selected<%}%>	>여행일지</option>
 				</select><br>
 				<label>제목</label>
@@ -97,12 +97,15 @@
 				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=board.travelWriter%></option></select><br>
 
 				<table id="contents">
-					<tr id="item1" style="display.non">
+					<tr id="item1" style="display:none">
 						<td>
 							<label id="day">1일차</label>
 							<div id="map"></div>
 							<input type = "number" name = "travelMapPos1" value=<%=board.travelMapPos1%> style="display:none"  >
-							<textarea  name = "travelContent1" maxlength = "4096" style = "height:180px; width:700px;"	value = "<%=board.travelContent1%>"></textarea><br/>
+							<textarea  name = "travelContent1" maxlength = "4096" style = "height:180px; width:700px;"
+								value = "<%=board.travelContent1%>">
+								<%=board.travelContent1%>"
+							</textarea><br/>
 						</td>
 					</tr>
 				</table>
