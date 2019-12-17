@@ -11,7 +11,7 @@ var loginChk = function(res){
     return true;
   }else{
     res.send("<script>alert('로그인을 해주세요');"
-    + "document.location.href=history.back();</script>'");
+    + "document.location.href=document.referrer;</script>'");
     return false;
   }
 }
@@ -23,7 +23,7 @@ var isWriter = function(writer, res){
       return true;
     }else{
       res.send("<script>alert('권한이 없습니다');"
-      + "document.location.href=history.back();</script>'");
+      + "document.location.href=document.referrer;</script>'");
       return false;
     }
 }
