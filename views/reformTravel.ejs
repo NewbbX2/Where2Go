@@ -1,7 +1,5 @@
 <%
 //받아와야 하는사항
-	//var userID = "";
-	//var userName="";
 	//var board="";
 
 %>
@@ -96,7 +94,7 @@
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"
 					value = "<%=board.travelStartDate%>"><br />
 				<label>작성자이름</label>
-				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=userName%></option></select><br>
+				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=board.travelWriter%></option></select><br>
 
 				<table id="contents">
 					<tr id="item1" style="display.non">
