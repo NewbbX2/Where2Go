@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 <title>테스트 인덱스 페이지</title>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -15,9 +16,92 @@
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
 <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
 
+
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+      }
+
+      #infowindow-content .title {
+        font-weight: bold;
+      }
+
+      #infowindow-content {
+        display: none;
+      }
+
+      #map #infowindow-content {
+        display: inline;
+      }
+
+      .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+      }
+
+      #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+      }
+
+      .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 400px;
+      }
+
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+    </style>
+
 <script>
   window.onload = function(){
-  getDB("-Lw7VDs5FBe3iwTiGqGF");
+  //테스트에 따라 brdno을 여기에 삽입
+  getDB("-LwH3MkIEf1REiqozPln");
 	}
 
 
@@ -66,12 +150,13 @@ function on_Board_List(data){
 		postData.brdtitle = Data.brdtitle;
 		postData.brdmemo = Data.brdmemo;
 		postData.brddate = Data.brddate;
-	}
 
-	//받아온 데이터를 html로 표시
+			//받아온 데이터를 html로 표시
 	$("#Title").html(postData.brdtitle);
 	$("#Writer").html(postData.brdwriter);
 	$("#textArea").html(postData.brdmemo);
+	startMap(postData.brdwriter);
+	}
 }
 
 </script>
@@ -80,7 +165,7 @@ function on_Board_List(data){
 <body>
 
 	<h1>테스트 중인 페이지</h1>
-	<p>파이어베이스에서 데이터 받아와서 표시</p>
+	<p>파이어베이스에서 데이터 받아와서 표시+writer의 좌표로 지도표시</p>
 
 	<script>
 		
@@ -98,6 +183,46 @@ function on_Board_List(data){
 	<tr ><div id="textArea">내용</div></tr>
 	</div>
 	</section>
+
+	<div id="displayMap">
+		 Map
+	</div>
+
+
+
+<script>
+	function startMap(inLatlng){
+		$("#displayMap").append('<div id="map_view" style="width:500px; height:300px;"></div>');
+			var zoomLevel	= 8;// 지도의 확대 레벨 : 숫자가 클수록 확대됨
+			var markerTitle	= "Destination";	// 현재 위치 마커에 마우스를 올렸을때 나타나는 정보
+			
+			/*저렴하게 그냥 string으로 받은걸 LatLng으로 변환하기
+			var stringChange1 = inLatlng.replace("(", "");
+			var stringChange2 = stringChange1.replace(")", "");
+			var myLatlng = new google.maps.LatLng(stringChange2.split(",")[0], stringChange2.split(",")[1]);
+			*/
+
+			//json파서로 들어온걸 변환
+			var mapPos = JSON.parse(inLatlng);
+			var myLatlng = new google.maps.LatLng(mapPos.lat, mapPos.lng);
+
+			console.log(myLatlng);
+			var mapOptions = {
+								zoom: zoomLevel,
+								center: myLatlng,
+								mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+			console.log(myLatlng);
+			var map = new google.maps.Map(document.getElementById('map_view'), mapOptions);
+
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				map: map,
+				title: markerTitle
+			});
+		}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places&callback=startMap"async defer></script>
 </body>
 
 

@@ -122,19 +122,25 @@ $(document).ready(function() {
 
 <!-- //Summernote Editer, title/textarea -->
 <body>
+<table id="contents">
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
 		<input type="text" name="boardTitle" style="width: 100%;" placeholder="Title"/>
+		<br>
+		<input id="inputMapPos" type="text" name="travelMapPos1" style="width: 100%;" placeholder="Pos"/>
 		<br><br> 
 		<textarea id="summernote" name="content"></textarea>
 		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
 	</form>
 </div>
-
+</table>
 
 	<!-- test for summernote in cotent -->
 	<div id="test">
-		 aaa
+		 content
+	</div>
+	<div id="mapPos">
+		 travelMapPos1
 	</div>
 
 
@@ -185,11 +191,12 @@ $(document).ready(function() {
 function goWrite(frm) {
 	var boardTitle = frm.boardTitle.value;
 	var content = frm.content.value;
+	var myLatlng = frm.travelMapPos1.value;
 
-	var Y_point	= 37.625607;// Y 좌표
-	var X_point	= 127.073024;// X 좌표
+	//var Y_point	= 37.625607;// Y 좌표
+	//var X_point	= 127.073024;// X 좌표
 
-	var myLatlng = new google.maps.LatLng(Y_point, X_point);
+	//var myLatlng = new google.maps.LatLng(Y_point, X_point);
 		$("#test").html(content);
 		startMap(myLatlng);
 	
@@ -202,7 +209,7 @@ function goWrite(frm) {
 		return false;
 	}
 	//일단은 제목과 내용만 보내게 코드 짬
-	submitDB(frm.boardTitle.value, frm.content.value);
+	submitDB(frm.boardTitle.value, frm.content.value, frm.travelMapPos1.value);
 	//must have 2line above 밑에 2줄이 있어야 정상작동
 	$('.summernote').append('<input type="hidden" name="content", id="content" />');
 	$('#content').val($('.summernote').code());
@@ -215,7 +222,7 @@ function goWrite(frm) {
 
 <script>
 //firebase upload code
-function submitDB(btitle, bcontent){
+function submitDB(btitle, bcontent, bmyLatlng){
   // Your web app's Firebase configuration
   var firebaseConfig = {
     apiKey: "AIzaSyCTMbPV8BsmuGgzf97n-At-1CnOV4n0KRA",
@@ -235,7 +242,7 @@ function submitDB(btitle, bcontent){
   
   var postData = {
     brdno: newPostKey,
-	brdwriter:"test.html",	
+	brdwriter:bmyLatlng,	
     brdtitle:btitle,
     brdmemo:bcontent,
     brddate: Date.now()
@@ -252,22 +259,13 @@ function submitDB(btitle, bcontent){
 
 <script>
 	function startMap(myLatlng){
-	$("#location").append('<div id="map_view" style="width:500px; height:300px;"></div>');
-			//var Y_point	= 37.625607;// Y 좌표
-			//var X_point	= 127.073024;// X 좌표
+			//지도 html에 띄움
+			$("#location").append('<div id="map_view" style="width:500px; height:300px;"></div>');
 			alert('map stert');
-			var zoomLevel	= 10;// 지도의 확대 레벨 : 숫자가 클수록 확대됨
+			var zoomLevel	= 8;// 지도의 확대 레벨 : 숫자가 클수록 확대됨
 			var markerTitle	= "공릉";	// 현재 위치 마커에 마우스를 올렸을때 나타나는 정보
 
 			var markerMaxWidth	= 300;// 마커를 클릭했을때 나타나는 말풍선의 최대 크기
-
-			// 말풍선 내용
-
-			var contentString	= '<div>' +
-			'<h2>공릉역</h2>'+
-			'<p>과기대에서 가장 가까운<br/>' +
-            '7호선 입니다.</p>' +
-			'</div>';
 
 			//var myLatlng = new google.maps.LatLng(Y_point, X_point);
 			var mapOptions = {
@@ -281,15 +279,6 @@ function submitDB(btitle, bcontent){
 				position: myLatlng,
 				map: map,
 				title: markerTitle
-			});
-
-			var infowindow = new google.maps.InfoWindow({
-				content: contentString,
-				maxWidth: markerMaxWidth
-			});
-			
-			google.maps.event.addListener(marker, 'click', function() {
-				infowindow.open(map, marker);
 			});
 		}
 </script>
@@ -351,9 +340,19 @@ function submitDB(btitle, bcontent){
           marker.setPosition(place.geometry.location);
           marker.setVisible(true);
 
+
+
+		  //삽입부
 		  var markerPos = place.geometry.location;
 		  alert(markerPos);
+		  $('#inputMapPos').attr("value", JSON.stringify(markerPos));
+		  //$("#travelMapPos1").html(markerPos);
+		  $("#mapPos").html(markerPos);
 		  startMap(markerPos);
+		  //$("#contents").children("td").children("input").attr("value","travelMapPos"+nextIndex);
+
+
+
 
           var address = '';
           if (place.address_components) {
