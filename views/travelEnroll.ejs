@@ -151,7 +151,10 @@
 		//맵 로딩
 		 function mapPlace(day) {
 
-        var map = new google.maps.Map(document.getElementById('map'+day), {
+		var mapId = "map";
+		mapId += day;
+
+        var map = new google.maps.Map(document.getElementById(mapId), {
           center: {lat: -33.8688, lng: 151.2195},
           zoom: 13
         });
