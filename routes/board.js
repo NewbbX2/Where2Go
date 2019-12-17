@@ -19,7 +19,7 @@ var loginChk = function(res){
 //본인 확인
 var isWriter = function(writer, res){
     var user = firebase.auth().currentUser;
-    if(user == writer){
+    if(user.email == writer){
       return true;
     }else{
       res.send("<script>alert('권한이 없습니다');"
@@ -322,6 +322,7 @@ app.post('/travelEnrollAction', function(req, res){
     data['travelContent' + day] = req.body['travelContent' + day];
     day++;
   }
+  console.log(data);
   firebase.database().ref('travels/' + travelKey).set(data).then(function(){
     res.send("<script>alert('등록되었습니다');"
     + "document.location.href='./"+ req.body.travelClassify +"';</script>'");
@@ -382,7 +383,7 @@ app.get('/deleteActionTravel', function(req, res){
     writer = snapshot.val().travelWriterID;
   }).then(function(){
     isWriter(writer, res);
-    firebase.database().ref('/boards/' + key).remove().then(function(){
+    firebase.database().ref('/travels/' + key).remove().then(function(){
       console.log(key + ' is deleted');
       res.send("<script>alert('삭제되었습니다');"
       + "document.location.href='./"+ boardType +"';</script>'");
