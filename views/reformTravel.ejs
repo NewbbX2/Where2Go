@@ -13,7 +13,7 @@
 
 <script>
 	var board = <%-JSON.stringify(board)%>;
-	$("body").ready()=showStart();
+	$("body").ready(showStart);
 	function showStart(){
 		var index = board.travelTotalSpaTotalSpanTime;
 		$("#item1").show();
