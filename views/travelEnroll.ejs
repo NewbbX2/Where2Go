@@ -146,84 +146,8 @@
         padding: 6px 12px;
       }
     </style>
-	</head>
 
 	<script>
-	$(document).ready(function() {
-	$('#summernote').summernote({placeholder: 'content',
-	       minHeight: 400,
-	       maxHeight: null,
-	       focus: true, 
-	       lang : 'ko-KR'});//에디터 크기 설정
-	});
-	</script>
-
-
-
-
-	<body onload="mapPlace(1)">
-		<form action="./travelEnrollAction" method="post">
-				<label >여행일자는 총 몇일인가요?</label>
-				<div id="displayToHide">
-					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
-					<button type="button" onclick="showUp()" >일자 선택</button>
-					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
-				</div>
-				<div id = "hideToDisplay" style="display:none">
-				<%// 이젠에서 받아온 아이디를 저장.%>
-				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
-				<label>게시판분류</label>
-				<select name = "travelClassify" >
-					<option value="tripPlan">여행계획</option>
-					<option value="tripLog">여행일지</option>
-				</select><br>
-				<label>제목</label>
-				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
-				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
-				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"><br />
-				<label>여행국가</label>
-				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"><br />
-				<label>작성자이름</label>
-				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
-
-				<table id="contents">
-					<tr id="item1" style="display.non">
-						<td>
-							<label id="day">1일차</label>
-
-								<!--map-->
-								<div class="pac-card" id="pac-card1">
-							     <div>
-							        <div id="title">
-							          search Where To GO!
-							        </div>
-							      </div>
-							      <div id="pac-container">
-							        <input id="pac-input1" type="text"
-							            placeholder="Enter a location">
-							      </div>
-							    </div>
-							    <div id="map1"></div>
-							    <div id="infowindow-content">
-							      <img src="" width="16" height="16" id="place-icon">
-							      <span id="place-name"  class="title"></span><br>
-							      <span id="place-address"></span>
-							    </div>
-
-							<input id="inputMapPos1" type = "text" name = "travelMapPos1" value="1" style="display:none">
-							<textarea  id="summernote" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
-						</td>
-					</tr>
-				</table>
-
-
-				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
-			</form>
-			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
-		</div>
-
-
-		<script>
 		//맵 로딩
 		 function mapPlace(day) {
 
@@ -304,6 +228,83 @@
 		});
       }
 	</script>
+
+	</head>
+
+	<script>
+	$(document).ready(function() {
+	$('#summernote').summernote({placeholder: 'content',
+	       minHeight: 400,
+	       maxHeight: null,
+	       focus: true, 
+	       lang : 'ko-KR'});//에디터 크기 설정
+	});
+	</script>
+
+
+
+
+	<body onload="mapPlace(1)">
+		<form action="./travelEnrollAction" method="post">
+				<label >여행일자는 총 몇일인가요?</label>
+				<div id="displayToHide">
+					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
+					<button type="button" onclick="showUp()" >일자 선택</button>
+					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+				</div>
+				<div id = "hideToDisplay" style="display:none">
+				<%// 이젠에서 받아온 아이디를 저장.%>
+				<select name = "travelWriterID" style="display: none;"><option value = <%=userID%> style="display:none"></option></select>
+				<label>게시판분류</label>
+				<select name = "travelClassify" >
+					<option value="tripPlan">여행계획</option>
+					<option value="tripLog">여행일지</option>
+				</select><br>
+				<label>제목</label>
+				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
+				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"><br />
+				<label>여행국가</label>
+				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"><br />
+				<label>작성자이름</label>
+				<select name = "travelWriter" ><option value = "<%=userName%>" selected><%=userName%></option></select><br>
+
+				<table id="contents">
+					<tr id="item1" style="display.non">
+						<td>
+							<label id="day">1일차</label>
+
+								<!--map-->
+								<div class="pac-card" id="pac-card">
+							     <div>
+							        <div id="title">
+							          search Where To GO!
+							        </div>
+							      </div>
+							      <div id="pac-container">
+							        <input id="pac-input1" type="text"
+							            placeholder="Enter a location">
+							      </div>
+							    </div>
+							    <div id="map1"style="width:500px; height:300px;"></div>
+							    <div id="infowindow-content">
+							      <img src="" width="16" height="16" id="place-icon">
+							      <span id="place-name"  class="title"></span><br>
+							      <span id="place-address"></span>
+							    </div>
+
+							<input id="inputMapPos1" type = "text" name = "travelMapPos1" value="1" style="display:none">
+							<textarea  id="summernote" name = "travelContent1" style = "height:180px; width:700px;"></textarea><br/>
+						</td>
+					</tr>
+				</table>
+
+
+				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
+			</form>
+			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+		</div>
+
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"async defer></script>
 	</body>
 </html>
