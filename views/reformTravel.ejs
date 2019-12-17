@@ -12,6 +12,35 @@
 </script>
 
 <script>
+	window.onload=showStart();
+
+	function showStart(){
+		var board = <%=board%>;
+		var index = board.travelTotalSpaTotalSpanTime;
+		$("#item1").show();
+		$("#hideToDisplay").show();
+		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
+		if(index==lastIndex){
+			return;
+		}else if(index<lastIndex){
+			for(var i=lastIndex; i>index ;i--){
+				$("#contents tr:last").remove();
+			}
+		}else if(index>lastIndex){
+			for(var i=lastIndex; i<index; i++){
+				var newItem = $("#contents tr:eq(0)").clone();
+				var nextIndex = (parseInt(i)+1);
+				newItem.attr("id","item"+ nextIndex);
+				newItem.children("td").children("label").text(nextIndex + "일차");
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
+				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos);
+				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board.travelContent[nextIndex]);
+				//newItem.children("td").children("textarea").text = ""
+				$("#contents").append(newItem);
+			}
+		}
+	}
+
 	function showUp(){
 		var index = $("#totalTime").val();
 		if(!index){
@@ -72,7 +101,7 @@
 		<form action="./travelEnrollAction" method="post">
 				<label >여행일자는 총 몇일인가요?</label>
 				<div id="displayToHide">
-					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
+					<input type = "number" id = "totalTime"  name = "travelTotalSpaTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
 					value = "<%=board.travelTotalSpanTime%>"><br />
 					<button type="button" onclick="showUp()" >일자 선택</button>
 					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
@@ -107,7 +136,7 @@
 					<br />
 				<label>작성자이름</label>
 				<select name = "travelWriter" ><option value = "<%=board.travelWriter%>" selected><%=board.travelWriter%></option></select><br>
-
+				
 				<table id="contents">
 					<tr id="item1" style="display:none">
 						<td>
@@ -122,10 +151,9 @@
 					</tr>
 				</table>
 
-
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<a href = "document.referer"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 		</div>
 	</body>
 </html>
