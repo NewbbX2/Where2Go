@@ -159,7 +159,7 @@
 		mapId += day;
 
         var map = new google.maps.Map(document.getElementById(mapId), {
-          center: {lat: -33.8688, lng: 151.2195},
+          center: {lat: 35.9732915, lng: 128.93854929999998},//서울
           zoom: 13
         });
         var card = document.getElementById('pac-card'+day);
@@ -266,7 +266,7 @@
 					<option value="tripLog">여행일지</option>
 				</select><br>
 				<label>제목</label>
-				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px" ><br />
+				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"><br />
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"><br />
 				<label>여행국가</label>
