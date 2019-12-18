@@ -110,7 +110,17 @@ section
 				top:50px;
 			}
 	
-	
+				#freeForum1 #mainBoard th
+				{
+					height: 40px;
+					font-size:20px;
+				}
+				#freeForum1 #mainBoard td
+				{
+					height: 30px;
+					font-size:10px;
+				}
+
 	
 
 
