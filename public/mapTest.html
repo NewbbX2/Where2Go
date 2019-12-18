@@ -112,11 +112,15 @@
 
 		var mapId = "map";
 		mapId += a;
-
-        var map = new google.maps.Map(document.getElementById('map'+a), {
-          center: {lat: -33.8688, lng: 151.2195},
-          zoom: 13
-        });
+		var cnt=1;
+        if(a==1){
+			var map = new google.maps.Map(document.getElementById('map'+a), {
+			  center: {lat: -33.8688, lng: 151.2195},
+			  zoom: 13
+			});
+		}else{
+		}
+		cnt++;
         var card = document.getElementById('pac-card');
         var input = document.getElementById('pac-input1');
         var types = document.getElementById('type-selector');
@@ -230,7 +234,7 @@ $(document).ready(function() {
 </script>-->
 
 <!-- //Summernote Editer, title/textarea -->
-<body onload="placeMap(5);placeSummernote(1)">
+<body onload="placeMap(1);placeSummernote(1)">
 <table id="contents">
 <div style="width: 60%; margin: auto;">
 	<form method="post" action="/write">
@@ -240,6 +244,7 @@ $(document).ready(function() {
 		<br><br> 
 		<textarea id="summernote1" name="content"></textarea>
 		<input id="subBtn" type="button" value="Submit" style="float: right;" onclick="goWrite(this.form)"/>
+		<input id="sub" type="button" value="맵" style="float: left;" onclick="placeMap(1)"/>
 	</form>
 </div>
 </table>
@@ -284,7 +289,7 @@ $(document).ready(function() {
             placeholder="Enter a location">
       </div>
     </div>
-    <div id="map5" style="height:400px;"></div>
+    <div id="map1" style="height:400px;"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name"  class="title"></span><br>
@@ -336,8 +341,8 @@ function goWrite(frm) {
 		alert("plz insert content");
 		return false;
 	}
-	$('.summernote').append('<input type="hidden" name="content", id="content" />');
-	$('#content').val($('.summernote').code());
+	//$('.summernote').append('<input type="hidden" name="content", id="content" />');
+	//$('#content').val($('.summernote').code());
 	//일단은 제목과 내용만 보내게 코드 짬
 	submitDB(frm.boardTitle.value, frm.content.value, frm.travelMapPos1.value);
 
