@@ -263,15 +263,15 @@ crossorigin="anonymous">
 	<body onload="renewContent();">
 		<header>
 			<div id = "backtoindex" style="position:absolute; top:25px; text-align:center; width:200px;">
-				<a href = "../board/tripplan" style="color:black;text-decoration: none;">wtg</a>
+				<a href = "../board/tripPlan" style="color:black;text-decoration: none;">wtg</a>
 				</div>
 				<nav    style="position:absolute;right:0px;width:80%;">  
-				<ul style= "display: inline-block;width :15%;">
-					<li><a href= "../board/tripplan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
-					<li><a href= "../board/triplog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
-					<li><a href= "../board/tripforum"   style="color:black;text-decoration: none;">   여행게시판</a></li>
-					<li><a href= "../board/countryforum"style="color:black;text-decoration: none;">     해외 포럼</a></li>
-					<li><a href= "../board/freeforum"   style="color:black;text-decoration: none;">   자유게시판</a></li>
+				<ul>
+					<li><a href= "../board/tripPlan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
+					<li><a href= "../board/tripLog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
+					<li><a href= "../board/tripForum"   style="color:black;text-decoration: none;">   여행게시판</a></li>
+					<li><a href= "../board/countryForum"style="color:black;text-decoration: none;">     해외 포럼</a></li>
+					<li><a href= "../board/freeForum"   style="color:black;text-decoration: none;">   자유게시판</a></li>
 				</ul>
 			  </nav>
 		</header>
@@ -289,7 +289,7 @@ crossorigin="anonymous">
 								<th width = "20%"><%=board.travelCountry%></th>
 								<th width = "10%">출발일</th>
 								<th width = "25%"><%=board.travelStartDate%></th>
-								<th width = "10%">총여행기간</th>
+								<th width = "10%">여행일수</th>
 								<th width = "25%"><%=+board.travelTotalSpanTime%></th>
 							</tr>
 							<tr>
@@ -366,12 +366,12 @@ crossorigin="anonymous">
 							
 							<div id = "id">
 								아이디
-								<div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = "30"></div>
+								<div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
 							</div>
 							
 							<div id = "psd">
 								패스워드
-								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = "20"></div>
+								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
 							</div>
 							
 							<button id = "LogIn"type = "submit" >로그인</button>
@@ -383,7 +383,7 @@ crossorigin="anonymous">
 							</div>
 						</div>
 					</form>
-
+	
 				<%}else{ %>
 					<%= userName %>님 환영합니다.<br>
 					<a href = "../users/logout">로그아웃.</a>
