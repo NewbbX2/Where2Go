@@ -139,7 +139,9 @@ crossorigin="anonymous">
 				}else{
 					$("#dayR").text(pageNo+1 + "일차");
 					contentLR.children("td").eq(1).text("");
-					contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
+					if(board["travelContent" + parseInt(pageNo+1)]){
+						contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
+						}else{contentLR.children("td").eq(1).hide();}
 					contentLR.children("tbody").children("#inputMapPos1").attr("value",board["travelMapPos"+parseInt(pageNo+1)]);
 					contentLR.children("tbody").children("#inputMapInfo1").attr("value",JSON.stringify(board["travelMapInfo"+parseInt(pageNo+1)]));
 					displayMapLR(1, pageNo+1, board["travelMapPos"+parseInt(pageNo+1)]);

@@ -115,49 +115,38 @@ crossorigin="anonymous">
 			var maxPage = board.travelTotalSpanTime;
 			function renewContent()
 			{
-				var contentLR = $("#contentTable tr:eq(3)");
+				var contentLR = $("#contentTable tr:eq(4)");	
+				var contentMap = $("#contentTable");
 				//왼쪽 페이지
-				$("#dayL").text(pageNo + "일차");
-				contentLR.children("td").eq(0).text("");
-				contentLR.children("td").eq(0).append(board["travelContent" + pageNo]);
-				contentLR.children("tbody").children("#inputMapPos0").attr("value",board["travelMapPos"+pageNo]);
-				contentLR.children("tbody").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+pageNo]));
+				if(pageNo+1 > maxPage )//데이터 없을 때
+				{
+					contentMap.children("tbody").children("td").children("#pac-card0").display ="none";
+					contentMap.children("tbody").children("td").children("#map0").display ="none";
+					contentMap.children("tbody").children("td").children("#infowindow-content0").display ="none";
+					$("#travelContentR").display ="none";
+				}else{$("#dayR").text(pageNo + "일차");
+				contentLR.children("td").eq(1).text("");
+				contentLR.children("td").eq(1).append(board["travelContent" + pageNo]);
+				contentMap.children("tbody").children("td").children("#inputMapPos0").attr("value",board["travelMapPos"+pageNo]);
+				contentMap.children("tbody").children("td").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+pageNo]));
 				displayMapLR(0, pageNo, board["travelMapPos"+pageNo]);
 				$("#travelContentL").val(board["travelContent"+pageNo]);
-
-				//오른쪽 페이지
-				if(pageNo+1 > maxPage)//왼쪽은 있는데 오른쪽은 없을 때
-				{
-					contentLR.children("tbody").children("#pac-card1").hide();
-					contentLR.children("tbody").children("#map1").hide();
-					contentLR.children("tbody").children("#infowindow-content1").hide();
-					$("#travelContentR").hide();
-				}else{
-					$("#dayR").text(pageNo+1 + "일차");
-					contentLR.children("td").eq(1).text("");
-					contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
-					contentLR.children("tbody").children("#inputMapPos1").attr("value",board["travelMapPos"+parseInt(pageNo+1)]);
-					contentLR.children("tbody").children("#inputMapInfo1").attr("value",JSON.stringify(board["travelMapInfo"+parseInt(pageNo+1)]));
-					displayMapLR(1, pageNo+1, board["travelMapPos"+parseInt(pageNo+1)]);
-					$("#travelContentR").val(board["travelContent" + parseInt(pageNo+1)]);
-				}
 			}
 
 			function pageUp() {
 				if(pageNo == maxPage) return;
 				pageNo++;
-				if(pageNo > 1) $("#before").show();
-				if(pageNo == maxPage) $("#next").hide();
-				else $("#next").show();
+				if(pageNo > 1) $("#before").attr("disabled", "false");
+				if(pageNo == maxPage) $("#next").attr("disabled", "true");
+				else $("#next").attr("disabled", "false");
 				renewContent();
 			}
-
 			function pageDown(){
 				if(pageNo == 1)	return;
 				pageNo--;
-				if(pageNo < maxPage) $("#next").show();
-				if(pageNo == 1) $("#before").hide();
-				else $("#before").show();
+				if(pageNo < maxPage) $("#next").attr("disabled", "false");
+				if(pageNo == 1) $("#before").attr("disabled", "true");
+				else $("#before").attr("disabled", "false");
 				renewContent();
 			}
 
@@ -275,10 +264,6 @@ crossorigin="anonymous">
   		<section>
 			<article id = "index2">
 				<div id = "upperBoardBorderSolid">
-					<%
-						//지도들어가는자리.
-						//travelMapPos1부터 travelMapPos10까지 받음
-					%>
 				</div>
 
 				<div id = "mainBoard">
@@ -299,62 +284,38 @@ crossorigin="anonymous">
 									<td colspan="3" ><%=board.travelTitle%></td>
 								</tr>
 								<tr style = "background-color:#B2CCFF">
-									<th colspan="3">
-										<label id="dayL">1일차</label>
-									</th>
-									<th colspan="3">
-										<label id="dayR">2일차</label>
-									</th>
+									<tr colspan="3">
+										<label id="dayR">1일차</label>
+									</tr>
 								</tr>
 							</thead>
 							<tbody >
-								<div class="pac-card" id="pac-card0">
+								<td colspan = "3" id="travelContentL"><div class="pac-card" id="pac-card0">
 									<div>
-									   <div id="title">
-										 it is your trip log(left page)
-									   </div>
+									<div id="title">
+									it is your trip plan(left page)
+									</div>
 									</div>
 									<div id="pac-container">
-									  <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
+									<input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
 									</div>
-								</div>
-								<div id="map0"style="width:350px; height:500px;"></div>
-								<div id="infowindow-content0">
-								   <img src="" width="16" height="16" id="place-icon">
-								   <span id="place-name"  class="title"></span><br>
-								   <span id="place-address"></span>
-								</div>
-								<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
-								  <input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
-								<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
-
-								<div class="pac-card" id="pac-card1">
-									<div>
-									   <div id="title">
-										it is your trip log(right page)
-									   </div>
 									</div>
-									<div id="pac-container">
-									  <input id="pac-input1" type="text" style="font-size: 20px;" placeholder="Enter a location">
+									<div id="map0"style="width:350px; height:400px;"></div>
+									<div id="infowindow-content0">
+									<img src="" width="16" height="16" id="place-icon">
+									<span id="place-name"  class="title"></span><br>
+									<span id="place-address"></span>
 									</div>
-								</div>
-								<div id="map1"style="width:350px; height:500px;"></div>
-								<div id="infowindow-content1">
-								   <img src="" width="16" height="16" id="place-icon">
-								   <span id="place-name"  class="title"></span><br>
-								   <span id="place-address"></span>
-								</div>
-
-								<input id="inputMapPos1" type = "text" name = "travelMapPos1" style="display:none;">
-								  <input id="inputMapInfo1" type = "text" name = "travelMapInfo1" style="display:none;">
-								<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
+									<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
+									<input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
+									<%=board.travelContent1%></td>
 							</tbody>
 						</table>
 				</div>
 
 				<div >
-					<button id="before" onclick="pageDown()" style="display:none" >이전페이지로</button>
-					<button id="next" onclick="pageUp()" >다음페이지로</button>
+					<button id="before" onclick="pageDown()" disabled = "true" >이전페이지로</button>
+					<button id="next" onclick="pageUp()" disabled = "false" >다음페이지로</button>
 					<%if(board.travelWriterID==userID){%>
 					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
 					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
