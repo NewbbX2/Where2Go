@@ -37,7 +37,6 @@ crossorigin="anonymous">
 	/* Optional: Makes the sample page fill the window. */
 	html, body {
 	  height: 50%;
-	  margin: 0;
 	  padding: 0;
 	}
 	#description {
@@ -93,7 +92,7 @@ crossorigin="anonymous">
 	  margin-left: 12px;
 	  padding: 0 11px 0 13px;
 	  text-overflow: ellipsis;
-	  width: 400px;
+	  width: 150px;
 	}
 
 	#pac-input0 :focus {
@@ -113,51 +112,80 @@ crossorigin="anonymous">
 			var board = <%-JSON.stringify(board)%>;
 			var pageNo = 1;
 			var maxPage = board.travelTotalSpanTime;
+			var isInit = true;
+			//맵 부품
+			var marker;
+			var map;
+			var infowindow;
+			var infowindowContent;
+
 			function renewContent()
 			{
-				var contentLR = $("#contentTable tr:eq(4)");	
+				var contentLR = $("#contentTable tr:eq(3)");
 				var contentMap = $("#contentTable");
 				//왼쪽 페이지
-				if(pageNo+1 > maxPage )//데이터 없을 때
-				{
-					contentMap.children("tbody").children("td").children("#pac-card0").display ="none";
-					contentMap.children("tbody").children("td").children("#map0").display ="none";
-					contentMap.children("tbody").children("td").children("#infowindow-content0").display ="none";
-					$("#travelContentR").display ="none";
-				}else{$("#dayR").text(pageNo + "일차");
+				$("#dayR").text(pageNo + "일차");
 				contentLR.children("td").eq(1).text("");
 				contentLR.children("td").eq(1).append(board["travelContent" + pageNo]);
-				contentMap.children("tbody").children("td").children("#inputMapPos0").attr("value",board["travelMapPos"+pageNo]);
-				contentMap.children("tbody").children("td").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+pageNo]));
-				displayMapLR(0, pageNo, board["travelMapPos"+pageNo]);
+				if(!isInit)renewMap(pageNo);
+				else isInit=false;
 				$("#travelContentL").val(board["travelContent"+pageNo]);
 			}
 
 			function pageUp() {
 				if(pageNo == maxPage) return;
 				pageNo++;
-				if(pageNo > 1) $("#before").attr("disabled", "false");
-				if(pageNo == maxPage) $("#next").attr("disabled", "true");
-				else $("#next").attr("disabled", "false");
+				if(pageNo > 1) $("#before").attr("disabled", false);
+				if(pageNo == maxPage) $("#next").attr("disabled", true);
+				else $("#next").attr("disabled", false);
 				renewContent();
 			}
+
 			function pageDown(){
 				if(pageNo == 1)	return;
 				pageNo--;
-				if(pageNo < maxPage) $("#next").attr("disabled", "false");
-				if(pageNo == 1) $("#before").attr("disabled", "true");
-				else $("#before").attr("disabled", "false");
+				if(pageNo < maxPage) $("#next").attr("disabled", false);
+				if(pageNo == 1) $("#before").attr("disabled", true);
+				else $("#before").attr("disabled", false);
 				renewContent();
 			}
 
-		//왼쪽 맵 로딩
-		function displayMapLR(numLR, day, latlng) {
+			function renewMap(day){
+				infowindow.close();
+				marker.setVisible(false);
+				//var latlng = board["travelMapPos"+day];
+				var originPlace = board["travelMapInfo"+day];
+				if (originPlace.geometry.viewport) {
+				map.fitBounds(originPlace.geometry.viewport);
+				} else {
+				map.setCenter(originPlace.geometry.location);
+				map.setZoom(17);  // Why 17? Because it looks good.
+				}
+				marker.setPosition(originPlace.geometry.location);
+				marker.setVisible(true);
+				var originAddress = '';
 
+				if (originPlace.address_components) {
+				originAddress = [
+				(originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),
+				(originPlace.address_components[1] && originPlace.address_components[1].short_name || ''),
+				(originPlace.address_components[2] && originPlace.address_components[2].short_name || '')
+				].join(' ');
+				}
+
+				infowindowContent.children['place-icon'].src = originPlace.icon;
+				infowindowContent.children['place-name'].textContent = originPlace.name;
+				infowindowContent.children['place-address'].textContent = originAddress;
+				infowindow.open(map, marker);
+			}
+		//왼쪽 맵 로딩
+		function displayMapLR() {
+			var numLR = 0; var day = 1; var latlng = board.travelMapPos1;
 			var mapId = "map";
 			mapId += numLR;
 
 			latlng = JSON.parse(latlng);
-			var map = new google.maps.Map(document.getElementById(mapId), {
+			map = new google.maps.Map(document.getElementById(mapId), {
 			center: latlng,
 			zoom: 17
 			});
@@ -177,13 +205,14 @@ crossorigin="anonymous">
 			autocomplete.setFields(
 			['address_components', 'geometry', 'icon', 'name']);
 
-			var infowindow = new google.maps.InfoWindow();
-			var infowindowContent = document.getElementById('infowindow-content'+numLR);
+			infowindow = new google.maps.InfoWindow();
+			infowindowContent = document.getElementById('infowindow-content'+numLR);
 			infowindow.setContent(infowindowContent);
-			var marker = new google.maps.Marker({
+			marker = new google.maps.Marker({
 			map: map,
 			anchorPoint: new google.maps.Point(0, -29)
 			});
+
 			marker.setPosition(latlng);
 			marker.setVisible(true);
 			var originAddress = '';
@@ -222,10 +251,6 @@ crossorigin="anonymous">
 			marker.setPosition(place.geometry.location);
 			marker.setVisible(true);
 
-				//경도 위도 삽입부, 로그 보기니까 좌표 또 안들어가게 비활성화
-				//var markerPos = place.geometry.location;
-				//$('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
-
 			var address = '';
 			if (place.address_components) {
 			address = [
@@ -239,19 +264,18 @@ crossorigin="anonymous">
 			infowindowContent.children['place-name'].textContent = place.name;
 			infowindowContent.children['place-address'].textContent = address;
 			infowindow.open(map, marker);
-			$("#inputMapInfo"+numLR).attr("value", JSON.stringify(place));
-			});
-		}
-
-
+		});
+	}
 		</script>
+
 	</head>
-	<body onload="renewContent();">
+
+	<body onload="displayMapLR();renewContent();">
 		<header>
 			<div id = "backtoindex" style="position:absolute; top:25px; text-align:center; width:200px;">
 				<a href = "../board/tripPlan" style="color:black;text-decoration: none;">wtg</a>
 				</div>
-				<nav    style="position:absolute;right:0px;width:80%;">  
+				<nav    style="position:absolute;right:0px;width:80%;">
 				<ul>
 					<li><a href= "../board/tripPlan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
 					<li><a href= "../board/tripLog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
@@ -259,13 +283,10 @@ crossorigin="anonymous">
 					<li><a href= "../board/countryForum"style="color:black;text-decoration: none;">     해외 포럼</a></li>
 					<li><a href= "../board/freeForum"   style="color:black;text-decoration: none;">   자유게시판</a></li>
 				</ul>
-			  </nav>
+				</nav>
 		</header>
   		<section>
 			<article id = "index2">
-				<div id = "upperBoardBorderSolid">
-				</div>
-
 				<div id = "mainBoard">
 					<table style="width:100%;table-layout:fixed" id="contentTable">
 							<thead style ="text-align:center;">
@@ -284,16 +305,17 @@ crossorigin="anonymous">
 									<td colspan="3" ><%=board.travelTitle%></td>
 								</tr>
 								<tr style = "background-color:#B2CCFF">
-									<tr colspan="3">
+										<td>
 										<label id="dayR">1일차</label>
-									</tr>
+										</td>
 								</tr>
 							</thead>
 							<tbody >
-								<td colspan = "3" id="travelContentL"><div class="pac-card" id="pac-card0">
+								<tr>
+								<td colspan = "3" id="travelContentL">
+									<div class="pac-card" id="pac-card0">
 									<div>
 									<div id="title">
-									it is your trip plan(left page)
 									</div>
 									</div>
 									<div id="pac-container">
@@ -306,16 +328,18 @@ crossorigin="anonymous">
 									<span id="place-name"  class="title"></span><br>
 									<span id="place-address"></span>
 									</div>
-									<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
-									<input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
-									<%=board.travelContent1%></td>
+								</td>
+								<td colspan="3" id="contentR">
+									오른쪽
+								</td>
+								</tr>
 							</tbody>
 						</table>
 				</div>
 
 				<div >
-					<button id="before" onclick="pageDown()" disabled = "true" >이전페이지로</button>
-					<button id="next" onclick="pageUp()" disabled = "false" >다음페이지로</button>
+					<button id="before" onclick="pageDown()" disabled>이전페이지로</button>
+					<button id="next" onclick="pageUp()">다음페이지로</button>
 					<%if(board.travelWriterID==userID){%>
 					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
 					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
@@ -326,27 +350,27 @@ crossorigin="anonymous">
 				<% if(!userName){ %>
 					<form method = "post" action = "../users/login">
 						<div id = "IDPWD1">
-							
+
 							<div id = "id">
 								아이디
 								<div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
 							</div>
-							
+
 							<div id = "psd">
 								패스워드
 								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
 							</div>
-							
+
 							<button id = "LogIn"type = "submit" >로그인</button>
 						</div>
-						
+
 						<div id = "IDPWD1">
 							<div id = "CreateIDAndPassWord">
 								<a href = "../users/join">회원가입</a>
 							</div>
 						</div>
 					</form>
-	
+
 				<%}else{ %>
 					<%= userName %>님 환영합니다.<br>
 					<a href = "../users/logout">로그아웃.</a>
