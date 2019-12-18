@@ -150,7 +150,7 @@ crossorigin="anonymous">
 	marker.setPosition(latlng);
 	marker.setVisible(true);
 	var originAddress = '';
-	var originPlace = travel["travelMapInfo"+day];
+	var originPlace = board["travelMapInfo"+day];
 	if (originPlace.address_components) {
 	  originAddress = [
 		(originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),
@@ -281,7 +281,7 @@ crossorigin="anonymous">
 			marker.setPosition(latlng);
 			marker.setVisible(true);
 			var originAddress = '';
-			var originPlace = travel["travelMapInfo"+day];
+			var originPlace = board["travelMapInfo"+day];
 			if (originPlace.address_components) {
 			originAddress = [
 			(originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),

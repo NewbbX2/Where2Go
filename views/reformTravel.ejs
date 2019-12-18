@@ -1,8 +1,6 @@
 <%
 //받아와야 하는사항
 	//var board="";
-	//이거 board에서 받아오는거 맞음? travel아님?
-
 %>
 <!DOCTYPE html>
 <html>
@@ -13,9 +11,9 @@
 </script>
 
 <script>
-	var travel = <%-JSON.stringify(board)%>;
+	var board = <%-JSON.stringify(board)%>;
 	function startV(){
-		var index = travel.travelTotalSpanTime;
+		var index = board.travelTotalSpanTime;
 		for(var i=0; i<index; i++){
 			var newItem = $("#contents tr:eq(0)").clone();
 			var nextIndex = (parseInt(i)+1);
@@ -25,18 +23,18 @@
 			newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
     		newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
 			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
-        	newItem.children("td").children("#inputMapPos0").attr("value",travel["travelMapPos"+nextIndex]);
+        	newItem.children("td").children("#inputMapPos0").attr("value",board["travelMapPos"+nextIndex]);
         	newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
         	newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
-        	newItem.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(travel["travelMapInfo"+nextIndex]));
+        	newItem.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+nextIndex]));
     		newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
         	newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
 			newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
-			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(travel["travelContent"+nextIndex]);
+			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board["travelContent"+nextIndex]);
 			//newItem.children("td").children("textarea").text = ""
 			$("#contents").append(newItem);
 			newItem.show();
-			displayMap(nextIndex, travel["travelMapPos"+nextIndex]);
+			displayMap(nextIndex, board["travelMapPos"+nextIndex]);
 			placeSummernote(nextIndex);
 		}
 	};
@@ -221,7 +219,7 @@
         marker.setPosition(latlng);
         marker.setVisible(true);
         var originAddress = '';
-        var originPlace = travel["travelMapInfo"+day];
+        var originPlace = board["travelMapInfo"+day];
         if (originPlace.address_components) {
           originAddress = [
             (originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),
