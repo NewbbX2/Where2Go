@@ -23,14 +23,14 @@
 			newItem.children("td").children("label").text(nextIndex + "일차");
 			newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
 			newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
-      newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
+    		newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
 			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
-      newItem.children("td").children("#inputMapPos0").attr("value",travel["travelMapPos"+nextIndex]);
-      newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
-      newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
-      newItem.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(travel["travelMapInfo"+nextIndex]));
-      newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
-      newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
+        	newItem.children("td").children("#inputMapPos0").attr("value",travel["travelMapPos"+nextIndex]);
+        	newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
+        	newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
+        	newItem.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(travel["travelMapInfo"+nextIndex]));
+    		newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
+        	newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
 			newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(travel["travelContent"+nextIndex]);
 			//newItem.children("td").children("textarea").text = ""
@@ -190,13 +190,13 @@
 		 var mapId = "map";
 		 mapId += day;
 
-     latlng = JSON.parse(latlng);
-     var map = new google.maps.Map(document.getElementById(mapId), {
-      center: latlng,
-        zoom: 17
-      });
-    var card = document.getElementById('pac-card'+day);
-    var input = document.getElementById('pac-input'+day);
+		latlng = JSON.parse(latlng);
+		var map = new google.maps.Map(document.getElementById(mapId), {
+		center: latlng,
+			zoom: 17
+		});
+		var card = document.getElementById('pac-card'+day);
+		var input = document.getElementById('pac-input'+day);
 
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
