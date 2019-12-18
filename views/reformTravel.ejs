@@ -65,11 +65,11 @@
 				//newItem.children("td").children("div").children("id").append(nextIndex);
 				newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
 				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
-        newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
-        newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
+        		newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
+        		newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
 				newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
-        newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
+        		newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
 				newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
 				newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
@@ -192,7 +192,7 @@
 
 		latlng = JSON.parse(latlng);
 		var map = new google.maps.Map(document.getElementById(mapId), {
-		center: latlng,
+			center: latlng,
 			zoom: 17
 		});
 		var card = document.getElementById('pac-card'+day);
@@ -366,7 +366,7 @@
 							</div><!--map end-->
 
 							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
-              <input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
+              				<input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
 							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
