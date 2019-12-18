@@ -24,7 +24,8 @@ section
 	{
 		position:fixed;
 		top:10%;
-		right:0px;width=300px;
+		right:0px;
+		width:200px;
 		
 	}
 	#LoginMenu.atTop
