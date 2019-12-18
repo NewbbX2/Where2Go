@@ -1,10 +1,10 @@
 
 <%
-	//가져와야하는 데이터
-	//var userID = "";
-	//var userName="";
-	//var board ="";
-	//url로 보낸 key로 검색한 보드
+//가져와야하는 데이터
+//var userID = "";
+//var userName="";
+//var board ="";
+//url로 보낸 key로 검색한 보드
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -12,6 +12,7 @@
 	<meta charset = "UTF-8">
 	<title>WTG</title>
 	<link rel = "stylesheet" href = "/public/styles/styles.css"/>
+	<script src = "/public/scripts/scripts.js"></script>
 </head>
 <body>
 	<header>
@@ -41,25 +42,21 @@
 					</table>
 			</div>
 			
-<!--표 아랫부분  -->											
+	<!--표 아랫부분  -->											
 			<div >
 			<%if((board.boardWriterID==userID)){%>
 				<a onclick = "return confirm('수정하시겠습니까?')" href="./reformBoard?key=<%=board.key%>">수정</a>
 				<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionBoard?key=<%=board.key%>">삭제</a>
 			<%}%>
 			</div>
-			
-
-				
 		</article>
-	
 		<article id = "LoginMenu">
 			<%- include ('./part/login.ejs')%>
-	</article>
-</section>
-<footer>
-      <%- include ('./part/footer.ejs') %>
-</footer>
+		</article>
+	</section>
+	<footer>
+	<%- include ('./part/footer.ejs') %>
+	</footer>
 </body>
 </html>
 
