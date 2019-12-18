@@ -1,0 +1,127 @@
+
+header 
+{
+	width: 100%;
+	height: 50px;
+	
+	border-bottom:1px solid grey;
+}
+	header.atTop{
+		background-color:#fff;
+		border:0
+	}
+
+
+
+section
+{
+	position:relative;
+	height:100%;
+	width: 1480px;
+	top:30px;
+} 
+	section #LoginMenu
+	{
+		position:fixed;
+		top:10%;
+		right:0px;
+		
+	}
+	#LoginMenu.atTop
+	{
+		top:10px;
+	}
+
+	
+		#upperBoardBorderSolid
+		{
+			height:140px;
+			width:1000px;
+			border:1px solid grey;
+			font-size:50px;
+			text-align:center;
+		}
+		#mainBoard
+		{
+			height:500px;
+			width:1000px;
+			border:1px solid grey;
+		}
+	
+
+		#upperBoard
+		{
+			height:140px;
+			width:1000px;
+		}
+	
+
+			#index1
+			{
+				position:absolute;
+				left:20%;
+				height:0px;
+			}
+				#index1 #travelSearch
+				{
+					height:50px;
+				}
+				#index1 #travelSearchByNumber
+				{
+					height:40px;
+				}
+				#index1 #indexCreateNewPlan
+				{
+					height:50px;
+				}
+				
+				#index1 #mainBoard
+				{
+					position:absolute;
+					top:140px;
+					height:500px;
+					width:1000px;
+					border:1px solid grey;
+				}
+				#index1 #mainBoard th
+				{
+					height: 40px;
+					font-size:20px;
+				}
+				#index1 #mainBoard td
+				{
+					height: 30px;
+					font-size:10px;
+				}
+
+
+
+			#freeForum1
+			{
+				position:absolute;
+				left:20%;
+				height:0px;
+			}
+		
+			#freeForum1 #BoardSearch
+			{
+				position:relative;
+				top:50px;
+			}
+	
+	
+	
+
+
+	
+
+
+	
+footer
+{
+	width: 1480px;
+	border-top:1px solid grey;
+}
+
+
+
