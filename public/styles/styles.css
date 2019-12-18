@@ -123,13 +123,29 @@ section
 
 	
 
-
+			#freeForum2 #BoardSearch
+			{
+				position:relative;
+				top:50px;
+			}
+	
+				#freeForum1 #mainBoard th
+				{
+					height: 40px;
+					font-size:20px;
+				}
+				#freeForum1 #mainBoard td
+				{
+					height: 30px;
+					font-size:10px;
+				}
 	
 
 
 	
 footer
 {
+	bottom:0px;
 	width: 1480px;
 	border-top:1px solid grey;
 }
