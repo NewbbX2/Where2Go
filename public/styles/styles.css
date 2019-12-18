@@ -138,12 +138,30 @@ section
 
 	
 
-			#freeForum2 #BoardSearch
+			#freeForum2 #mainBoard #th
 			{
-				position:relative;
-				top:50px;
+				height: 40px;
+				font-size:20px;
+				text-align: center;
 			}
-	
+			#freeForum2 #mainBoard #td
+			{
+				height: 40px;
+				font-size:20px;
+				text-align: center;
+			}
+			#trip2 #mainBoard #th
+			{
+				height: 40px;
+				font-size:20px;
+				text-align: center;
+			}
+			#trip2 #mainBoard #td
+			{
+				height:100%;
+				font-size:20px;
+				text-align: center;
+			}
 	
 
 
