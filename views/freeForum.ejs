@@ -111,7 +111,7 @@
 		</article>
 
 		<article id = "LoginMenu">
-				<% if(!username){ %>
+				<% if(!userName){ %>
 				<form method = "post" action = "../users/login">
 					<div id = "idpwd1">
 						
@@ -136,7 +136,7 @@
 				</form>
 
 			<%}else{ %>
-				<%= username %>님 환영합니다.<br>
+				<%= userName %>님 환영합니다.<br>
 				<a href = "../users/logout">로그아웃.</a>
 			<%} %>
 		</article>
