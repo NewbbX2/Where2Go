@@ -316,9 +316,9 @@ crossorigin="anonymous">
 			marker.setPosition(place.geometry.location);
 			marker.setVisible(true);
 
-				//경도 위도 삽입부
-				var markerPos = place.geometry.location;
-				$('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
+				//경도 위도 삽입부, 로그 보기니까 좌표 또 안들어가게 비활성화
+				//var markerPos = place.geometry.location;
+				//$('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
 
 			var address = '';
 			if (place.address_components) {
