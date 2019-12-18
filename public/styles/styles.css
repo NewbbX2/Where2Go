@@ -30,6 +30,8 @@ section
 	width: 1480px;
 	top:30px;
 } 
+
+	
 	section #LoginMenu
 	{
 		position:fixed;
@@ -37,6 +39,14 @@ section
 		right:0px;
 		width:200px;
 		
+	}
+	#chartContainer
+	{
+		
+		position:fixed;
+		top:10%;
+		left:0px;
+		width:200px;
 	}
 	#LoginMenu.atTop
 	{
@@ -114,12 +124,6 @@ section
 				height:0px;
 			}
 		
-			#freeForum1 #BoardSearch
-			{
-				position:relative;
-				top:50px;
-			}
-	
 				#freeForum1 #mainBoard th
 				{
 					height: 40px;
@@ -139,16 +143,6 @@ section
 				top:50px;
 			}
 	
-				#freeForum1 #mainBoard th
-				{
-					height: 40px;
-					font-size:20px;
-				}
-				#freeForum1 #mainBoard td
-				{
-					height: 30px;
-					font-size:10px;
-				}
 	
 
 
