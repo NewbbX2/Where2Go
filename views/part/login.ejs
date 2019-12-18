@@ -1,27 +1,30 @@
-<div style="width:300px;display: inline-block;">
-<% if(!userName){ %>
-    <form method = "post" action = "../users/login">
-        <div id = "IDPWD1">
-        <div id = "id">
-                아이디
-                <div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
+<div style="width:200px;display: inline-block;">
+    <% if(!userName){ %>
+        <form method = "post" action = "../users/login">
+            <div id = "IDPWD1">
+                
+                <div id = "id">
+                    아이디
+                    <div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
+                </div>
+                
+                <div id = "psd">
+                    패스워드
+                    <div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
+                </div>
+                
+                <button id = "LogIn"type = "submit" >로그인</button>
             </div>
-            <div id = "psd">
-                패스워드
-                <div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
+            
+            <div id = "IDPWD1">
+                <div id = "CreateIDAndPassWord">
+                    <a href = "../users/join">회원가입</a>
+                </div>
             </div>
-            <button id = "LogIn"type = "submit" >로그인</button>
-        </div>
-        <div id = "IDPWD1">
-            <div id = "CreateIDAndPassWord">
-                <a href = "../users/join">회원가입</a>
-            </div>
-        </div>
-    </form>
-<%}else{ %>
-    <%= userName %>님 환영합니다.
-    <a href = "../users/logout">로그아웃.</a>
-<%} %>
+        </form>
 
-    
+    <%}else{ %>
+        <%= userName %>님 환영합니다.
+        <a href = "../users/logout">로그아웃.</a>
+    <%} %>
 </div>
