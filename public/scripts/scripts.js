@@ -12,15 +12,6 @@ $(function()
 
 
 	
-	if($('#indexStartDate')!=null)
-	{
-		var dateFrrom = $('#indexStarttDate').datepicker({
-			dateFormat:'yymmdd'
-			minDate: 0
-		});
-		datefrom.datepicker('setDate',new Date());
-	}
-	
 	
 
 	
