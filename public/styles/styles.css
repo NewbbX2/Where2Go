@@ -6,9 +6,19 @@ header
 	
 	border-bottom:1px solid grey;
 }
+	header a
+	{
+		color : black;
+		text-decoration: none;
+		
+	}
 	header.atTop{
 		background-color:#fff;
 		border:0
+	}
+	header li{
+		display: inline-block;
+		width :15%;
 	}
 
 
