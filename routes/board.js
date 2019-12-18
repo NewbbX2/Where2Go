@@ -33,7 +33,6 @@ var isWriter = function(writer, res){
 var initBoard = function(boardType, page, req, res){
   var userName;
   var rows = [];
-  statistic();
   if(firebase.auth().currentUser){
     userName = firebase.auth().currentUser.displayName;
     console.log(userName + ' is LogIn');
