@@ -22,7 +22,20 @@
 	<script src = "/public/scripts/scripts.js"></script>
 </head>
 	<body>
-	<header><%- include ('./part/header.ejs') %></header>
+	<header>
+		<div id = "backtoindex" style="position:absolute; top:25px; text-align:center; width:200px;">
+        	<a href = "../board/tripplan" style="color:black;text-decoration: none;">wtg</a>
+  		  </div>
+   		 <nav    style="position:absolute;right:0px;width:80%;">  
+    	    <ul style= "display: inline-block;width :15%;">
+				<li><a href= "../board/tripplan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
+				<li><a href= "../board/triplog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
+				<li><a href= "../board/tripforum"   style="color:black;text-decoration: none;">   여행게시판</a></li>
+				<li><a href= "../board/countryforum"style="color:black;text-decoration: none;">     해외 포럼</a></li>
+				<li><a href= "../board/freeforum"   style="color:black;text-decoration: none;">   자유게시판</a></li>
+        	</ul>
+  		</nav>
+	</header>
 	<section>
 		<article id = freeForum1>
 
@@ -110,38 +123,46 @@
 					<%if(userName!="") {%>
 							<div ><a href= "./boardEnroll?boardType=countryForum"><button  >글쓰기</button></a></div>
 					<%}%>
-					<form action ="./countryForum" method = "get" >
-						<select name = "boardClassify" class =  "form-control">
-							<option   value = "All" selected > 나라</option>
-							<option value = "Japan" > 일본</option>
-							<option value = "Korea" > 한국</option>
-							<option value = "China" > 중국</option>
-						</select>
-						
-						<select name = "Order" class =  "form-control">
-							<option   value = "None" selected > 정렬</option>
-							<option value = "제목" > Title</option>
-							<option value = "작성자" > Writer</option>
-						</select>
-						<br>
-						<select name = "SearchFor" class =  "form-control">
-							<option   value = "All" selected > 전체</option>
-							<option value = "제목" > Title</option>
-							<option value = "작성자" > Writer</option>
-						</select>
-						<input type = "text" name = "search" style="width:800px;" >
-						<button>검색</button>
-					</form>
+					
 				</div>
 			</article>
 		
 
 			<article id = "LoginMenu">
-				<%- include ('./part/login.ejs')%>
+				<% if(!userName){ %>
+					<form method = "post" action = "../users/login">
+						<div id = "IDPWD1">
+							
+							<div id = "id">
+								아이디
+								<div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = "30"></div>
+							</div>
+							
+							<div id = "psd">
+								패스워드
+								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = "20"></div>
+							</div>
+							
+							<button id = "LogIn"type = "submit" >로그인</button>
+						</div>
+						
+						<div id = "IDPWD1">
+							<div id = "CreateIDAndPassWord">
+								<a href = "../users/join">회원가입</a>
+							</div>
+						</div>
+					</form>
+
+				<%}else{ %>
+					<%= userName %>님 환영합니다.<br>
+					<a href = "../users/logout">로그아웃.</a>
+				<%} %>
 			</article>
 		</section>
 		<footer>
-		<%- include ('./part/footer.ejs') %>
+		
+			개인정보처리방침<br>
+			copyright  all right reserved
 		</footer>
 </body>
 
