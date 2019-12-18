@@ -25,9 +25,12 @@
 			newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
       newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
 			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
-			newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
-			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex)
-      newItem.children("td").children("input").attr("value",travel["travelMapPos"+nextIndex]);
+      newItem.children("td").children("#inputMapPos0").attr("value",travel["travelMapPos"+nextIndex]);
+      newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
+      newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
+      newItem.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(travel["travelMapInfo"+nextIndex]));
+      newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
+      newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
 			newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(travel["travelContent"+nextIndex]);
 			//newItem.children("td").children("textarea").text = ""
@@ -39,15 +42,13 @@
 	};
 
 
-	/*
-	function showUp(){
+
+  function showUp(){
 		var index = $("#totalTime").val();
 		if(!index){
 			alert("여행 일자를 입력하세요");
 			return;
 		}
-		$("#item1").show();
-		$("#hideToDisplay").show();
 		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
 		if(index==lastIndex){
 			return;
@@ -61,14 +62,26 @@
 				var nextIndex = (parseInt(i)+1);
 				newItem.attr("id","item"+ nextIndex);
 				newItem.children("td").children("label").text(nextIndex + "일차");
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(board.travelMapPos[nextIndex]);
-				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(board.travelContent[nextIndex]);
+				//newItem.children("td").children("div").children("id").append(nextIndex);
+				newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
+				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
+        newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
+        newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
+				newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
+				newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
+        newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
+				newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
+				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
+				newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
+				//newItem.children("td").children("textarea").val($('.summernote').code());
 				//newItem.children("td").children("textarea").text = ""
 				$("#contents").append(newItem);
+				newItem.show();
+				mapPlace(nextIndex);
+				placeSummernote(nextIndex);
 			}
 		}
-	}*/
+	}
 
 	</script>
 
@@ -207,6 +220,21 @@
         });
         marker.setPosition(latlng);
         marker.setVisible(true);
+        var originAddress = '';
+        var originPlace = travel["travelMapInfo"+day];
+        if (originPlace.address_components) {
+          originAddress = [
+            (originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),
+            (originPlace.address_components[1] && originPlace.address_components[1].short_name || ''),
+            (originPlace.address_components[2] && originPlace.address_components[2].short_name || '')
+          ].join(' ');
+        }
+
+        infowindowContent.children['place-icon'].src = originPlace.icon;
+        infowindowContent.children['place-name'].textContent = originPlace.name;
+        infowindowContent.children['place-address'].textContent = originAddress;
+        infowindow.open(map, marker);
+
         autocomplete.addListener('place_changed', function() {
           infowindow.close();
           marker.setVisible(false);
@@ -228,9 +256,9 @@
           marker.setPosition(place.geometry.location);
           marker.setVisible(true);
 
-		  //경도 위도 삽입부
-		  var markerPos = place.geometry.location;
-		  $('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
+		      //경도 위도 삽입부
+		      var markerPos = place.geometry.location;
+		      $('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
 
           var address = '';
           if (place.address_components) {
@@ -245,6 +273,7 @@
           infowindowContent.children['place-name'].textContent = place.name;
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
+          $("#inputMapInfo"+day).attr("value", JSON.stringify(place));
         });
       }
 	</script>
@@ -300,6 +329,7 @@
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
 					value = "<%=board.travelStartDate%>">
+          <button type="button" onclick="showUp()" >일자 선택</button>
 					<br />
 
 				<label>여행국가</label>
@@ -336,6 +366,7 @@
 							</div><!--map end-->
 
 							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
+              <input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
 							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>

@@ -28,10 +28,12 @@ var isWriter = function(writer, res){
     }
 }
 
+
 //게시판 로드시 사용되는 함수
 var initBoard = function(boardType, page, req, res){
   var userName;
   var rows = [];
+  statistic();
   if(firebase.auth().currentUser){
     userName = firebase.auth().currentUser.displayName;
     console.log(userName + ' is LogIn');
@@ -52,6 +54,7 @@ var initBoard = function(boardType, page, req, res){
 var initBoard2 = function(boardType, page, req, res){
   var userName;
   var rows = [];
+  var stat = {};
   if(firebase.auth().currentUser){
     userName = firebase.auth().currentUser.displayName;
     console.log(userName + ' is LogIn');
@@ -63,10 +66,17 @@ var initBoard2 = function(boardType, page, req, res){
         childData.key = childSnapshot.key;
         rows.push(childData);
       }
+      //통계용 데이터
+      if(stat[childData.travelCountry]==1){
+        stat[childData.travelCountry]++;
+      }else{
+        stat[childData.travelCountry]=1;
+      }
     });
+    console.log(stat);
     console.log(boardType + ' load');
     //console.log(rows);
-    res.render(boardType, {boardList : rows, userName : userName, pageNo : page});
+    res.render(boardType, {boardList : rows, userName : userName, pageNo : page, stat : stat});
   });
 }
 
@@ -321,6 +331,7 @@ app.post('/travelEnrollAction', function(req, res){
   while(req.body['travelMapPos' + day]){
     data['travelMapPos' + day] = req.body['travelMapPos' + day];
     data['travelContent' + day] = req.body['travelContent' + day];
+    data['travelMapInfo' + day] = JSON.parse(req.body['travelMapInfo' + day]);
     day++;
   }
   console.log(data);
@@ -363,6 +374,7 @@ app.post('/reformTravelAction', function(req, res){
   while(req.body['travelMapPos' + day]){
     data['travelMapPos' + day] = req.body['travelMapPos' + day];
     data['travelContent' + day] = req.body['travelContent' + day];
+    data['travelMapInfo' + day] = JSON.parse(req.body['travelMapInfo' + day]);
     day++;
   }
   if(req.body.tripForumMon){

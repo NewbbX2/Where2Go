@@ -38,8 +38,10 @@
 				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
         newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
         newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
-				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
-				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
+				newItem.children("td").children("#inputMapPos0").attr("name","travelMapPos"+nextIndex);
+				newItem.children("td").children("#inputMapPos0").attr("id","inputMapPos"+nextIndex);
+        newItem.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+nextIndex);
+				newItem.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
 				newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 				//newItem.children("td").children("textarea").val($('.summernote').code());
@@ -194,7 +196,7 @@
           if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
-            window.alert("No details available for input: '" + place.name + "'");
+            window.alert("찾을 수 없습니다. : '" + place.name + "'");
             return;
           }
 
@@ -211,7 +213,6 @@
 		  //경도 위도 삽입부
 		  var markerPos = place.geometry.location;
 		  $('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
-
           var address = '';
           if (place.address_components) {
             address = [
@@ -225,6 +226,7 @@
           infowindowContent.children['place-name'].textContent = place.name;
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
+          $("#inputMapInfo"+day).attr("value", JSON.stringify(place));
         });
       }
 	</script>
@@ -250,7 +252,7 @@
 				<div id="displayToHide">
 					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
 					<button type="button" onclick="showUp()" >일자 선택</button>
-					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+					<button type="button" onclick="document.location.href=history.back()" >취소</button>
 				</div>
 				<div id = "hideToDisplay" style="display:none">
 				<%// 이젠에서 받아온 아이디를 저장.%>
@@ -293,6 +295,7 @@
 							    </div><!--map end-->
 
 							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
+              <input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
 							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>
 					</tr>
@@ -301,7 +304,7 @@
 
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<a href = "./tavelErnoll"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<a href = "history.back()"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
 		</div>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"async defer></script>
