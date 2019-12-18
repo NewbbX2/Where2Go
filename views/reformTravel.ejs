@@ -23,6 +23,7 @@
 			newItem.children("td").children("label").text(nextIndex + "일차");
 			newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
 			newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
+      newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
 			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
 			newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(travel["travelMapPos"+nextIndex]);
@@ -77,13 +78,13 @@
 			label			{display: inline-block;	width: 400px;}
 			#MainConsult	{width: 1500px;	height:500px;}
 		</style>
-	
+
 	<meta charset="UTF-8">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 	<!-- include summernote css/js-->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
@@ -117,7 +118,7 @@
         display: inline;
       }
 
-      .pac-card1 {
+      .pac-card {
         margin: 10px 10px 0 0;
         border-radius: 2px 0 0 2px;
         box-sizing: border-box;
@@ -144,7 +145,7 @@
         font-weight: 300;
       }
 
-      #pac-input {
+      #pac-input0 {
         background-color: #fff;
         font-family: Roboto;
         font-size: 15px;
@@ -155,7 +156,7 @@
         width: 400px;
       }
 
-      #pac-input:focus {
+      #pac-input0 :focus {
         border-color: #4d90fe;
       }
 
@@ -172,17 +173,16 @@
 		//맵 로딩
 		 function displayMap(day, latlng) {
 
-		var mapId = "map";
-		mapId += day;
+		 var mapId = "map";
+		 mapId += day;
 
-		var myLatlng = new google.maps.LatLng(latlng.lat, latlng.lng);
-
-        var map = new google.maps.Map(document.getElementById(mapId), {
-          center: myLatlng,
-          zoom: 13
-        });
-        var card = document.getElementById('pac-card'+day);
-        var input = document.getElementById('pac-input'+day);
+     latlng = JSON.parse(latlng);
+     var map = new google.maps.Map(document.getElementById(mapId), {
+      center: latlng,
+        zoom: 13
+      });
+    var card = document.getElementById('pac-card'+day);
+    var input = document.getElementById('pac-input'+day);
 
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(card);
 
@@ -204,7 +204,9 @@
           map: map,
           anchorPoint: new google.maps.Point(0, -29)
         });
-
+        marker.setPosition(latlng);
+        marker.setVisible(true);
+        $('#inputMapPos'+day).attr("value", JSON.stringify(latlng));
         autocomplete.addListener('place_changed', function() {
           infowindow.close();
           marker.setVisible(false);
@@ -212,7 +214,7 @@
           if (!place.geometry) {
             // User entered the name of a Place that was not suggested and
             // pressed the Enter key, or the Place Details request failed.
-            window.alert("No details available for input: '" + place.name + "'");
+            window.alert("찾을 수 없습니다. : '" + place.name + "'");
             return;
           }
 
@@ -245,11 +247,7 @@
           infowindow.open(map, marker);
         });
 
-		google.maps.event.addListener(marker, 'click', function() {
-				var markerPos = marker.getPosition(place.geometry.location);
-				alert(markerPos);
-				$("#test").append(markerPos);
-		});
+        map.setCe
       }
 	</script>
 
@@ -259,7 +257,7 @@
 		placeholder: 'content',
 	    minHeight: 400,
 	    maxHeight: null,
-	    focus: true, 
+	    focus: true,
 	    lang : 'ko-KR'});//에디터 크기 설정
 	}
 	</script>
@@ -278,14 +276,14 @@
 				<label >당신의 여행 계획</label>
 				<div id="displayToHide">
 					<input type = "number" id = "totalTime"  name = "travelTotalSpaTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
-					value = "<%=travelTotalSpanTime%>"><br/>
+					value = "<%=board.travelTotalSpanTime%>"><br/>
 					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
 				</div>
 				<div id = "hideToDisplay">
 				<%// 이젠에서 받아온 아이디를 저장.%>
 				<select name = "travelWriterID" style="display: none;">
 					<option value = "<%=board.travelWriterID%>" style="display:none">
-						<%=board.travelWriterID%> 
+						<%=board.travelWriterID%>
 					</option>
 				</select>
 
@@ -297,23 +295,23 @@
 
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"
-				 value = "<%=travelTitle%>">
+				 value = "<%=board.travelTitle%>">
 				<br />
-				
+
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
-					vlaue = "<%=travelStartDate%>">
+					value = "<%=board.travelStartDate%>">
 					<br />
 
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"
-					value = "<%=travelCountry%>">
+					value = "<%=board.travelCountry%>">
 					<br />
 				<label>작성자이름</label>
 				<select name = "travelWriter" >
-					<option value = "<%=travelWriter%>" selected></option>
+					<option value = "<%=board.travelWriter%>" selected></option>
 				</select><br>
-				
+
 				<table id="contents">
 					<tr id="item0" style="display:none">
 						<td>
@@ -323,20 +321,21 @@
 							<div class="pac-card" id="pac-card0">
 								<div>
 								   <div id="title">
-									 search to Change ur travel
+									 search to Change your travel
 								   </div>
-								 </div>
-								 <div id="pac-container">
-								 <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
-								 </div>
-							   </div>
-							   <div id="map0"style="width:700px; height:500px;"></div>
-							   <div id="infowindow-content">
-								 <img src="" width="16" height="16" id="place-icon">
-								 <span id="place-name"  class="title"></span><br>
-								 <span id="place-address"></span>
-							   </div><!--map end-->
-				
+								</div>
+								<div id="pac-container">
+								  <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
+								</div>
+							</div>
+
+							<div id="map0"style="width:700px; height:500px;"></div>
+							<div id="infowindow-content0">
+							   <img src="" width="16" height="16" id="place-icon">
+							   <span id="place-name"  class="title"></span><br>
+							   <span id="place-address"></span>
+							</div><!--map end-->
+
 							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
 							<textarea  id="summernote0" name = "travelContent0" style = "height:180px; width:700px;"></textarea><br/>
 						</td>

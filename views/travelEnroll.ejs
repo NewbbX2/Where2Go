@@ -36,7 +36,8 @@
 				//newItem.children("td").children("div").children("id").append(nextIndex);
 				newItem.children("td").children("#pac-card0").attr("id", "pac-card"+nextIndex);
 				newItem.children("td").children("#pac-card"+nextIndex).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+nextIndex);
-				newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
+        newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
+        newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
 				newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex);
 				newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
 				newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val("");
@@ -65,8 +66,8 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
 	<!-- include libraries(jQuery, bootstrap) -->
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
 
 	<!-- include summernote css/js-->
 	<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
@@ -100,7 +101,7 @@
         display: inline;
       }
 
-      .pac-card1 {
+      .pac-card {
         margin: 10px 10px 0 0;
         border-radius: 2px 0 0 2px;
         box-sizing: border-box;
@@ -127,7 +128,7 @@
         font-weight: 300;
       }
 
-      #pac-input {
+      #pac-input0 {
         background-color: #fff;
         font-family: Roboto;
         font-size: 15px;
@@ -138,7 +139,7 @@
         width: 400px;
       }
 
-      #pac-input:focus {
+      #pac-input0 :focus {
         border-color: #4d90fe;
       }
 
@@ -225,12 +226,6 @@
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
         });
-
-		google.maps.event.addListener(marker, 'click', function() {
-				var markerPos = marker.getPosition(place.geometry.location);
-				alert(markerPos);
-				$("#test").append(markerPos);
-		});
       }
 	</script>
 
@@ -240,7 +235,7 @@
 		placeholder: 'content',
 	    minHeight: 400,
 	    maxHeight: null,
-	    focus: true, 
+	    focus: true,
 	    lang : 'ko-KR'});//에디터 크기 설정
 	}
 	</script>
@@ -291,7 +286,7 @@
 							      </div>
 							    </div>
 							    <div id="map0"style="width:700px; height:500px;"></div>
-							    <div id="infowindow-content">
+							    <div id="infowindow-content0">
 							      <img src="" width="16" height="16" id="place-icon">
 							      <span id="place-name"  class="title"></span><br>
 							      <span id="place-address"></span>
