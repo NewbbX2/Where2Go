@@ -64,14 +64,14 @@ var initBoard2 = function(boardType, page, req, res){
       if(childData.travelClassify == boardType){
         childData.key = childSnapshot.key;
         rows.push(childData);
-      }
-      //통계용 데이터
-      if(stat[childData.travelCountry]==1){
-        stat[childData.travelCountry]++;
-        //console.log(childData.travelCountry);
-      }else{
-        //console.log(childData);
-        stat[childData.travelCountry]=1;
+        //통계용 데이터
+        if(stat[childData.travelCountry]==1){
+          stat[childData.travelCountry]++;
+          //console.log(childData.travelCountry);
+        }else{
+          //console.log(childData);
+          stat[childData.travelCountry]=1;
+        }
       }
     });
     //console.log(stat);

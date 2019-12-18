@@ -2,11 +2,8 @@
 //가져와야하는 데이터
 //var userID = "";
 //var userName="";
-//var board ="";//이거 key(보드아이디말함)로 검색한 boardList[key]
-
-
-//자체 페이지번호()
-var pageNo=1;
+//var board ="";
+//url로 보낸 key로 검색한 travel보드
 %>
 
 
@@ -27,13 +24,12 @@ var pageNo=1;
 		<!-- include summernote css/js-->
 		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
-	
+
 <script
 src="https://code.jquery.com/jquery-3.4.1.min.js"
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous">
 </script>
-
 <style>
 	#map {
 	  width:500px; height:300px;
@@ -41,7 +37,6 @@ crossorigin="anonymous">
 	/* Optional: Makes the sample page fill the window. */
 	html, body {
 	  height: 50%;
-	  margin: 0;
 	  padding: 0;
 	}
 	#description {
@@ -97,7 +92,7 @@ crossorigin="anonymous">
 	  margin-left: 12px;
 	  padding: 0 11px 0 13px;
 	  text-overflow: ellipsis;
-	  width: 400px;
+	  width: 150px;
 	}
 
 	#pac-input0 :focus {
@@ -114,65 +109,83 @@ crossorigin="anonymous">
   </style>
 
 		<script>
-			var pageNo = <%-JSON.stringify(pageNo)%>;
 			var board = <%-JSON.stringify(board)%>;
+			var pageNo = 1;
 			var maxPage = board.travelTotalSpanTime;
+			var isInit = true;
+			//맵 부품
+			var marker;
+			var map;
+			var infowindow;
+			var infowindowContent;
+
 			function renewContent()
 			{
-				var contentLR = $("#contentTable tr:eq(3)");	
+				var contentLR = $("#contentTable tr:eq(3)");
+				var contentMap = $("#contentTable");
 				//왼쪽 페이지
-				$("#dayL").text(pageNo + "일차");
-				contentLR.children("td").eq(0).text("");
-				contentLR.children("td").eq(0).append(board["travelContent" + pageNo]);
-				contentLR.children("tbody").children("#inputMapPos0").attr("value",board["travelMapPos"+pageNo]);
-				contentLR.children("tbody").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+pageNo]));
-				displayMapLR(0, pageNo, board["travelMapPos"+pageNo]);
+				$("#dayR").text(pageNo + "일차");
+				contentLR.children("td").eq(1).text("");
+				contentLR.children("td").eq(1).append(board["travelContent" + pageNo]);
+				if(!isInit)renewMap(pageNo);
+				else isInit=false;
 				$("#travelContentL").val(board["travelContent"+pageNo]);
-
-				//오른쪽 페이지
-				if(pageNo+1 > maxPage )//왼쪽은 있는데 오른쪽은 없을 때
-				{
-					contentLR.children("tbody").children("#pac-card1").display ="none";
-					contentLR.children("tbody").children("#map1").display ="none";
-					contentLR.children("tbody").children("#infowindow-content1").display ="none";
-					$("#travelContentR").display ="none";
-				}else{
-					$("#dayR").text(pageNo+1 + "일차");
-					contentLR.children("td").eq(1).text("");
-					if(board["travelContent" + parseInt(pageNo+1)]){
-						contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
-						}else{contentLR.children("td").eq(1).hide();}
-					contentLR.children("tbody").children("#inputMapPos1").attr("value",board["travelMapPos"+parseInt(pageNo+1)]);
-					contentLR.children("tbody").children("#inputMapInfo1").attr("value",JSON.stringify(board["travelMapInfo"+parseInt(pageNo+1)]));
-					displayMapLR(1, pageNo+1, board["travelMapPos"+parseInt(pageNo+1)]);
-					$("#travelContentR").val(board["travelContent" + parseInt(pageNo+1)]);
-				}
 			}
+
 			function pageUp() {
 				if(pageNo == maxPage) return;
 				pageNo++;
-				if(pageNo > 1) $("#before").show();
-				if(pageNo == maxPage) $("#next").hide();
-				else $("#next").show();
+				if(pageNo > 1) $("#before").attr("disabled", false);
+				if(pageNo == maxPage) $("#next").attr("disabled", true);
+				else $("#next").attr("disabled", false);
 				renewContent();
 			}
+
 			function pageDown(){
 				if(pageNo == 1)	return;
 				pageNo--;
-				if(pageNo < maxPage) $("#next").show();
-				if(pageNo == 1) $("#before").hide();
-				else $("#before").show();
+				if(pageNo < maxPage) $("#next").attr("disabled", false);
+				if(pageNo == 1) $("#before").attr("disabled", true);
+				else $("#before").attr("disabled", false);
 				renewContent();
 			}
 
-		//맵 로딩
-		function displayMapLR(numLR, day, latlng) {
+			function renewMap(day){
+				infowindow.close();
+				marker.setVisible(false);
+				//var latlng = board["travelMapPos"+day];
+				var originPlace = board["travelMapInfo"+day];
+				if (originPlace.geometry.viewport) {
+				map.fitBounds(originPlace.geometry.viewport);
+				} else {
+				map.setCenter(originPlace.geometry.location);
+				map.setZoom(17);  // Why 17? Because it looks good.
+				}
+				marker.setPosition(originPlace.geometry.location);
+				marker.setVisible(true);
+				var originAddress = '';
 
+				if (originPlace.address_components) {
+				originAddress = [
+				(originPlace.address_components[0] && originPlace.address_components[0].short_name || ''),
+				(originPlace.address_components[1] && originPlace.address_components[1].short_name || ''),
+				(originPlace.address_components[2] && originPlace.address_components[2].short_name || '')
+				].join(' ');
+				}
+
+				infowindowContent.children['place-icon'].src = originPlace.icon;
+				infowindowContent.children['place-name'].textContent = originPlace.name;
+				infowindowContent.children['place-address'].textContent = originAddress;
+				infowindow.open(map, marker);
+			}
+		//왼쪽 맵 로딩
+		function displayMapLR() {
+			var numLR = 0; var day = 1; var latlng = board.travelMapPos1;
 			var mapId = "map";
 			mapId += numLR;
 
 			latlng = JSON.parse(latlng);
-			var map = new google.maps.Map(document.getElementById(mapId), {
+			map = new google.maps.Map(document.getElementById(mapId), {
 			center: latlng,
 			zoom: 17
 			});
@@ -192,13 +205,14 @@ crossorigin="anonymous">
 			autocomplete.setFields(
 			['address_components', 'geometry', 'icon', 'name']);
 
-			var infowindow = new google.maps.InfoWindow();
-			var infowindowContent = document.getElementById('infowindow-content'+numLR);
+			infowindow = new google.maps.InfoWindow();
+			infowindowContent = document.getElementById('infowindow-content'+numLR);
 			infowindow.setContent(infowindowContent);
-			var marker = new google.maps.Marker({
+			marker = new google.maps.Marker({
 			map: map,
 			anchorPoint: new google.maps.Point(0, -29)
 			});
+
 			marker.setPosition(latlng);
 			marker.setVisible(true);
 			var originAddress = '';
@@ -237,10 +251,6 @@ crossorigin="anonymous">
 			marker.setPosition(place.geometry.location);
 			marker.setVisible(true);
 
-				//경도 위도 삽입부, 로그 보기니까 좌표 또 안들어가게 비활성화
-				//var markerPos = place.geometry.location;
-				//$('#inputMapPos'+day).attr("value", JSON.stringify(markerPos));
-
 			var address = '';
 			if (place.address_components) {
 			address = [
@@ -254,20 +264,18 @@ crossorigin="anonymous">
 			infowindowContent.children['place-name'].textContent = place.name;
 			infowindowContent.children['place-address'].textContent = address;
 			infowindow.open(map, marker);
-			$("#inputMapInfo"+numLR).attr("value", JSON.stringify(place));
-			});
-		}
-
+		});
+	}
 		</script>
 
-
 	</head>
-	<body onload="renewContent();">
+
+	<body onload="displayMapLR();renewContent();">
 		<header>
 			<div id = "backtoindex" style="position:absolute; top:25px; text-align:center; width:200px;">
 				<a href = "../board/tripPlan" style="color:black;text-decoration: none;">wtg</a>
 				</div>
-				<nav    style="position:absolute;right:0px;width:80%;">  
+				<nav    style="position:absolute;right:0px;width:80%;">
 				<ul>
 					<li><a href= "../board/tripPlan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
 					<li><a href= "../board/tripLog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
@@ -275,89 +283,66 @@ crossorigin="anonymous">
 					<li><a href= "../board/countryForum"style="color:black;text-decoration: none;">     해외 포럼</a></li>
 					<li><a href= "../board/freeForum"   style="color:black;text-decoration: none;">   자유게시판</a></li>
 				</ul>
-			  </nav>
+				</nav>
 		</header>
   		<section>
 			<article id = "index2">
-				<div id = "upperBoardBorderSolid">
-					<!--지도 1일부터 10일까지-->
-				</div>
-
 				<div id = "mainBoard">
-					<table style="width:100%;table-layout:fixed" >
-						<thead style ="text-align:center;">
-							<tr style = "background-color:#B2CCFF">
-								<th width = "10%">나라</th>
-								<th width = "20%"><%=board.travelCountry%></th>
-								<th width = "10%">출발일</th>
-								<th width = "25%"><%=board.travelStartDate%></th>
-								<th width = "10%">여행일수</th>
-								<th width = "25%"><%=+board.travelTotalSpanTime%></th>
-							</tr>
-							<tr>
-								<td >작성자</td>
-								<td ><%=board.travelWriter%></td>
-								<td >제목</td>
-								<td colspan="3" ><%=board.travelTitle%></td>
-							</tr>
-							<tr style = "background-color:#B2CCFF">
-								<th colspan="3"><%=pageNo%>일차</th>
-								<th colspan="3"><%=pageNo+1%>일차</th>
-							</tr>
-						</thead>
-						<tbody >
-							<div class="pac-card" id="pac-card0">
-								<div>
-								   <div id="title">
-									 it is your trip log(left page)
-								   </div>
-								</div>
-								<div id="pac-container">
-								  <input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
-								</div>
-							</div>
-							<div id="map0"style="width:350px; height:500px;"></div>
-							<div id="infowindow-content0">
-							   <img src="" width="16" height="16" id="place-icon">
-							   <span id="place-name"  class="title"></span><br>
-							   <span id="place-address"></span>
-							</div>
-							<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
-              				<input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
-							<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
-
-							<div class="pac-card" id="pac-card1">
-								<div>
-								   <div id="title">
-									it is your trip log(right page)
-								   </div>
-								</div>
-								<div id="pac-container">
-								  <input id="pac-input1" type="text" style="font-size: 20px;" placeholder="Enter a location">
-								</div>
-							</div>
-							<div id="map1"style="width:350px; height:500px;"></div>
-							<div id="infowindow-content1">
-							   <img src="" width="16" height="16" id="place-icon">
-							   <span id="place-name"  class="title"></span><br>
-							   <span id="place-address"></span>
-							</div>
-
-							<input id="inputMapPos1" type = "text" name = "travelMapPos1" style="display:none;">
-              				<input id="inputMapInfo1" type = "text" name = "travelMapInfo1" style="display:none;">
-							<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
-						</tbody>
-					</table>
+					<table style="width:100%;table-layout:fixed" id="contentTable">
+							<thead style ="text-align:center;">
+								<tr style = "background-color:#B2CCFF">
+									<th width = "10%">나라</th>
+									<th width = "20%"><%=board.travelCountry%></th>
+									<th width = "10%">출발일</th>
+									<th width = "25%"><%=board.travelStartDate%></th>
+									<th width = "10%">여행일수</th>
+									<th width = "25%"><%=+board.travelTotalSpanTime%></th>
+								</tr>
+								<tr>
+									<td >작성자</td>
+									<td ><%=board.travelWriter%></td>
+									<td >제목</td>
+									<td colspan="3" ><%=board.travelTitle%></td>
+								</tr>
+								<tr style = "background-color:#B2CCFF">
+										<td>
+										<label id="dayR">1일차</label>
+										</td>
+								</tr>
+							</thead>
+							<tbody >
+								<tr>
+								<td colspan = "3" id="travelContentL">
+									<div class="pac-card" id="pac-card0">
+									<div>
+									<div id="title">
+									</div>
+									</div>
+									<div id="pac-container">
+									<input id="pac-input0" type="text" style="font-size: 20px;" placeholder="Enter a location">
+									</div>
+									</div>
+									<div id="map0"style="width:350px; height:400px;"></div>
+									<div id="infowindow-content0">
+									<img src="" width="16" height="16" id="place-icon">
+									<span id="place-name"  class="title"></span><br>
+									<span id="place-address"></span>
+									</div>
+								</td>
+								<td colspan="3" id="contentR">
+									오른쪽
+								</td>
+								</tr>
+							</tbody>
+						</table>
 				</div>
-														
+
 				<div >
-					<%if(pageNo<9){%>
-						<button id="next" onclick="pageUp()" >다음페이지로</button>
-					<%}if(pageNo>1){%>
-						<button id="before" onclick="pageDown()" >이전페이지로</button>
-					<%}if((board.travelWriterID==userID)){%>
-						<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
-						<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
+					<button id="before" onclick="pageDown()" disabled>이전페이지로</button>
+					<button id="next" onclick="pageUp()">다음페이지로</button>
+					<%if(board.travelWriterID==userID){%>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
 					<%}%>
 				</div>
 			</article>
@@ -365,27 +350,27 @@ crossorigin="anonymous">
 				<% if(!userName){ %>
 					<form method = "post" action = "../users/login">
 						<div id = "IDPWD1">
-							
+
 							<div id = "id">
 								아이디
 								<div id = "idbox"><input type = "text" name = "userID" class = "form-control" size = 30></div>
 							</div>
-							
+
 							<div id = "psd">
 								패스워드
 								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = 20></div>
 							</div>
-							
+
 							<button id = "LogIn"type = "submit" >로그인</button>
 						</div>
-						
+
 						<div id = "IDPWD1">
 							<div id = "CreateIDAndPassWord">
 								<a href = "../users/join">회원가입</a>
 							</div>
 						</div>
 					</form>
-	
+
 				<%}else{ %>
 					<%= userName %>님 환영합니다.<br>
 					<a href = "../users/logout">로그아웃.</a>
@@ -393,18 +378,10 @@ crossorigin="anonymous">
 			</article>
 		</section>
 		<footer>
-			
+
 			개인정보처리방침<br>
 			copyright  all right reserved
 		</footer>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"async defer></script>
 	</body>
 </html>
-	
-	
-	
-	
-	
-	
-	
-	
