@@ -77,7 +77,10 @@ section
 			width:1000px;
 			border:1px solid grey;
 		}
-	
+		#mainBoard table{
+			height:500px;
+			overflow:auto;
+		}
 
 		#upperBoard
 		{
@@ -154,7 +157,7 @@ section
 			}
 			#freeForum2 #mainBoard #td
 			{
-				height: 40px;
+				height: 400px;
 				font-size:20px;
 				text-align: center;
 			}
