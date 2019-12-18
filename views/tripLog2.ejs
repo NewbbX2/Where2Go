@@ -211,15 +211,36 @@ crossorigin="anonymous">
 		<script>
 			var pageNo = <%-JSON.stringify(pageNo)%>;
 			var board = <%-JSON.stringify(board)%>;
+			var maxPage = board.travelTotalSpanTime;
 			function renewContent()
 			{
-				$("#travelContentL").val(board["travelContent"+pageNo-1]);
-				$("#travelContentR").val(board["travelContent"+pageNo]);
-				
+				var contentLR = $("#contentTable tr:eq(3)");				
+				$("#dayL").text(pageNo + "일차");
+				$("#dayR").text(pageNo+1 + "일차");
+				contentLR.children("td").eq(0).text("");
+				contentLR.children("td").eq(0).append(board["travelContent" + pageNo]);
+				contentLR.children("td").eq(1).text("");
+				contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
+				$("#travelContentL").val(board["travelContent"+pageNo]);
+				$("#travelContentR").val(board["travelContent" + pageNo+1]);
 
 			}
-			function pageUp() {pageNo+=1;renewContent();}
-			function pageDown(){pageNo-=1;renewContent();}
+			function pageUp() {
+				if(pageNo == maxPage) return;
+				pageNo++;
+				if(pageNo > 1) $("#before").show();
+				if(pageNo == maxPage) $("#next").hide();
+				else $("#next").show();
+				renewContent();
+			}
+			function pageDown(){
+				if(pageNo == 1)	return;
+				pageNo--;
+				if(pageNo < maxPage) $("#next").show();
+				if(pageNo == 1) $("#before").hide();
+				else $("#before").show();
+				renewContent();
+			}
 
 			function displayTripMap(){//맵만 출력
 				var index = board.travelTotalSpanTime;

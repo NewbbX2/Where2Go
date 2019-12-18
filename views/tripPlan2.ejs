@@ -16,11 +16,98 @@
 		<link rel = "stylesheet" href = "/public/styles/styles.css"/>
 		<script src = "/public/scripts/scripts.js"></script>
 
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+		<!-- include libraries(jQuery, bootstrap) -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+		<!-- include summernote css/js-->
+		<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+
 <script
 src="https://code.jquery.com/jquery-3.4.1.min.js"
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous">
 </script>
+<style>
+	#map {
+	  width:500px; height:300px;
+	}
+	/* Optional: Makes the sample page fill the window. */
+	html, body {
+	  height: 50%;
+	  margin: 0;
+	  padding: 0;
+	}
+	#description {
+	  font-family: Roboto;
+	  font-size: 15px;
+	  font-weight: 300;
+	}
+
+	#infowindow-content .title {
+	  font-weight: bold;
+	}
+
+	#infowindow-content {
+	  display: none;
+	}
+
+	#map #infowindow-content {
+	  display: inline;
+	}
+
+	.pac-card {
+	  margin: 10px 10px 0 0;
+	  border-radius: 2px 0 0 2px;
+	  box-sizing: border-box;
+	  -moz-box-sizing: border-box;
+	  outline: none;
+	  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+	  background-color: #fff;
+	  font-family: Roboto;
+	}
+
+	#pac-container {
+	  padding-bottom: 12px;
+	  margin-right: 12px;
+	}
+
+	.pac-controls {
+	  display: inline-block;
+	  padding: 5px 11px;
+	}
+
+	.pac-controls label {
+	  font-family: Roboto;
+	  font-size: 13px;
+	  font-weight: 300;
+	}
+
+	#pac-input0 {
+	  background-color: #fff;
+	  font-family: Roboto;
+	  font-size: 15px;
+	  font-weight: 300;
+	  margin-left: 12px;
+	  padding: 0 11px 0 13px;
+	  text-overflow: ellipsis;
+	  width: 400px;
+	}
+
+	#pac-input0 :focus {
+	  border-color: #4d90fe;
+	}
+
+	#title {
+	  color: #fff;
+	  background-color: #4d90fe;
+	  font-size: 25px;
+	  font-weight: 500;
+	  padding: 6px 12px;
+	}
+  </style>
 
 		<script>
 			var board = <%-JSON.stringify(board)%>;
@@ -28,15 +115,25 @@ crossorigin="anonymous">
 			var maxPage = board.travelTotalSpanTime;
 			function renewContent()
 			{
-
 				var contentLR = $("#contentTable tr:eq(3)");				
 				$("#dayL").text(pageNo + "일차");
 				$("#dayR").text(pageNo+1 + "일차");
 				contentLR.children("td").eq(0).text("");
 				contentLR.children("td").eq(0).append(board["travelContent" + pageNo]);
+				contentLR.children("td").children("#pac-card0").attr("id", "pac-card"+pageNo);
+				contentLR.children("td").children("#pac-card"+pageNo).children("#pac-container").children("#pac-input0").attr("id", "pac-input"+pageNo);
+				contentLR.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+pageNo);
+				contentLR.children("td").children("#map0").attr("id", "map"+pageNo);
+				contentLR.children("td").children("#inputMapPos0").attr("value",board["travelMapPos"+pageNo]);
+				contentLR.children("td").children("#inputMapPos0").attr("name","travelMapPos"+pageNo);
+				contentLR.children("td").children("#inputMapPos0").attr("id","inputMapPos"+pageNo);
+				contentLR.children("td").children("#inputMapInfo0").attr("value",JSON.stringify(board["travelMapInfo"+pageNo]));
+				contentLR.children("td").children("#inputMapInfo0").attr("name","travelMapInfo"+pageNo);
+				contentLR.children("td").children("#inputMapInfo0").attr("id","inputMapInfo"+pageNo);
+				displayMap(pageNo, board["travelMapPos"+pageNo]);
+
 				contentLR.children("td").eq(1).text("");
 				contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
-				$("#travelContentR").val(board["travelContent" + pageNo+1]);
 			}
 
 			function pageUp() {
