@@ -106,21 +106,7 @@
 				<%if(userName!="") {%>
 					<div ><a href = "./boardEnroll?boardType=freeForum"><button  >글쓰기</button></a></div>
 				<%}%>
-				<form  action ="./freeForum"  method = "get" >
-					<select name = "Order" class =  "form-control">
-						<option   value = "None" selected > 정렬</option>
-						<option value = "제목" > Title</option>
-						<option value = "작성자" > Writer</option>
-					</select>
-					<br>
-					<select name = "SearchFor" class =  "form-control">
-						<option   value = "All" selected > 전체</option>
-						<option value = "제목" > Title</option>
-						<option value = "작성자" > Writer</option>
-					</select>
-					<input type = "text" name = "search" style="width:800px;" >
-					<button>검색</button>
-				</form>
+				
 			</div>
 		</article>
 
