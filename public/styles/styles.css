@@ -22,6 +22,14 @@ header
 		width :15%;
 	}
 
+	#th
+	{
+		overflow:auto;
+	}
+	#td
+	{
+		overflow:auto;
+	}
 
 
 section
@@ -136,7 +144,7 @@ section
 					font-size:14px;
 				}
 
-	
+				
 
 			#freeForum2 #mainBoard #th
 			{
