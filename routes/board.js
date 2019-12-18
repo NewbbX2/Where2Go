@@ -273,7 +273,8 @@ app.post('/reformBoardAction', function(req, res){
     data.tripForumMon = req.body.tripForumMon;
   }
   firebase.database().ref('boards/' + key).update(data);
-  res.send('<script>document.location.href=document.referrer;</script>');
+  res.send("<script>alert('변경되었습니다');"
+  + "document.location.href='./"+ data.boardType + "2" + "?key="+ key +"';</script>'");
 });
 
 //글쓰기 삭제
@@ -368,7 +369,9 @@ app.post('/reformTravelAction', function(req, res){
     data.tripForumMon = req.body.tripForumMon;
   }
   firebase.database().ref('travels/' + key).update(data);
-  res.send('<script>document.location.href=document.referrer;</script>');
+  var boardType = data.travelClassify;
+  res.send("<script>alert('변경되었습니다');"
+  + "document.location.href='./"+ data.travelClassify + "2" + "?key="+ key +"';</script>'");
 });
 
 

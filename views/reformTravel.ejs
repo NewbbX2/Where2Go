@@ -26,7 +26,8 @@
       newItem.children("td").children("#infowindow-content0").attr("id", "infowindow-content"+nextIndex);
 			newItem.children("td").children("#map0").attr("id", "map"+nextIndex);
 			newItem.children("td").children("input").attr("id","inputMapPos"+nextIndex);
-			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex).val(travel["travelMapPos"+nextIndex]);
+			newItem.children("td").children("input").attr("name","travelMapPos"+nextIndex)
+      newItem.children("td").children("input").attr("value",travel["travelMapPos"+nextIndex]);
 			newItem.children("td").children("textarea").attr("id", "summernote"+nextIndex);
 			newItem.children("td").children("textarea").attr("name","travelContent"+nextIndex).val(travel["travelContent"+nextIndex]);
 			//newItem.children("td").children("textarea").text = ""
@@ -206,7 +207,6 @@
         });
         marker.setPosition(latlng);
         marker.setVisible(true);
-        $('#inputMapPos'+day).attr("value", JSON.stringify(latlng));
         autocomplete.addListener('place_changed', function() {
           infowindow.close();
           marker.setVisible(false);
@@ -246,8 +246,6 @@
           infowindowContent.children['place-address'].textContent = address;
           infowindow.open(map, marker);
         });
-
-        map.setCe
       }
 	</script>
 
@@ -272,10 +270,11 @@
 
 
 	<body onload=startV()>
-		<form action="./travelEnrollAction" method="post">
+		<form action="./reformTravelAction" method="post">
+      <input type = "text" name = "key"  value = "<%=board.key%>" style = "display:none;">
 				<label >당신의 여행 계획</label>
 				<div id="displayToHide">
-					<input type = "number" id = "totalTime"  name = "travelTotalSpaTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
+					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
 					value = "<%=board.travelTotalSpanTime%>"><br/>
 					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
 				</div>
