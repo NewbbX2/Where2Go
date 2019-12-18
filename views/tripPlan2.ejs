@@ -115,7 +115,7 @@ crossorigin="anonymous">
 			var maxPage = board.travelTotalSpanTime;
 			function renewContent()
 			{
-				var contentLR = $("#contentTable tr:eq(3)");	
+				var contentLR = $("#contentTable tr:eq(3)");
 				//왼쪽 페이지
 				$("#dayL").text(pageNo + "일차");
 				contentLR.children("td").eq(0).text("");
@@ -262,7 +262,7 @@ crossorigin="anonymous">
 			<div id = "backtoindex" style="position:absolute; top:25px; text-align:center; width:200px;">
 				<a href = "../board/tripplan" style="color:black;text-decoration: none;">wtg</a>
 				</div>
-				<nav    style="position:absolute;right:0px;width:80%;">  
+				<nav    style="position:absolute;right:0px;width:80%;">
 				<ul>
 					<li><a href= "../board/tripplan"    style="color:black;text-decoration: none;">   여행 플랜</a></li>
 					<li><a href= "../board/triplog"     style="color:black;text-decoration: none;">   여행 일지</a></li>
@@ -327,7 +327,7 @@ crossorigin="anonymous">
 								<input id="inputMapPos0" type = "text" name = "travelMapPos0" style="display:none;">
 								  <input id="inputMapInfo0" type = "text" name = "travelMapInfo0" style="display:none;">
 								<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
-	
+
 								<div class="pac-card" id="pac-card1">
 									<div>
 									   <div id="title">
@@ -344,7 +344,7 @@ crossorigin="anonymous">
 								   <span id="place-name"  class="title"></span><br>
 								   <span id="place-address"></span>
 								</div>
-	
+
 								<input id="inputMapPos1" type = "text" name = "travelMapPos1" style="display:none;">
 								  <input id="inputMapInfo1" type = "text" name = "travelMapInfo1" style="display:none;">
 								<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
@@ -353,10 +353,8 @@ crossorigin="anonymous">
 				</div>
 
 				<div >
-					<%}if(pageNo>1){%>
-						<button id="before" onclick="pageDown()" style="display:none" >이전페이지로</button>
-						<%if(pageNo<9){%>
-						<button id="next" onclick="pageUp()" >다음페이지로</button>
+					<button id="before" onclick="pageDown()" style="display:none" >이전페이지로</button>
+					<button id="next" onclick="pageUp()" >다음페이지로</button>
 					<%if(board.travelWriterID==userID){%>
 					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
 					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
@@ -364,23 +362,23 @@ crossorigin="anonymous">
 				</div>
 			</article>
 			<article id = "LoginMenu">
-				<% if(!username){ %>
+				<% if(!userName){ %>
 					<form method = "post" action = "../users/login">
 						<div id = "idpwd1">
-							
+
 							<div id = "id">
 								아이디
-								<div id = "idbox"><input type = "text" name = "userid" class = "form-control" size = "30"></div>
+								<div id = "idbox"><input type = "text" name = "userId" class = "form-control" size = "30"></div>
 							</div>
-							
+
 							<div id = "psd">
 								패스워드
-								<div id = "psdbox"><input type = "password" name = "userpassword" class = "form-control" size = "20"></div>
+								<div id = "psdbox"><input type = "password" name = "userPassword" class = "form-control" size = "20"></div>
 							</div>
-							
+
 							<button id = "login"type = "submit" >로그인</button>
 						</div>
-						
+
 						<div id = "idpwd1">
 							<div id = "createidandpassword">
 								<a href = "../users/join">회원가입</a>
@@ -389,13 +387,13 @@ crossorigin="anonymous">
 					</form>
 
 				<%}else{ %>
-					<%= username %>님 환영합니다.<br>
+					<%= userName %>님 환영합니다.<br>
 					<a href = "../users/logout">로그아웃.</a>
 				<%} %>
 			</article>
 		</section>
 		<footer>
-			
+
 			개인정보처리방침<br>
 			copyright  all right reserved
 		</footer>
