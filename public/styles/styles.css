@@ -5,6 +5,7 @@ header
 	height: 50px;
 	
 	border-bottom:1px solid grey;
+	font-size:20px;
 }
 	header a
 	{
@@ -112,7 +113,7 @@ section
 				#index1 #mainBoard td
 				{
 					height: 30px;
-					font-size:10px;
+					font-size:14px;
 				}
 
 
@@ -132,7 +133,7 @@ section
 				#freeForum1 #mainBoard td
 				{
 					height: 30px;
-					font-size:10px;
+					font-size:14px;
 				}
 
 	
