@@ -25,6 +25,59 @@ numberOfBoardListSearched=boardList.length;
 		<script src = "/public/scripts/jquery-ui.min.js"></script>
 		<script src = "/public/scripts/scripts.js"></script>
 		
+
+
+
+
+
+
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<script>
+			window.onload = function() {
+			
+			var chart = new CanvasJS.Chart("chartContainer", {
+			theme: "light2", // "light1", "light2", "dark1", "dark2"
+			exportEnabled: true,
+			animationEnabled: true,
+			title: {
+				text: "계획 등록 현황"
+			},
+			data: [{
+				type: "pie",
+				startAngle: 25,
+				toolTipContent: "<b>{country}</b>: {y}건",
+				showInLegend: "true",
+				legendText: "{country}",
+				indexLabelFontSize: 10,
+				indexLabel: "{country} - {y}건",
+				dataPoints: [
+				<%
+				var keys = Object.keys(stat);
+				keys.forEach(function(key){%>
+				{ y: "<%=stat[key]%>", country: "<%=key%>" },
+				<%});%>
+				]
+			}]
+			});
+			chart.render();
+			
+			}
+		</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   </head>
   <body>
 	<header>
@@ -41,6 +94,9 @@ numberOfBoardListSearched=boardList.length;
         	</ul>
   		</nav>
 	</header>
+
+
+	
   	<section>
 		<article id = "index1">
 			<div id = "upperBoard">
@@ -163,6 +219,8 @@ numberOfBoardListSearched=boardList.length;
 					<a href = "../users/logout">로그아웃.</a>
 				<%} %>
 		</article>
+		
+		<div id="chartContainer" ></div>
   	</section>
     <footer>
       
