@@ -4,10 +4,6 @@
 //var userName="";
 //var board ="";
 //url로 보낸 key로 검색한 travel보드
-
-
-//페이지번호(받아올필요없음)
-var pageNo=1;
 %>
 
 
@@ -18,7 +14,7 @@ var pageNo=1;
 		<meta charset = "UTF-8">
 		<title>WTG</title>
 		<link rel = "stylesheet" href = "./styles/styles.css"/>
-		
+
 <script
 src="https://code.jquery.com/jquery-3.4.1.min.js"
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -26,22 +22,43 @@ crossorigin="anonymous">
 </script>
 
 		<script>
-			var pageNo = <%-JSON.stringify(pageNo)%>;
 			var board = <%-JSON.stringify(board)%>;
+			var pageNo = 1;
+			var maxPage = board.travelTotalSpanTime;
 			function renewContent()
 			{
-				
-				$("#travelContentL").val(board.travelContent[pageNo-1]);
-				$("#travelContentR").val(board.travelContent[pageNo]);
-				
 
+				var contentLR = $("#contentTable tr:eq(3)");				
+				$("#dayL").text(pageNo + "일차");
+				$("#dayR").text(pageNo+1 + "일차");
+				contentLR.children("td").eq(0).text("");
+				contentLR.children("td").eq(0).append(board["travelContent" + pageNo]);
+				contentLR.children("td").eq(1).text("");
+				contentLR.children("td").eq(1).append(board["travelContent" + parseInt(pageNo+1)]);
+				$("#travelContentR").val(board["travelContent" + pageNo+1]);
 			}
-			function pageUp() {pageNo+=1;renewContent();}
-			function pageDown(){pageNo-=1;renewContent();}
+
+			function pageUp() {
+				if(pageNo == maxPage) return;
+				pageNo++;
+				if(pageNo > 1) $("#before").show();
+				if(pageNo == maxPage) $("#next").hide();
+				else $("#next").show();
+				renewContent();
+			}
+
+			function pageDown(){
+				if(pageNo == 1)	return;
+				pageNo--;
+				if(pageNo < maxPage) $("#next").show();
+				if(pageNo == 1) $("#before").hide();
+				else $("#before").show();
+				renewContent();
+			}
 
 		</script>
 	</head>
-	<body>
+	<body onload="renewContent();">
 		<header>
 			<%- include ('./part/header.ejs') %>
 		</header>
@@ -55,7 +72,7 @@ crossorigin="anonymous">
 				</div>
 
 				<div id = "mainBoard">
-					<table style="width:100%;table-layout:fixed" >
+					<table style="width:100%;table-layout:fixed" id="contentTable">
 							<thead style ="text-align:center;">
 								<tr style = "background-color:#B2CCFF">
 									<th width = "10%">나라</th>
@@ -72,32 +89,30 @@ crossorigin="anonymous">
 									<td colspan="3" ><%=board.travelTitle%></td>
 								</tr>
 								<tr style = "background-color:#B2CCFF">
-									<th colspan="3"><%=pageNo%>일차</th>
-									<th colspan="3"><%=pageNo+1%>일차</th>
+									<th colspan="3">
+										<label id="dayL">1일차</label>
+									</th>
+									<th colspan="3">
+										<label id="dayR">2일차</label>
+									</th>
 								</tr>
 							</thead>
 							<tbody >
-								<%if(board.travelTotalSpanTime==1){%>
-									<td colspan = "6" id="travelContent"><%=board.travelContent1%></td>
-								<%}else{%>
-									<td colspan = "3" id="travelContentL"><%=board.travelContent1%></td>
-									<td colspan = "3" id="travelContentR"><%=board.travelContent2%></td>
-								<%}%>
+									<td colspan = "3">
+									</td>
+									<td colspan = "3">
+									</td>
 							</tbody>
 						</table>
 				</div>
-														
+
 				<div >
-					<%if(board.travelTotalSpanTime>1){
-						if(pageNo<board.travelTotalSpanTime-1){%>
-							<button onclick="pageUp()" >다음페이지로</button>
-						<%}if(pageNo>1){%>
-							<button onclick="pageDown()" >이전페이지로</button>
-						<%}if((board.travelWriterID==userID)){%>
-							<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
-							<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
-						<%}
-					}%>
+					<button id="before" onclick="pageDown()" style="display:none" >이전페이지로</button>
+					<button id="next" onclick="pageUp()" >다음페이지로</button>
+					<%if(board.travelWriterID==userID){%>
+					<a onclick = "return confirm('수정하시겠습니까?')" href="./reformTravel?key=<%=board.key%>">수정</a>
+					<a onclick = "return confirm('삭제하시겠습니까?')" href="./deleteActionTravel?key=<%=board.key%>">삭제</a>
+					<%}%>
 				</div>
 			</article>
 			<article id = "LoginMenu">
@@ -109,11 +124,3 @@ crossorigin="anonymous">
 		</footer>
 	</body>
 </html>
-	
-	
-	
-	
-	
-	
-	
-	
