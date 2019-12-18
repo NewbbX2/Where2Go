@@ -1,0 +1,19 @@
+$(function()
+{
+	
+		var dateFrrom = $('#userBirthDate').datepicker({
+			dateFormat:'yymmdd'
+			maxDate: 0
+		});
+		datefrom.datepicker('setDate',new Date());
+	
+
+
+	
+});
+
+
+
+
+
+
