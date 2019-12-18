@@ -130,12 +130,12 @@ crossorigin="anonymous">
 				$("#travelContentL").val(board["travelContent"+pageNo]);
 
 				//오른쪽 페이지
-				if(pageNo+1 > maxPage)//왼쪽은 있는데 오른쪽은 없을 때
+				if(pageNo+1 > maxPage )//왼쪽은 있는데 오른쪽은 없을 때
 				{
-					contentLR.children("tbody").children("#pac-card1").hide();
-					contentLR.children("tbody").children("#map1").hide();
-					contentLR.children("tbody").children("#infowindow-content1").hide();
-					$("#travelContentR").hide();
+					contentLR.children("tbody").children("#pac-card1").display ="none";
+					contentLR.children("tbody").children("#map1").display ="none";
+					contentLR.children("tbody").children("#infowindow-content1").display ="none";
+					$("#travelContentR").display ="none";
 				}else{
 					$("#dayR").text(pageNo+1 + "일차");
 					contentLR.children("td").eq(1).text("");
