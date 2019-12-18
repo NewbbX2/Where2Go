@@ -126,38 +126,7 @@ var boardIndexNoPerPage=15;
 			<%if(userName!="") {%>
 					<div ><a href= "./boardEnroll?boardType=tripForum"><button  >글쓰기</button></a></div>
 			<%}%>
-			<form action ="./tripForum" method = "get" >
-				<select name = "boardClassify" class =  "form-control">
-					<option   value = "All" selected > 나라</option>
-					<option value = "Japan" > 일본</option>
-					<option value = "Korea" > 한국</option>
-					<option value = "China" > 중국</option>
-				</select>
-				
-				<select name = "Order" class =  "form-control">
-					<option   value = "None" selected > 정렬</option>
-					<option value = "제목" > Title</option>
-					<option value = "작성자" > Writer</option>
-				</select>
-				<br>
-				<select name = "SearchFor" class =  "form-control">
-					<option   value = "All" selected > 전체</option>
-					<option value = "1" > 1월</option>
-					<option value = "2" > 2월</option>
-					<option value = "3" > 3월</option>
-					<option value = "3" > 4월</option>
-					<option value = "3" > 5월</option>
-					<option value = "3" > 6월</option>
-					<option value = "3" > 7월</option>
-					<option value = "3" > 8월</option>
-					<option value = "3" > 9월</option>
-					<option value = "3" > 10월</option>
-					<option value = "3" > 11월</option>
-					<option value = "3" > 12월</option>
-				</select>
-				<input type = "text" name = "search" style="width:800px;" >
-				<button>검색</button>
-			</form>
+			
 		</div>
 	</article>
 
