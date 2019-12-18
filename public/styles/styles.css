@@ -149,7 +149,8 @@ section
 	
 footer
 {
-	bottom:0px;
+	position:absolute;
+	top:800px;
 	width: 1480px;
 	border-top:1px solid grey;
 }
