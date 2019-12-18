@@ -73,7 +73,7 @@ var initBoard2 = function(boardType, page, req, res){
         stat[childData.travelCountry]=1;
       }
     });
-    console.log(stat);
+    //console.log(stat);
     console.log(boardType + ' load');
     //console.log(rows);
     res.render(boardType, {boardList : rows, userName : userName, pageNo : page, stat : stat});

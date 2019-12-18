@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded( {extended : false } ));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-//app.use(express.static('public'));
+app.use('/static',express.static('public'));
 app.use('/users', require('./routes/users'));
 //app.use('/main', require('./routes/main'));
 app.use('/board', require('./routes/board'));
