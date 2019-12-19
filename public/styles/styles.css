@@ -148,7 +148,12 @@ section
 					font-size:14px;
 				}
 
-				
+		#freeForum2
+		{
+			position:absolute;
+			left:20%;
+			height:0px;
+		}		
 
 			#freeForum2 #mainBoard #th
 			{
@@ -162,6 +167,12 @@ section
 				font-size:20px;
 				text-align: center;
 			}
+		#trip2
+		{
+			position:absolute;
+			left:20%;
+			height:0px;
+		}
 			#trip2 #mainBoard #th
 			{
 				height: 40px;
