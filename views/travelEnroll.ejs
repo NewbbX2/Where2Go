@@ -252,7 +252,7 @@
 				<div id="displayToHide">
 					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"><br />
 					<button type="button" onclick="showUp()" >일자 선택</button>
-					<button type="button" onclick="document.location.href=history.back()" >취소</button>
+					<button type="button" id = "cancel" name = "cancel" onclick="document.location.href=document.referrer" >취소</button>
 				</div>
 				<div id = "hideToDisplay" style="display:none">
 				<%// 이젠에서 받아온 아이디를 저장.%>
@@ -304,7 +304,7 @@
 
 				<input type = "submit" value = "등록하기" style = "position:absolute; left:650px;">
 			</form>
-			<a href = "history.back()"><input type ="button" value = "취소"style = "position:absolute; left:10px;"> </a>
+			<button type="button" id = "cancel" name = "cancel" onclick="document.location.href=document.referrer" >취소</button>
 		</div>
 
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCTjD3ZPWwOu6_i-YKLXqEgFGps6aO0pwY&libraries=places"async defer></script>
