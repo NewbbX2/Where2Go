@@ -304,6 +304,7 @@
 					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
 					value = "<%=board.travelTotalSpanTime%>"><br/>
 					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+				  	<button type="button" onclick="showUp()" >일자 선택</button>
 				</div>
 				<div id = "hideToDisplay">
 				<%// 이젠에서 받아온 아이디를 저장.%>
@@ -327,7 +328,7 @@
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
 					value = "<%=board.travelStartDate%>">
-          <button type="button" onclick="showUp()" >일자 선택</button>
+        
 					<br />
 
 				<label>여행국가</label>
