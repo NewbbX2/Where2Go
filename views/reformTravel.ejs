@@ -47,6 +47,7 @@
 			alert("여행 일자를 입력하세요");
 			return;
 		}
+		$("#cancel").remove();
 		var lastIndex = $("#contents tr:last").attr("id").replace("item","");
 		if(index==lastIndex){
 			return;
@@ -303,7 +304,7 @@
 				<div id="displayToHide">
 					<input type = "number" id = "totalTime"  name = "travelTotalSpanTime" class = "form-control" min="1" max="10" style = "width:300px"
 					value = "<%=board.travelTotalSpanTime%>"><br/>
-					<button type="button" onclick="document.location.href=document.referrer" >취소</button>
+					<button type="button" id = "cancel" name = "cancel" onclick="document.location.href=document.referrer" >취소</button>
 				  	<button type="button" onclick="showUp()" >일자 선택</button>
 				</div>
 				<div id = "hideToDisplay">
@@ -318,7 +319,8 @@
 				<select name = "travelClassify" >
 					<option value="tripPlan"	<%if(board.travelClassify=="tripPlan"){%>selected<%}%>	>여행계획</option>
 					<option value="tripLog"		<%if(board.travelClassify=="tripLog"){%>selected<%}%>	>여행일지</option>
-				</select><br>
+				</select>
+				<br>
 
 				<label>제목</label>
 				<input type = "text" name = "travelTitle" class = "form-control" maxlength = "30" style = "width:300px"
@@ -328,8 +330,7 @@
 				<label>여행시작일 8자리를 넣어주세요</label><%//19940415같이 8자리%>
 				<input type = "number" name = "travelStartDate" class = "form-control" min = "19000101" nax="21000101" style = "width:300px"
 					value = "<%=board.travelStartDate%>">
-        
-					<br />
+				<br />
 
 				<label>여행국가</label>
 				<input type = "text" name = "travelCountry" class = "form-control" maxlength = "30" style = "width:300px"
